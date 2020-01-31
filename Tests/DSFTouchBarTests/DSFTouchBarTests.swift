@@ -6,7 +6,7 @@ final class DSFTouchBarTests: XCTestCase {
         // This is an example of a functional test case.
         // Use XCTAssert and related functions to verify your tests produce the correct
         // results.
-        XCTAssertEqual(DSFTouchBar().text, "Hello, World!")
+        //XCTAssertEqual(DSFTouchBar().text, "Hello, World!")
     }
 
     static var allTests = [
