@@ -3,3 +3,7 @@
 /Packages
 /*.xcodeproj
 xcuserdata/
+Demos/Touchbar Tester/Pods
+Demos/Touchbar Tester/Touchbar Tester.xcodeproj/project.xcworkspace/xcshareddata
+Podfile.lock
+Demos/Touchbar Tester/Touchbar Tester.xcworkspace/xcshareddata
