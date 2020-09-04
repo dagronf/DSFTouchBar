@@ -50,5 +50,16 @@ extension DSFTouchBar {
 				return tb
 			}
 		}
+
+		override func destroy() {
+			self._children.forEach { $0.destroy() }
+			self._children = []
+			self.popoverContent = nil
+			super.destroy()
+		}
+
+		deinit {
+			Swift.print("DSFTouchBar.Popover deinit")
+		}
 	}
 }

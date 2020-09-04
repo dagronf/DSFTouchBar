@@ -31,7 +31,7 @@ extension DSFTouchBar {
 			return self
 		}
 		
-		private var bindSelectedColorObserver: AnyObject? = nil
+		private weak var bindSelectedColorObserver: AnyObject? = nil
 		private var bindSelectedColorKeyPath: String? = nil
 		public func bindSelectedColor(to observable: AnyObject, withKeyPath keyPath: String) -> ColorPicker {
 			self.bindSelectedColorObserver = observable
@@ -76,11 +76,20 @@ extension DSFTouchBar {
 				return touchbar
 			}
 		}
-		
-		deinit {
-			self.unbind(NSBindingName.ColorPickerSelectedColorBindingName)
+
+		override func destroy() {
+			self._action = nil
+			self.item = nil
+			if let _ = self.bindSelectedColorObserver, let _ = self.bindSelectedColorKeyPath {
+				self.unbind(NSBindingName.ColorPickerSelectedColorBindingName)
+			}
+			super.destroy()
 		}
-		
+
+		deinit {
+			Swift.print("DSFTouchBar.ColorPicker deinit")
+		}
+
 		@objc public func act(_ colorPicker: Any?) {
 			
 			guard let colorpicker = colorPicker as? NSColorPickerTouchBarItem else {

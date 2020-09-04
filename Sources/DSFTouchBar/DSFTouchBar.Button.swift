@@ -13,6 +13,13 @@ extension DSFTouchBar {
 
 		//private var _button: NSButton?
 
+		private var _type: NSButton.ButtonType = .momentaryLight
+		public func type(_ type: NSButton.ButtonType) -> Button {
+			_type = type
+			return self
+		}
+
+
 		private var _attributedTitle: NSAttributedString?
 		public func attributedTitle(_ title: NSAttributedString) -> Button {
 			_attributedTitle = title
@@ -97,11 +104,17 @@ extension DSFTouchBar {
 			}
 		}
 
-		deinit {
-			if let but = self._control {
+		override func destroy() {
+			if let but = self.embeddedControl() {
 				but.unbind(NSBindingName.value)
 				self.destroyCommon(uiElement: but)
 			}
+			self._action = nil
+			super.destroy()
+		}
+
+		deinit {
+			Swift.print("DSFTouchBar.Button deinit")
 		}
 
 		@objc func act(_ sender: NSButton) {

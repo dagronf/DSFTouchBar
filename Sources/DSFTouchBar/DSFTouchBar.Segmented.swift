@@ -18,12 +18,6 @@ extension DSFTouchBar {
 		private var _segments: [(label: String?, image: NSImage?)] = []
 		private var _selectedColor: NSColor?
 
-		/// Assign an action block to the touchbar item to be called when the control changes state
-		public func action(_ action: @escaping (([Int]) -> Void)) -> Segmented {
-			_action = action
-			return self
-		}
-
 		/// Add a new segment button to the segmented control
 		/// - Parameters:
 		///   - label: (optional) the text to use for the segmented cell
@@ -36,6 +30,11 @@ extension DSFTouchBar {
 			return self
 		}
 
+		/// Assign an action block to the touchbar item to be called when the control changes state
+		public func action(_ action: @escaping (([Int]) -> Void)) -> Segmented {
+			_action = action
+			return self
+		}
 
 		/// Set the color to use for highlighting 'active' cells within the control
 		/// - Parameter color: The color to use
@@ -44,19 +43,19 @@ extension DSFTouchBar {
 			return self
 		}
 
-		private var bindSelectedIndexObserver: Any? = nil
+		private weak var bindSelectedIndexObserver: AnyObject? = nil
 		private var bindSelectedIndexKeyPath: String? = nil
-		public func bindSelectedIndex(to observable: Any, withKeyPath keyPath: String) -> Segmented {
+		public func bindSelectedIndex(to observable: AnyObject, withKeyPath keyPath: String) -> Segmented {
 			self.bindSelectedIndexObserver = observable
 			self.bindSelectedIndexKeyPath = keyPath
 			return self
 		}
 
-		private var bindObserver2: AnyObject? = nil
-		private var bindKeyPath2: String? = nil
+		private weak var bindSelectionIndexesObserver: AnyObject? = nil
+		private var bindSelectionIndexesKeyPath: String? = nil
 		public func bindSelectionIndexes(to observable: AnyObject, withKeyPath keyPath: String) -> Segmented {
-			self.bindObserver2 = observable
-			self.bindKeyPath2 = keyPath
+			self.bindSelectionIndexesObserver = observable
+			self.bindSelectionIndexesKeyPath = keyPath
 			return self
 		}
 
@@ -97,7 +96,7 @@ extension DSFTouchBar {
 				// See if we have to bind to the selected indexes (multiple)
 				// For multiple selection, we have to bind the reverse as well, or else we don't get
 				// a two-way binding to the control
-				if let observer = self.bindObserver2, let keyPath = self.bindKeyPath2 {
+				if let observer = self.bindSelectionIndexesObserver, let keyPath = self.bindSelectionIndexesKeyPath {
 					segmented.bind(
 						NSBindingName.SegmentedControlSelectionIndexes,
 						to: observer,
@@ -117,18 +116,33 @@ extension DSFTouchBar {
 			}
 		}
 
-		deinit {
-			if let control = self._control {
-				control.unbind(NSBindingName.selectedIndex)
-				control.unbind(NSBindingName.SegmentedControlSelectionIndexes)
+		override func destroy() {
+			_action = nil
 
-				// Remove the reverse binding
-				if let observer = self.bindObserver2, let keyPath = self.bindKeyPath2 {
+			if let control = self.embeddedControl() {
+
+				if let _ = self.bindSelectedIndexObserver {
+					control.unbind(NSBindingName.selectedIndex)
+					self.bindSelectedIndexObserver = nil
+				}
+
+				if let observer = self.bindSelectionIndexesObserver,
+				   let keyPath = self.bindSelectionIndexesKeyPath {
+					control.unbind(NSBindingName.SegmentedControlSelectionIndexes)
+
+					// Remove the reverse binding
 					observer.unbind(NSBindingName(keyPath))
+
+					self.bindSelectionIndexesObserver = nil
 				}
 
 				self.destroyCommon(uiElement: control)
 			}
+			super.destroy()
+		}
+
+		deinit {
+			Swift.print("DSFTouchBar.Segmented deinit")
 		}
 
 		@objc private func act(_ sender: NSSegmentedControl) {

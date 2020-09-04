@@ -9,7 +9,7 @@
 import Cocoa
 
 public class DSFTouchBar: NSObject {
-	private var mainBar: NSTouchBar? = nil
+	private weak var mainBar: NSTouchBar? = nil
 	private let customizationIdentifier: NSTouchBar.CustomizationIdentifier?
 
 	private var items: [DSFTouchBar.Item] = []
@@ -18,14 +18,7 @@ public class DSFTouchBar: NSObject {
 	}
 
 	private var defaultIdentifiers: [NSTouchBarItem.Identifier] {
-
 		return items.map { $0.identifier }
-
-//		return items.compactMap {
-//			$0 as? UIElementItemBase
-//		}
-//		.filter { $0._isDefault }
-//		.map { $0.identifier }
 	}
 
 	public init(customizationIdentifier: NSTouchBar.CustomizationIdentifier? = nil,
@@ -47,18 +40,21 @@ public class DSFTouchBar: NSObject {
 		return mainBar
 	}
 
-	func add(item: DSFTouchBar.Item) {
-		if let i = item as? DSFTouchBar.Group {
-			for item in i._children {
-				self.items.append(item)
-			}
-		} else {
-			self.items.append(item)
-		}
+	deinit {
+		self.mainBar = nil
+		Swift.print("DSFTouchBar deinit")
 	}
 
-	func item(for identifier: NSTouchBarItem.Identifier) -> DSFTouchBar.Item? {
+	public func add(item: DSFTouchBar.Item) {
+		self.items.append(item)
+	}
+
+	public func item(for identifier: NSTouchBarItem.Identifier) -> DSFTouchBar.Item? {
 		return self.items.filter { $0.identifier == identifier }.first
+	}
+
+	public func destroy() {
+		self.items.forEach { $0.destroy() }
 	}
 }
 

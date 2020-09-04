@@ -82,11 +82,15 @@ extension DSFTouchBar {
 		}
 
 		deinit {
-			if let slider = self._control {
-				slider.unbind(NSBindingName.value)
+			Swift.print("DSFTouchBar.Slider deinit")
+		}
 
+		override func destroy() {
+			if let slider = self.embeddedControl() {
+				slider.unbind(NSBindingName.value)
 				self.destroyCommon(uiElement: slider)
 			}
+			super.destroy()
 		}
 
 		@objc public func act(_ slider: Any?) {

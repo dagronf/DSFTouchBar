@@ -16,9 +16,11 @@ extension DSFTouchBar {
 			return self
 		}
 
+		// Label observer
+
 		private var bindObserver: Any? = nil
 		private var bindKeyPath: String? = nil
-		func bindLabel(to observable: Any, withKeyPath keyPath: String) -> Text {
+		public func bindLabel(to observable: Any, withKeyPath keyPath: String) -> Text {
 			self.bindObserver = observable
 			self.bindKeyPath = keyPath
 			return self
@@ -72,11 +74,17 @@ extension DSFTouchBar {
 				return tb
 			}
 		}
+
 		deinit {
-			if let field = self._control {
+			Swift.print("DSFTouchBar.Text deinit")
+		}
+
+		override func destroy() {
+			if let field = self.embeddedControl() {
 				field.unbind(NSBindingName.value)
 				self.destroyCommon(uiElement: field)
 			}
+			super.destroy()
 		}
 	}
 	

@@ -10,9 +10,12 @@ import AppKit
 public extension DSFTouchBar {
 	class Item: NSObject {
 		let identifier: NSTouchBarItem.Identifier
-		var parent: DSFTouchBar.Popover?
 		init(ident: NSTouchBarItem.Identifier) {
 			self.identifier = ident
+		}
+
+		func destroy() {
+			self.maker = nil
 		}
 
 		var maker: (() -> NSTouchBarItem?)?
@@ -33,7 +36,8 @@ public extension DSFTouchBar {
 	}
 
 	class UIElementItem<T>: UIElementItemBase where T: NSView {
-		var _control: T?
+		private var _control: T?
+		public func embeddedControl() -> T? { return _control }
 
 		private var _onCreate: ((T) -> Void)?
 		func onCreate(_ block: @escaping (T) -> Void) -> UIElementItem<T> {
@@ -93,6 +97,17 @@ public extension DSFTouchBar {
 							   options: nil)
 			}
 
+			// Visibility
+
+			if uiElement.exposedBindings.contains(NSBindingName.visible),
+				let observer = self.bindVisibilityObserver,
+				let keyPath = self.bindVisibilityKeyPath {
+				uiElement.bind(NSBindingName.visible,
+							   to: observer,
+							   withKeyPath: keyPath,
+							   options: nil)
+			}
+
 			if let contr = self._onCreate {
 				contr(uiElement)
 			}
@@ -100,9 +115,17 @@ public extension DSFTouchBar {
 
 		func destroyCommon(uiElement: T) {
 			uiElement.unbind(NSBindingName.enabled)
+			uiElement.unbind(NSBindingName.visible)
 			if let destroyCallback = self._onDestroy {
 				destroyCallback(uiElement)
 			}
+
+			self.bindEnabledObserver = nil
+			self.bindVisibilityObserver = nil
+
+			self._onCreate = nil
+			self._onDestroy = nil
+
 			self._control = nil
 		}
 	}

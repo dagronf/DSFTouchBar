@@ -36,9 +36,8 @@ extension DSFTouchBar {
 		}
 
 		deinit {
-			if let view = self._control {
+			if let view = self.embeddedControl() {
 				self.destroyCommon(uiElement: view)
-				self._control = nil
 			}
 		}
 	}

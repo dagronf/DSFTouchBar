@@ -26,5 +26,9 @@ extension DSFTouchBar {
 				super.init(ident: .flexibleSpace)
 			}
 		}
+
+		deinit {
+			Swift.print("DSFTouchBar.Spacer deinit")
+		}
 	}
 }
