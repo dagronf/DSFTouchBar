@@ -8,4 +8,5 @@ target 'Touchbar Tester' do
 
   # Pods for macOS Sparkline Demo
   pod 'DSFTouchBar', :path => '../../'
+	pod 'DSFSparkline', :git => 'https://github.com/dagronf/DSFSparkline/'
 end

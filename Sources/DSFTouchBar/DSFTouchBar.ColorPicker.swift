@@ -57,7 +57,8 @@ extension DSFTouchBar {
 				}
 				
 				let touchbar = NSColorPickerTouchBarItem(identifier: self.identifier)
-				
+				touchbar.customizationLabel = self._customizationLabel
+
 				touchbar.target = self
 				touchbar.action = #selector(self.act(_:))
 				

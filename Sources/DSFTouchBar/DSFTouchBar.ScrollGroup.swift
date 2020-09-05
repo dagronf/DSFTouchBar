@@ -10,7 +10,7 @@ import AppKit
 extension DSFTouchBar {
 	public class ScrollGroup: UIElementItemBase {
 
-		private var scrollView: NSScrollView?
+		private weak var scrollView: NSScrollView?
 
 		private(set) public var _children: [DSFTouchBar.Item] = []
 

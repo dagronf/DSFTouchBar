@@ -28,7 +28,7 @@ extension DSFTouchBar {
 
 			let groupItems = self._children.compactMap { $0.maker?() }
 			let tb = NSGroupTouchBarItem(identifier: self.identifier, items: groupItems)
-			//tb.customizationLabel = self._customizationLabel
+			tb.customizationLabel = self._customizationLabel
 			tb.prefersEqualWidths = self._equalWidths
 			return tb
 		}

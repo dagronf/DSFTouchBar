@@ -50,6 +50,12 @@ extension DSFTouchBar {
 			return self
 		}
 
+		private var _fontColor: NSColor?
+		public func foregroundColor(_ color: NSColor?) -> Button {
+			_fontColor = color
+			return self
+		}
+
 		private var _action: ((NSControl.StateValue) -> Void)?
 		public func action(_ action: @escaping ((NSControl.StateValue) -> Void)) -> Button {
 			_action = action
@@ -84,6 +90,16 @@ extension DSFTouchBar {
 
 				if let att = self._attributedTitle {
 					button.attributedTitle = att
+				}
+				else if let fc = self._fontColor {
+					let txtFont = button.font
+					let style = NSMutableParagraphStyle()
+					style.alignment = button.alignment
+					let attrs: [NSAttributedString.Key: Any] = [
+						.foregroundColor: fc, .paragraphStyle: style, .font: txtFont as Any
+					]
+					let attrstr = NSAttributedString(string: button.title, attributes: attrs)
+					button.attributedTitle = attrstr
 				}
 
 				// If the button type is not an 'on off' type, then the value binding doesn't

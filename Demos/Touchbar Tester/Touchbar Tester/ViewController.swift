@@ -10,8 +10,9 @@ import Cocoa
 
 import DSFTouchBar
 
-class ViewController: NSViewController {
+import DSFSparkline
 
+class ViewController: NSViewController {
 	var customBar: DSFTouchBar?
 	var colorVC = CustomColorViewController()
 
@@ -33,7 +34,6 @@ class ViewController: NSViewController {
 			// Update the view, if already loaded.
 		}
 	}
-
 
 	@objc dynamic var pickerColor: NSColor = .white {
 		didSet {
@@ -79,7 +79,6 @@ class ViewController: NSViewController {
 			}
 	}()
 
-
 	lazy var colorPicker: DSFTouchBar.ColorPicker = {
 		DSFTouchBar.ColorPicker("colorpicker")
 			.customizationLabel("This is the color picker")
@@ -91,19 +90,22 @@ class ViewController: NSViewController {
 		DSFTouchBar.Button("resetbutton")
 			.customizationLabel("Reset back to defaults")
 			.title("Reset")
-			.action { [weak self] state in
+			.color(NSColor.red)
+			.foregroundColor(NSColor.white)
+			.action { [weak self] _ in
 				self?.pickerColor = NSColor.white
-		}
+			}
 	}()
 
 	lazy var customColorView: DSFTouchBar.View = {
-		return DSFTouchBar.View("colorswatch", viewController: self.colorVC)
+		DSFTouchBar.View("colorswatch", viewController: self.colorVC)
 			.customizationLabel("Color swatch")
 			.width(100)
 	}()
 
 	lazy var segmentedControl: DSFTouchBar.Segmented = {
 		DSFTouchBar.Segmented("segmented", trackingMode: .selectAny)
+			.customizationLabel("Text Styles")
 			.add(label: "􀅓")
 			.add(label: "􀅔")
 			.add(label: "􀅕")
@@ -119,8 +121,7 @@ class ViewController: NSViewController {
 				DSFTouchBar.Text("koala").label("😀🐨"),
 			]),
 			DSFTouchBar.Text("table-tennis").label("🏓"),
-		]
-		)
+		])
 	}()
 
 	lazy var asgroup: DSFTouchBar.Group = {
@@ -138,10 +139,11 @@ class ViewController: NSViewController {
 			]),
 			DSFTouchBar.Text("happy_smiley").label("😀"),
 		])
+		.customizationLabel("Group containing a scrollview")
 	}()
 
 	lazy var scrollGroup: DSFTouchBar.ScrollGroup = {
-		return DSFTouchBar.ScrollGroup("scrollgroup", [
+		DSFTouchBar.ScrollGroup("scrollgroup", [
 			DSFTouchBar.Text("3331").label("Fish 1"),
 			DSFTouchBar.Text("3332").label("cat 2"),
 			DSFTouchBar.Text("3333").label("cat 3"),
@@ -171,39 +173,81 @@ class ViewController: NSViewController {
 			DSFTouchBar.Text("133351").label("cat 15"),
 			DSFTouchBar.Text("133361").label("cat 16"),
 			DSFTouchBar.Text("133371").label("cat 17"),
-			DSFTouchBar.Text("133381").label("cat 18")
+			DSFTouchBar.Text("133381").label("cat 18"),
 		])
 	}()
 
 	lazy var popover: DSFTouchBar.Popover = {
-		return DSFTouchBar.Popover("base-popover",
-			collapsedImage: NSImage.init(named: NSImage.touchBarGetInfoTemplateName)!, [
-
+		DSFTouchBar.Popover(
+			"base-popover",
+			collapsedImage: NSImage(named: NSImage.touchBarGetInfoTemplateName)!, [
 				DSFTouchBar.Group("popover.text.grup", equalWidths: false, [
 					DSFTouchBar.Text("text.blah")
-						.bindLabel(to: self, withKeyPath: #keyPath(popoverLabel)),
+					.bindLabel(to: self, withKeyPath: #keyPath(popoverLabel)),
 
 					DSFTouchBar.Button("buuuut2")
-						.customizationLabel("22")
-						.title("3")
+					.customizationLabel("22")
+					.title("3")
 					.action { [weak self] _ in
 						Swift.print("Clicked noodle 2")
 						self?.popoverLabel = "yumyum"
-					}
-				]),
+					},
+				])
+				.customizationLabel("Yum Yum Container"),
 				DSFTouchBar.Slider("sklider", min: 0.0, max: 1.0)
 				.bindValue(to: self, withKeyPath: #keyPath(sliderValue)),
 
 				DSFTouchBar.Button("buuuut")
-					.customizationLabel("Noodle poodle")
-					.title("Noodle")
+				.customizationLabel("Noodle poodle")
+				.title("Noodle")
 				.action { [weak self] _ in
 					Swift.print("Clicked noodle")
 					self?.popoverLabel = "CLICKY"
-				}
+				},
 			]
-		)
+		).customizationLabel("Groovy popover!")
 	}()
+
+	/// Sparkline
+
+	lazy var sparkline: DSFTouchBar.View = {
+		return DSFTouchBar.View("sparkline", viewController: self.slvc)
+			.width(50)
+	}()
+
+	var slvc = SparkViewController()
+	class SparkViewController: NSViewController {
+		let sparklineDataSource = DSFSparklineDataSource(windowSize: 20, range: 0.0 ... 1.0)
+		override func loadView() {
+			let sparklineView = DSFSparklineDotGraph()
+			sparklineView.graphColor = NSColor.green
+			sparklineView.unsetGraphColor = NSColor.darkGray
+			sparklineView.showZero = false
+			self.view = sparklineView
+		}
+
+		override func viewDidLoad() {
+			super.viewDidLoad()
+			//self.sparklineDataSource.set(values: [0.2, -0.2, 0.0, 0.9, 0.8])
+			(self.view as? DSFSparklineView)?.dataSource = sparklineDataSource
+
+			self.updateWithNewValues()
+		}
+
+		func updateWithNewValues() {
+			DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [weak self] in
+				guard let `self` = self else {
+					return
+				}
+
+				let cr = CGFloat.random(in: 0.0 ... 1.0)
+				_ = self.sparklineDataSource.push(value: cr)
+				self.updateWithNewValues()
+			}
+		}
+	}
+
+	///
 
 	@objc dynamic var popoverLabel = "Fish and chips ->"
 	@objc dynamic var sliderValue: CGFloat = 0.75 {
@@ -228,7 +272,7 @@ class ViewController: NSViewController {
 	}
 
 	@objc dynamic var sharingAvailable = false
-	@IBAction func toggleEnabled(_ sender: Any) {
+	@IBAction func toggleEnabled(_: Any) {
 		sharingAvailable.toggle()
 	}
 
@@ -237,32 +281,33 @@ class ViewController: NSViewController {
 	@objc dynamic var attrt = NSAttributedString(
 		string: "This is a test",
 		attributes: [
-			NSAttributedString.Key.font : NSFont(name: "Menlo", size: 17) as Any,
-		])
+			NSAttributedString.Key.font: NSFont(name: "Menlo", size: 17) as Any,
+		]
+	)
 
 	override func makeTouchBar() -> NSTouchBar? {
-
-		self.customBar = DSFTouchBar(baseIdentifier: NSTouchBarItem.Identifier("com.darrenford.touchbar"),
+		self.customBar = DSFTouchBar(
+			baseIdentifier: NSTouchBarItem.Identifier("com.darrenford.touchbar"),
 			customizationIdentifier: NSTouchBar.CustomizationIdentifier("com.darrenford.touchbar"),
 
 			DSFTouchBar.Text("catdog").label("Fish ->"),
-//				self.groupInScrollGroup,
-//			self.asgroup,
-//			self.scrollGroup,
+			//				self.groupInScrollGroup,
+			//			self.asgroup,
+			//			self.scrollGroup,
 
-			//DSFTouchBar.Text("text.3331")
-				//.label("Noodle"),
-				//.attributedLabel(attrt)
-				//.bindAttributedTextLabel(to: self, withKeyPath: #keyPath(attrt)),
-				//.bindLabel(to: self, withKeyPath: #keyPath(labelTitle)),
-//			DSFTouchBar.Button("text.3332")
-//				.title("Fish and chips")
-//				.action { (state) in
-//					Swift.print("Pressed!")
-//				},
+			// DSFTouchBar.Text("text.3331")
+			// .label("Noodle"),
+			// .attributedLabel(attrt)
+			// .bindAttributedTextLabel(to: self, withKeyPath: #keyPath(attrt)),
+			// .bindLabel(to: self, withKeyPath: #keyPath(labelTitle)),
+			//			DSFTouchBar.Button("text.3332")
+			//				.title("Fish and chips")
+			//				.action { (state) in
+			//					Swift.print("Pressed!")
+			//				},
 
-			//self.bbbbb,
-			//self.scrollGroup,
+			// self.bbbbb,
+			//			self.scrollGroup,
 			self.colorPicker,
 			self.resetButton,
 			self.customColorView,
@@ -270,50 +315,48 @@ class ViewController: NSViewController {
 			self.smallSpacer,
 
 			self.segmentedControl,
-
-			self.smallSpacer,
+			self.sparkline,
+//			self.smallSpacer,
 
 			self.popover,
 
 			self.sharingService,
 
+
+
 			DSFTouchBar.OtherItemsPlaceholder()
 		)
 
-//		let i = self.customBar?.item(for: NSTouchBarItem.Identifier("com.darrenford.touchbar.popover.text.3332"))
-//		assert(i is DSFTouchBar.Button)
-
+		//		let i = self.customBar?.item(for: NSTouchBarItem.Identifier("com.darrenford.touchbar.popover.text.3332"))
+		//		assert(i is DSFTouchBar.Button)
 
 		return self.customBar?.makeTouchBar()
 	}
 
-	@IBAction func changeAttributedString(_ sender: Any) {
+	@IBAction func changeAttributedString(_: Any) {
 		self.attrt = NSAttributedString(
 			string: "Foot",
 			attributes: [
-				NSAttributedString.Key.font : NSFont.boldSystemFont(ofSize: 12),
-		 ])
+				NSAttributedString.Key.font: NSFont.boldSystemFont(ofSize: 12),
+			]
+		)
 	}
-
-
-
 }
 
 extension ViewController: NSSharingServicePickerTouchBarItemDelegate {
-	func items(for pickerTouchBarItem: NSSharingServicePickerTouchBarItem) -> [Any] {
+	func items(for _: NSSharingServicePickerTouchBarItem) -> [Any] {
 		return [image]
 	}
 }
 
 class CustomColorView: NSView {
-
 	override init(frame frameRect: NSRect) {
 		super.init(frame: frameRect)
 		self.translatesAutoresizingMaskIntoConstraints = false
 		self.color = .systemPurple
 	}
 
-	required init?(coder: NSCoder) {
+	required init?(coder _: NSCoder) {
 		fatalError("init(coder:) has not been implemented")
 	}
 
@@ -323,7 +366,7 @@ class CustomColorView: NSView {
 		}
 	}
 
-	override func draw(_ dirtyRect: NSRect) {
+	override func draw(_: NSRect) {
 		let b = self.bounds
 
 		self.color.setFill()
@@ -333,11 +376,9 @@ class CustomColorView: NSView {
 		pth.fill()
 		pth.stroke()
 	}
-
 }
 
 class CustomColorViewController: NSViewController {
-
 	override func loadView() {
 		self.view = CustomColorView(frame: .zero)
 	}

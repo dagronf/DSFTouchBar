@@ -52,11 +52,6 @@ public class DSFTouchBar: NSObject {
 	public func add(item: DSFTouchBar.Item) {
 		item.baseIdentifier = self.baseIdentifier
 		self.items.append(item)
-
-//		if let sc = item as? DSFTouchBar.ScrollGroup {
-//			sc._children.forEach { self.items.append($0) }
-//		}
-
 	}
 
 	public func item(for identifier: NSTouchBarItem.Identifier) -> DSFTouchBar.Item? {

@@ -69,6 +69,8 @@ extension DSFTouchBar {
 
 				let tb = NSCustomTouchBarItem(identifier: self.identifier)
 
+				tb.customizationLabel = self._customizationLabel
+
 				let segmented = NSSegmentedControl()
 				let labels = self._segments.map({ $0.label ?? "" })
 				segmented.segmentCount = labels.count

@@ -10,7 +10,7 @@ import AppKit
 extension DSFTouchBar {
 	public class View: UIElementItem<NSView> {
 
-		var viewController: NSViewController?
+		weak var viewController: NSViewController?
 
 		public init(_ leafIdentifier: String, viewController: NSViewController) {
 			self.viewController = viewController
@@ -35,10 +35,15 @@ extension DSFTouchBar {
 			}
 		}
 
-		deinit {
+		override func destroy() {
+			self.viewController = nil
 			if let view = self.embeddedControl() {
 				self.destroyCommon(uiElement: view)
 			}
+		}
+
+		deinit {
+			Swift.print("DSFTouchBar.View deinit")
 		}
 	}
 }
