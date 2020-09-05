@@ -13,12 +13,12 @@ extension DSFTouchBar {
 		private var popoverContent: DSFTouchBar? = nil
 
 		private(set) var _children: [DSFTouchBar.Item] = []
-		public init(_ identifier: NSTouchBarItem.Identifier,
+		public init(_ leafIdentifier: String,
 			 collapsedLabel: String? = nil,
 			 collapsedImage: NSImage? = nil,
 			 _ children: [DSFTouchBar.Item]) {
 			_children = children
-			super.init(ident: identifier)
+			super.init(leafIdentifier: leafIdentifier)
 
 			self.maker = { [weak self] in
 				guard let `self` = self else {
@@ -26,7 +26,9 @@ extension DSFTouchBar {
 				}
 
 				self.popoverContent = nil
-				let pc = DSFTouchBar()
+
+				let rc = self.baseIdentifier!.rawValue + "." + self.leafIdentifier
+				let pc = DSFTouchBar(baseIdentifier: NSTouchBarItem.Identifier(rc))
 
 				for item in self._children {
 					pc.add(item: item)

@@ -13,19 +13,24 @@ extension DSFTouchBar {
 		private(set) public var _children: [DSFTouchBar.Item] = []
 		private var _equalWidths: Bool = false
 
-		public init(_ identifier: NSTouchBarItem.Identifier, equalWidths: Bool = false, _ children: [DSFTouchBar.Item]) {
+		public init(_ leafIdentifier: String, equalWidths: Bool = false, _ children: [DSFTouchBar.Item]) {
 			_children = children
 			_equalWidths = equalWidths
-			super.init(ident: identifier)
+			super.init(leafIdentifier: leafIdentifier)
 
 			self.maker = { [weak self] in
-				guard let `self` = self else { return nil }
-				let groupItems = self._children.compactMap { $0.maker?() }
-				let tb = NSGroupTouchBarItem(identifier: self.identifier, items: groupItems)
-				//tb.customizationLabel = self._customizationLabel
-				tb.prefersEqualWidths = self._equalWidths
-				return tb
+				return self?.make()
 			}
+		}
+
+		private func make() -> NSTouchBarItem {
+			self._children.forEach { $0.baseIdentifier = self.baseIdentifier }
+
+			let groupItems = self._children.compactMap { $0.maker?() }
+			let tb = NSGroupTouchBarItem(identifier: self.identifier, items: groupItems)
+			//tb.customizationLabel = self._customizationLabel
+			tb.prefersEqualWidths = self._equalWidths
+			return tb
 		}
 
 		override func destroy() {

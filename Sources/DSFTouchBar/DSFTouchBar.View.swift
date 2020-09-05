@@ -12,9 +12,9 @@ extension DSFTouchBar {
 
 		var viewController: NSViewController?
 
-		public init(_ identifier: NSTouchBarItem.Identifier, viewController: NSViewController) {
+		public init(_ leafIdentifier: String, viewController: NSViewController) {
 			self.viewController = viewController
-			super.init(ident: identifier)
+			super.init(leafIdentifier: leafIdentifier)
 
 			self.maker = { [weak self] in
 				guard let `self` = self else {

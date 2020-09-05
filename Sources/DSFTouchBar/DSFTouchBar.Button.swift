@@ -64,8 +64,8 @@ extension DSFTouchBar {
 			return self
 		}
 
-		public init(_ identifier: NSTouchBarItem.Identifier, type: NSButton.ButtonType = .momentaryLight) { //, label: String, image: NSImage? = nil) {
-			super.init(ident: identifier)
+		public init(_ leafIdentifier: String, type: NSButton.ButtonType = .momentaryLight) { //, label: String, image: NSImage? = nil) {
+			super.init(leafIdentifier: leafIdentifier)
 
 			self.maker = { [weak self] in
 				guard let `self` = self else {
@@ -109,6 +109,8 @@ extension DSFTouchBar {
 				but.unbind(NSBindingName.value)
 				self.destroyCommon(uiElement: but)
 			}
+			self.bindObserver = nil
+			self.bindKeyPath = nil
 			self._action = nil
 			super.destroy()
 		}

@@ -10,7 +10,7 @@ import Foundation
 extension DSFTouchBar {
 	public class OtherItemsPlaceholder: Item {
 		public init() {
-			super.init(ident: .otherItemsProxy)
+			super.init(identifier: .otherItemsProxy)
 		}
 	}
 }

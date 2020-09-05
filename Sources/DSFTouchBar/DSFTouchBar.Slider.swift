@@ -42,9 +42,9 @@ extension DSFTouchBar {
 			return self
 		}
 
-		public init(identifier: NSTouchBarItem.Identifier, min: CGFloat, max: CGFloat) {
+		public init(_ leafIdentifier: String, min: CGFloat, max: CGFloat) {
 			assert(min < max)
-			super.init(ident: identifier)
+			super.init(leafIdentifier: leafIdentifier)
 
 			self.maker = { [weak self] in
 				guard let `self` = self else {

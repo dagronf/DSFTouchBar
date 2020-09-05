@@ -21,8 +21,12 @@ public class DSFTouchBar: NSObject {
 		return items.map { $0.identifier }
 	}
 
-	public init(customizationIdentifier: NSTouchBar.CustomizationIdentifier? = nil,
+	private let baseIdentifier: NSTouchBarItem.Identifier
+
+	public init(baseIdentifier: NSTouchBarItem.Identifier,
+		customizationIdentifier: NSTouchBar.CustomizationIdentifier? = nil,
 				_ children: DSFTouchBar.Item...) {
+		self.baseIdentifier = baseIdentifier
 		self.customizationIdentifier = customizationIdentifier
 		super.init()
 		for item in children {
@@ -46,7 +50,13 @@ public class DSFTouchBar: NSObject {
 	}
 
 	public func add(item: DSFTouchBar.Item) {
+		item.baseIdentifier = self.baseIdentifier
 		self.items.append(item)
+
+//		if let sc = item as? DSFTouchBar.ScrollGroup {
+//			sc._children.forEach { self.items.append($0) }
+//		}
+
 	}
 
 	public func item(for identifier: NSTouchBarItem.Identifier) -> DSFTouchBar.Item? {
@@ -55,6 +65,7 @@ public class DSFTouchBar: NSObject {
 
 	public func destroy() {
 		self.items.forEach { $0.destroy() }
+		self.items = []
 	}
 }
 

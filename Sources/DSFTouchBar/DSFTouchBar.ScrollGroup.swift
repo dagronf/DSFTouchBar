@@ -10,13 +10,13 @@ import AppKit
 extension DSFTouchBar {
 	public class ScrollGroup: UIElementItemBase {
 
-		private weak var scrollView: NSScrollView?
+		private var scrollView: NSScrollView?
 
 		private(set) public var _children: [DSFTouchBar.Item] = []
 
-		public init(_ identifier: NSTouchBarItem.Identifier, _ children: [DSFTouchBar.Item]) {
+		public init(_ leafIdentifier: String, _ children: [DSFTouchBar.Item]) {
 			self._children = children
-			super.init(ident: identifier)
+			super.init(leafIdentifier: leafIdentifier)
 
 			self.maker = { [weak self] in
 				return self?.make()
@@ -24,6 +24,9 @@ extension DSFTouchBar {
 		}
 
 		func make() -> NSCustomTouchBarItem {
+
+			self._children.forEach { $0.baseIdentifier = self.baseIdentifier }
+
 			let item = NSCustomTouchBarItem(identifier: self.identifier)
 			item.customizationLabel = self._customizationLabel
 
@@ -67,6 +70,8 @@ extension DSFTouchBar {
 		override func destroy() {
 			self._children.forEach { $0.destroy() }
 			self._children = []
+			self.scrollView = nil
+			self.scrollView?.documentView = nil
 			super.destroy()
 		}
 

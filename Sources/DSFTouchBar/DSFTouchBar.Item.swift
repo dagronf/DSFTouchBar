@@ -9,9 +9,24 @@ import AppKit
 
 public extension DSFTouchBar {
 	class Item: NSObject {
-		let identifier: NSTouchBarItem.Identifier
-		init(ident: NSTouchBarItem.Identifier) {
-			self.identifier = ident
+		let leafIdentifier: String
+		var baseIdentifier: NSTouchBarItem.Identifier? = nil {
+			didSet {
+				if self.identifier == nil {
+					let rv = baseIdentifier!.rawValue + "." + leafIdentifier
+					self.identifier = NSTouchBarItem.Identifier(rv)
+				}
+			}
+		}
+		private(set) var identifier: NSTouchBarItem.Identifier!
+
+		init(leafIdentifier: String) {
+			self.leafIdentifier = leafIdentifier
+		}
+
+		init(identifier: NSTouchBarItem.Identifier) {
+			self.identifier = identifier
+			self.leafIdentifier = ""
 		}
 
 		func destroy() {

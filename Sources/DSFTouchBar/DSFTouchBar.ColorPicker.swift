@@ -48,8 +48,8 @@ extension DSFTouchBar {
 			}
 		}
 		
-		public init(_ identifier: NSTouchBarItem.Identifier) {
-			super.init(ident: identifier)
+		public init(_ leafIdentifier: String) {
+			super.init(leafIdentifier: leafIdentifier)
 			
 			self.maker = { [weak self] in
 				guard let `self` = self else {

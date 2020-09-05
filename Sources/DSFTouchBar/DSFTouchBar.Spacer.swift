@@ -19,11 +19,11 @@ extension DSFTouchBar {
 		public init(size: Size) {
 			switch size {
 			case .small:
-				super.init(ident: .fixedSpaceSmall)
+				super.init(identifier: .fixedSpaceSmall)
 			case .large:
-				super.init(ident: .fixedSpaceLarge)
+				super.init(identifier: .fixedSpaceLarge)
 			case .flexible:
-				super.init(ident: .flexibleSpace)
+				super.init(identifier: .flexibleSpace)
 			}
 		}
 
