@@ -12,11 +12,10 @@ extension DSFTouchBar {
 
 		private weak var scrollView: NSScrollView?
 
-		private var groupItems: DSFTouchBar.Group?
+		private(set) public var _children: [DSFTouchBar.Item] = []
 
-		public init(_ identifier: NSTouchBarItem.Identifier,
-					_ group: DSFTouchBar.Group) {
-			self.groupItems = group
+		public init(_ identifier: NSTouchBarItem.Identifier, _ children: [DSFTouchBar.Item]) {
+			self._children = children
 			super.init(ident: identifier)
 
 			self.maker = { [weak self] in
@@ -33,15 +32,46 @@ extension DSFTouchBar {
 			scrollView.hasHorizontalScroller = true
 			item.view = scrollView
 
-			let groupI = self.groupItems!.maker!()
-			scrollView.documentView = groupI?.view
+			// For simplicity, just put all the children in an hstack
+			let v = NSStackView()
+			v.translatesAutoresizingMaskIntoConstraints = false
+			v.orientation = .horizontal
+			v.distribution = .fillProportionally
+			v.setHuggingPriority(.defaultLow, for: .horizontal)
+			v.setHuggingPriority(.defaultLow, for: .vertical)
+			v.alignment = .centerY
+
+			scrollView.documentView = v
+
+			scrollView.addConstraints(NSLayoutConstraint.constraints(
+								withVisualFormat: "V:|[item]|",
+								options: .alignAllCenterX,
+								metrics: nil, views: ["item": v]))
+
+			self._children.forEach { child in
+				if let item = child.maker?() {
+					guard let view = item.view else {
+						Swift.print("Cannot embed '\(item.identifier.rawValue)' inside scrollgroup '\(self.identifier.rawValue)'")
+						return
+					}
+					// If we can make the child, add it!
+					v.addArrangedSubview(view)
+				}
+			}
 
 			self.scrollView = scrollView
 
 			return item
 		}
 
+		override func destroy() {
+			self._children.forEach { $0.destroy() }
+			self._children = []
+			super.destroy()
+		}
+
 		deinit {
+			Swift.print("DSFTouchBar.ScrollGroup deinit")
 		}
 	}
 }

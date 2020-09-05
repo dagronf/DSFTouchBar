@@ -115,23 +115,73 @@ class ViewController: NSViewController {
 			.bindSelectionIndexes(to: self, withKeyPath: #keyPath(segmented))
 	}()
 
+	lazy var groupInScrollGroup: DSFTouchBar.ScrollGroup = {
+		return DSFTouchBar.ScrollGroup(
+			NSTouchBarItem.Identifier("com.darrenford.touchbar.sasscrollgroup"), [
+				DSFTouchBar.Text(NSTouchBarItem.Identifier("com.darrenford.touchbar.sasscrollgroup.332232")).label("😀"),
+				DSFTouchBar.Group(NSTouchBarItem.Identifier("com.darrenford.touchbar.sasgroup.332232"), [
+					DSFTouchBar.Text(NSTouchBarItem.Identifier("com.darrenford.touchbar.sasscrollgroup.332234")).label("😀💝"),
+					DSFTouchBar.Text(NSTouchBarItem.Identifier("com.darrenford.touchbar.sasscrollgroup.332235")).label("😀👒"),
+					DSFTouchBar.Text(NSTouchBarItem.Identifier("com.darrenford.touchbar.sasscrollgroup.332236")).label("😀🐨"),
+				]),
+				DSFTouchBar.Text(NSTouchBarItem.Identifier("com.darrenford.touchbar.sasscrollgroup.332232")).label("🏓"),
+			]
+		)
+	}()
+
+	lazy var asgroup: DSFTouchBar.Group = {
+		return DSFTouchBar.Group(
+			NSTouchBarItem.Identifier("com.darrenford.touchbar.asgroup"), equalWidths: true, [
+				DSFTouchBar.Text(NSTouchBarItem.Identifier("com.darrenford.touchbar.asgroup.332231")).label("Fish 1"),
+				DSFTouchBar.ScrollGroup(
+					NSTouchBarItem.Identifier("com.darrenford.touchbar.sasscrollgroup"), [
+						DSFTouchBar.Text(NSTouchBarItem.Identifier("com.darrenford.touchbar.sasscrollgroup.3322321")).label("😀1"),
+						DSFTouchBar.Text(NSTouchBarItem.Identifier("com.darrenford.touchbar.sasscrollgroup.3322322")).label("😀2"),
+						DSFTouchBar.Text(NSTouchBarItem.Identifier("com.darrenford.touchbar.sasscrollgroup.3322323")).label("😀3"),
+						DSFTouchBar.Text(NSTouchBarItem.Identifier("com.darrenford.touchbar.sasscrollgroup.3322324")).label("😀4"),
+						DSFTouchBar.Text(NSTouchBarItem.Identifier("com.darrenford.touchbar.sasscrollgroup.3322325")).label("😀5"),
+						DSFTouchBar.Text(NSTouchBarItem.Identifier("com.darrenford.touchbar.sasscrollgroup.3322326")).label("😀6"),
+						DSFTouchBar.Text(NSTouchBarItem.Identifier("com.darrenford.touchbar.sasscrollgroup.3322327")).label("😀7"),
+						DSFTouchBar.Text(NSTouchBarItem.Identifier("com.darrenford.touchbar.sasscrollgroup.3322328")).label("😀8"),
+				]),
+				DSFTouchBar.Text(NSTouchBarItem.Identifier("com.darrenford.touchbar.asgroup.332232")).label("😀"),
+			])
+	}()
+
 	lazy var scrollGroup: DSFTouchBar.ScrollGroup = {
 		return DSFTouchBar.ScrollGroup(
-			NSTouchBarItem.Identifier(
-				"com.darrenford.touchbar.scrollgroup"),
-			DSFTouchBar.Group(
-				NSTouchBarItem.Identifier("com.darrenford.touchbar.popover.text.222"),
-				equalWidths: false, [
-					DSFTouchBar.Text(identifier: NSTouchBarItem.Identifier("com.darrenford.touchbar.popover.text.3331"), label: "cat 1"),
-					DSFTouchBar.Text(identifier: NSTouchBarItem.Identifier("com.darrenford.touchbar.popover.text.3332"), label: "cat 2"),
-					DSFTouchBar.Text(identifier: NSTouchBarItem.Identifier("com.darrenford.touchbar.popover.text.3333"), label: "cat 3"),
-					DSFTouchBar.Text(identifier: NSTouchBarItem.Identifier("com.darrenford.touchbar.popover.text.3334"), label: "cat 4"),
-					DSFTouchBar.Text(identifier: NSTouchBarItem.Identifier("com.darrenford.touchbar.popover.text.3335"), label: "cat 5"),
-					DSFTouchBar.Text(identifier: NSTouchBarItem.Identifier("com.darrenford.touchbar.popover.text.3336"), label: "cat 6"),
-					DSFTouchBar.Text(identifier: NSTouchBarItem.Identifier("com.darrenford.touchbar.popover.text.3337"), label: "cat 7"),
-					DSFTouchBar.Text(identifier: NSTouchBarItem.Identifier("com.darrenford.touchbar.popover.text.3338"), label: "cat 8")
-				]
-			)
+			NSTouchBarItem.Identifier("com.darrenford.touchbar.scrollgroup"), [
+				DSFTouchBar.Text(NSTouchBarItem.Identifier("com.darrenford.touchbar.popover.text.3331")).label("Fish 1"),
+				DSFTouchBar.Text(NSTouchBarItem.Identifier("com.darrenford.touchbar.popover.text.3332")).label("cat 2"),
+				DSFTouchBar.Text(NSTouchBarItem.Identifier("com.darrenford.touchbar.popover.text.3333")).label("cat 3"),
+				DSFTouchBar.Text(NSTouchBarItem.Identifier("com.darrenford.touchbar.popover.text.3334")).label("cat 4"),
+				DSFTouchBar.Text(NSTouchBarItem.Identifier("com.darrenford.touchbar.popover.text.3335")).label("cat 5"),
+				DSFTouchBar.Text(NSTouchBarItem.Identifier("com.darrenford.touchbar.popover.text.3336")).label("cat 6"),
+				DSFTouchBar.Button(NSTouchBarItem.Identifier("com.darrenford.touchbar.popover.text.3337")).title("Fred"),
+				DSFTouchBar.Text(NSTouchBarItem.Identifier("com.darrenford.touchbar.popover.text.3338")).label("cat 8"),
+				DSFTouchBar.Text(NSTouchBarItem.Identifier("com.darrenford.touchbar.popover.text.33321")).label("cat 12"),
+				DSFTouchBar.Text(NSTouchBarItem.Identifier("com.darrenford.touchbar.popover.text.33331")).label("cat 13"),
+				DSFTouchBar.Text(NSTouchBarItem.Identifier("com.darrenford.touchbar.popover.text.33341")).label("cat 14"),
+				DSFTouchBar.Text(NSTouchBarItem.Identifier("com.darrenford.touchbar.popover.text.33351")).label("cat 15"),
+				DSFTouchBar.Text(NSTouchBarItem.Identifier("com.darrenford.touchbar.popover.text.33361")).label("cat 16"),
+				DSFTouchBar.Text(NSTouchBarItem.Identifier("com.darrenford.touchbar.popover.text.33371")).label("cat 17"),
+				DSFTouchBar.Text(NSTouchBarItem.Identifier("com.darrenford.touchbar.popover.text.33381")).label("cat 18"),
+				DSFTouchBar.Text(NSTouchBarItem.Identifier("com.darrenford.touchbar.popover.text.13331")).label("cat 1"),
+				DSFTouchBar.Text(NSTouchBarItem.Identifier("com.darrenford.touchbar.popover.text.13332")).label("cat 2"),
+				DSFTouchBar.Text(NSTouchBarItem.Identifier("com.darrenford.touchbar.popover.text.13333")).label("cat 3"),
+				DSFTouchBar.Text(NSTouchBarItem.Identifier("com.darrenford.touchbar.popover.text.13334")).label("cat 4"),
+				DSFTouchBar.Text(NSTouchBarItem.Identifier("com.darrenford.touchbar.popover.text.13335")).label("cat 5"),
+				DSFTouchBar.Text(NSTouchBarItem.Identifier("com.darrenford.touchbar.popover.text.13336")).label("cat 6"),
+				DSFTouchBar.Text(NSTouchBarItem.Identifier("com.darrenford.touchbar.popover.text.13337")).label("cat 7"),
+				DSFTouchBar.Text(NSTouchBarItem.Identifier("com.darrenford.touchbar.popover.text.13338")).label("cat 8"),
+				DSFTouchBar.Text(NSTouchBarItem.Identifier("com.darrenford.touchbar.popover.text.133321")).label("cat 12"),
+				DSFTouchBar.Text(NSTouchBarItem.Identifier("com.darrenford.touchbar.popover.text.133331")).label("cat 13"),
+				DSFTouchBar.Text(NSTouchBarItem.Identifier("com.darrenford.touchbar.popover.text.133341")).label("cat 14"),
+				DSFTouchBar.Text(NSTouchBarItem.Identifier("com.darrenford.touchbar.popover.text.133351")).label("cat 15"),
+				DSFTouchBar.Text(NSTouchBarItem.Identifier("com.darrenford.touchbar.popover.text.133361")).label("cat 16"),
+				DSFTouchBar.Text(NSTouchBarItem.Identifier("com.darrenford.touchbar.popover.text.133371")).label("cat 17"),
+				DSFTouchBar.Text(NSTouchBarItem.Identifier("com.darrenford.touchbar.popover.text.133381")).label("cat 18")
+			]
 		)
 	}()
 
@@ -142,8 +192,8 @@ class ViewController: NSViewController {
 
 				DSFTouchBar.Group(NSTouchBarItem.Identifier("com.darrenford.touchbar.popover.text.grup"),
 								  equalWidths: false, [
-					DSFTouchBar.Text(identifier: NSTouchBarItem.Identifier("com.darrenford.touchbar.popover.text.blah"), label: "")
-					.bindLabel(to: self, withKeyPath: #keyPath(popoverLabel)),
+					DSFTouchBar.Text(NSTouchBarItem.Identifier("com.darrenford.touchbar.popover.text.blah"))
+									.bindLabel(to: self, withKeyPath: #keyPath(popoverLabel)),
 
 					DSFTouchBar.Button(NSTouchBarItem.Identifier("com.darrenford.touchbar.buuuut2"))
 						.customizationLabel("22")
@@ -197,16 +247,40 @@ class ViewController: NSViewController {
 		sharingAvailable.toggle()
 	}
 
+	@objc var labelTitle: String = "Fish LT"
+
+	@objc dynamic var attrt = NSAttributedString(
+		string: "This is a test",
+		attributes: [
+			NSAttributedString.Key.font : NSFont(name: "Menlo", size: 17) //.boldSystemFont(ofSize: 18),
+		])
+
 	override func makeTouchBar() -> NSTouchBar? {
 
 		self.customBar = DSFTouchBar(
 			customizationIdentifier: NSTouchBar.CustomizationIdentifier("com.darrenford.touchbar"),
 
+			DSFTouchBar.Text(NSTouchBarItem.Identifier("catdog")).label("Fish ->"),
+//			self.groupInScrollGroup,
+			self.asgroup,
+//			self.scrollGroup,
+
+//			DSFTouchBar.Text(NSTouchBarItem.Identifier("com.darrenford.touchbar.popover.text.3331"))
+//				//.label("Noodle"),
+//				//.attributedLabel(attrt),
+//				.bindAttributedTextLabel(to: self, withKeyPath: #keyPath(attrt)),
+//				//.bindLabel(to: self, withKeyPath: #keyPath(labelTitle)),
+//			DSFTouchBar.Button(NSTouchBarItem.Identifier("com.darrenford.touchbar.popover.text.3332"))
+//				.title("Fish and chips")
+//				.action { (state) in
+//					Swift.print("Pressed!")
+//				},
+
 			//self.bbbbb,
 			//self.scrollGroup,
-			self.colorPicker,
-			self.resetButton,
-			self.customColorView,
+//			self.colorPicker,
+//			self.resetButton,
+//			self.customColorView,
 
 //			self.smallSpacer,
 //
@@ -220,8 +294,24 @@ class ViewController: NSViewController {
 
 			DSFTouchBar.OtherItemsPlaceholder()
 		)
+
+//		let i = self.customBar?.item(for: NSTouchBarItem.Identifier("com.darrenford.touchbar.popover.text.3332"))
+//		assert(i is DSFTouchBar.Button)
+
+
 		return self.customBar?.makeTouchBar()
 	}
+
+	@IBAction func changeAttributedString(_ sender: Any) {
+		self.attrt = NSAttributedString(
+			string: "Foot",
+			attributes: [
+				NSAttributedString.Key.font : NSFont.boldSystemFont(ofSize: 12),
+		 ])
+	}
+
+
+
 }
 
 extension ViewController: NSSharingServicePickerTouchBarItemDelegate {
