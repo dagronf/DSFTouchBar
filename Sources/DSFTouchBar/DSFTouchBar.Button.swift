@@ -32,6 +32,14 @@ extension DSFTouchBar {
 			return self
 		}
 
+		private var bindTitleObserver: AnyObject? = nil
+		private var bindTitleKeyPath: String? = nil
+		public func bindTitle(to observable: AnyObject, withKeyPath keyPath: String) -> Button {
+			self.bindTitleObserver = observable
+			self.bindTitleKeyPath = keyPath
+			return self
+		}
+
 		private var _alternateTitle: String = ""
 		public func alternateTitle(_ alternateTitle: String) -> Button {
 			_alternateTitle = alternateTitle
@@ -121,6 +129,15 @@ extension DSFTouchBar {
 								options: nil)
 				}
 
+				if button.exposedBindings.contains(NSBindingName.title),
+					let observer = self.bindTitleObserver,
+					let keyPath = self.bindTitleKeyPath {
+					button.bind(NSBindingName.title,
+								to: observer,
+								withKeyPath: keyPath,
+								options: nil)
+				}
+
 				if let observer = self.bindBackgroundColorObserver,
 				   let keyPath = self.bindBackgroundColorKeyPath {
 					observer.addObserver(self, forKeyPath: keyPath, options: [.new], context: nil)
@@ -163,6 +180,7 @@ extension DSFTouchBar {
 
 			if let but = self.embeddedControl() {
 				but.unbind(NSBindingName.value)
+				but.unbind(NSBindingName.title)
 				self.destroyCommon(uiElement: but)
 			}
 
