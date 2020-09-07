@@ -100,7 +100,7 @@ class ViewController: NSViewController {
 	lazy var customColorView: DSFTouchBar.View = {
 		DSFTouchBar.View("colorswatch", viewController: self.colorVC)
 			.customizationLabel("Color swatch")
-			.width(100)
+			//.width(50)
 	}()
 
 	lazy var segmentedControl: DSFTouchBar.Segmented = {
@@ -212,6 +212,7 @@ class ViewController: NSViewController {
 
 	lazy var sparkline: DSFTouchBar.View = {
 		return DSFTouchBar.View("sparkline", viewController: self.slvc)
+			.customizationLabel("Sparkline")
 			.width(50)
 	}()
 
@@ -228,7 +229,6 @@ class ViewController: NSViewController {
 
 		override func viewDidLoad() {
 			super.viewDidLoad()
-			//self.sparklineDataSource.set(values: [0.2, -0.2, 0.0, 0.9, 0.8])
 			(self.view as? DSFSparklineView)?.dataSource = sparklineDataSource
 
 			self.updateWithNewValues()
@@ -290,7 +290,7 @@ class ViewController: NSViewController {
 			baseIdentifier: NSTouchBarItem.Identifier("com.darrenford.touchbar"),
 			customizationIdentifier: NSTouchBar.CustomizationIdentifier("com.darrenford.touchbar"),
 
-			DSFTouchBar.Text("catdog").label("Fish ->"),
+			//DSFTouchBar.Text("catdog").label("Fish ->"),
 			//				self.groupInScrollGroup,
 			//			self.asgroup,
 			//			self.scrollGroup,
@@ -308,15 +308,20 @@ class ViewController: NSViewController {
 
 			// self.bbbbb,
 			//			self.scrollGroup,
-			self.colorPicker,
-			self.resetButton,
-			self.customColorView,
+
+			DSFTouchBar.Group(
+				"Color Groups", equalWidths: true, [
+					self.colorPicker,
+					self.customColorView,
+					self.resetButton,
+					])
+				.customizationLabel("Color Group"),
 
 			self.smallSpacer,
 
 			self.segmentedControl,
 			self.sparkline,
-//			self.smallSpacer,
+			self.smallSpacer,
 
 			self.popover,
 
@@ -326,9 +331,6 @@ class ViewController: NSViewController {
 
 			DSFTouchBar.OtherItemsPlaceholder()
 		)
-
-		//		let i = self.customBar?.item(for: NSTouchBarItem.Identifier("com.darrenford.touchbar.popover.text.3332"))
-		//		assert(i is DSFTouchBar.Button)
 
 		return self.customBar?.makeTouchBar()
 	}
