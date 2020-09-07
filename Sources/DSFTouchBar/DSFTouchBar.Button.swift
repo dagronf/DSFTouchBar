@@ -50,6 +50,14 @@ extension DSFTouchBar {
 			return self
 		}
 
+		private var bindBackgroundColorObserver: AnyObject? = nil
+		private var bindBackgroundColorKeyPath: String? = nil
+		public func bindBackgroundColor(to observable: AnyObject, withKeyPath keyPath: String) -> Button {
+			self.bindBackgroundColorObserver = observable
+			self.bindBackgroundColorKeyPath = keyPath
+			return self
+		}
+
 		private var _fontColor: NSColor?
 		public func foregroundColor(_ color: NSColor?) -> Button {
 			_fontColor = color
@@ -113,6 +121,15 @@ extension DSFTouchBar {
 								options: nil)
 				}
 
+				if let observer = self.bindBackgroundColorObserver,
+				   let keyPath = self.bindBackgroundColorKeyPath {
+					observer.addObserver(self, forKeyPath: keyPath, options: [.new], context: nil)
+					// Set the initial value from the binding if we can
+					if let v = observer.value(forKeyPath: keyPath) as? NSColor {
+						button.bezelColor = v
+					}
+				}
+
 				self.makeCommon(uiElement: button)
 				tb.view = button
 
@@ -120,14 +137,35 @@ extension DSFTouchBar {
 			}
 		}
 
+		override public func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey: Any]?, context: UnsafeMutableRawPointer?) {
+			if let bindKeyPath = self.bindBackgroundColorKeyPath,
+			   bindKeyPath == keyPath,
+			   let newVal = change?[.newKey] as? NSColor {
+				self.embeddedControl()?.bezelColor = newVal
+			}
+			else {
+				super.observeValue(forKeyPath: keyPath, of: object, change: change, context: context)
+			}
+		}
+
 		override func destroy() {
+
+			if let observer = self.bindBackgroundColorObserver,
+			   let keyPath = self.bindBackgroundColorKeyPath {
+				observer.removeObserver(self, forKeyPath: keyPath)
+			}
+
+			self.bindBackgroundColorObserver = nil
+			self.bindBackgroundColorKeyPath = nil
+			self.bindObserver = nil
+			self.bindKeyPath = nil
+			self._action = nil
+
 			if let but = self.embeddedControl() {
 				but.unbind(NSBindingName.value)
 				self.destroyCommon(uiElement: but)
 			}
-			self.bindObserver = nil
-			self.bindKeyPath = nil
-			self._action = nil
+
 			super.destroy()
 		}
 
