@@ -55,20 +55,20 @@ public extension DSFTouchBar {
 		public func embeddedControl() -> T? { return _control }
 
 		private var _onCreate: ((T) -> Void)?
-		func onCreate(_ block: @escaping (T) -> Void) -> UIElementItem<T> {
+		public func onCreate(_ block: @escaping (T) -> Void) -> UIElementItem<T> {
 			_onCreate = block
 			return self
 		}
 
 		private var _onDestroy: ((T) -> Void)?
-		func onDestroy(_ block: @escaping (T) -> Void) -> UIElementItem<T> {
+		public func onDestroy(_ block: @escaping (T) -> Void) -> UIElementItem<T> {
 			_onDestroy = block
 			return self
 		}
 
 		private var bindVisibilityObserver: Any?
 		private var bindVisibilityKeyPath: String?
-		func bindVisibility(to observable: Any, withKeyPath keyPath: String) -> Self {
+		public func bindVisibility(to observable: Any, withKeyPath keyPath: String) -> Self {
 			self.bindVisibilityObserver = observable
 			self.bindVisibilityKeyPath = keyPath
 			return self
@@ -76,7 +76,7 @@ public extension DSFTouchBar {
 
 		private var bindEnabledObserver: Any?
 		private var bindEnabledKeyPath: String?
-		func bindEnabled(to observable: Any, withKeyPath keyPath: String) -> Self {
+		public func bindEnabled(to observable: Any, withKeyPath keyPath: String) -> Self {
 			self.bindEnabledObserver = observable
 			self.bindEnabledKeyPath = keyPath
 			return self
