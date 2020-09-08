@@ -29,6 +29,9 @@ extension DSFTouchBar {
 		private var _title: String = "Button"
 		public func title(_ title: String) -> Button {
 			_title = title
+			if let e = self.embeddedControl() {
+				e.title = title
+			}
 			return self
 		}
 
@@ -43,11 +46,21 @@ extension DSFTouchBar {
 		private var _alternateTitle: String = ""
 		public func alternateTitle(_ alternateTitle: String) -> Button {
 			_alternateTitle = alternateTitle
+			if let e = self.embeddedControl() {
+				e.alternateTitle = alternateTitle
+			}
 			return self
 		}
 
 		private var _image: NSImage?
 		private var _imagePosition: NSControl.ImagePosition = .imageLeading
+		public func imagePosition(_ position: NSControl.ImagePosition) -> Button {
+			_imagePosition = position
+			if let e = self.embeddedControl() {
+				e.imagePosition = position
+			}
+			return self
+		}
 
 		public func image(_ image: NSImage?, imagePosition: NSControl.ImagePosition = .imageLeading) -> Button {
 			_image = image
