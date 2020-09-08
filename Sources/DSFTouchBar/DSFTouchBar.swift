@@ -45,6 +45,7 @@ public class DSFTouchBar: NSObject {
 	}
 
 	deinit {
+		self.destroy()
 		self.mainBar = nil
 		Swift.print("DSFTouchBar deinit")
 	}
