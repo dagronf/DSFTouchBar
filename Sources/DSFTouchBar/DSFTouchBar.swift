@@ -54,6 +54,10 @@ public class DSFTouchBar: NSObject {
 		self.items.append(item)
 	}
 
+	public func add(_ children: DSFTouchBar.Item...) {
+		children.forEach { self.add(item: $0) }
+	}
+
 	public func item(for identifier: NSTouchBarItem.Identifier) -> DSFTouchBar.Item? {
 		return self.items.filter { $0.identifier == identifier }.first
 	}
