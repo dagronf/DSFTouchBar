@@ -47,7 +47,7 @@ extension DSFTouchBar {
 		}
 
 		private var _image: NSImage?
-		func image(_ image: NSImage?) -> Button {
+		public func image(_ image: NSImage?) -> Button {
 			_image = image
 			return self
 		}
