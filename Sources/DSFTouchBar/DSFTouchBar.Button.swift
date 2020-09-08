@@ -47,8 +47,11 @@ extension DSFTouchBar {
 		}
 
 		private var _image: NSImage?
-		public func image(_ image: NSImage?) -> Button {
+		private var _imagePosition: NSControl.ImagePosition = .imageLeading
+
+		public func image(_ image: NSImage?, imagePosition: NSControl.ImagePosition = .imageLeading) -> Button {
 			_image = image
+			_imagePosition = imagePosition
 			return self
 		}
 
@@ -101,6 +104,7 @@ extension DSFTouchBar {
 
 				button.translatesAutoresizingMaskIntoConstraints = false
 				button.image = self._image
+				button.imagePosition = self._imagePosition
 				button.bezelColor = self._color
 				button.setButtonType(type)
 

@@ -150,7 +150,7 @@ class ViewController: NSViewController {
 			DSFTouchBar.Text("3334").label("cat 4"),
 			DSFTouchBar.Text("3335").label("cat 5"),
 			DSFTouchBar.Text("3336").label("cat 6"),
-			DSFTouchBar.Button("3337").title("Fred"),
+			DSFTouchBar.Button("3337").title("Fred").image(NSImage(named: NSImage.touchBarGoForwardTemplateName)),
 			DSFTouchBar.Text("3338").label("cat 8"),
 			DSFTouchBar.Text("33321").label("cat 12"),
 			DSFTouchBar.Text("33331").label("cat 13"),
