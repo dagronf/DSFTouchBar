@@ -10,6 +10,8 @@ import AppKit
 extension DSFTouchBar {
 	public class Slider: UIElementItem<NSSlider> {
 
+		private weak var sliderTouchBarItem: NSSliderTouchBarItem?
+
 		private var _action: ((CGFloat) -> Void)?
 		public func action(_ action: @escaping ((CGFloat) -> Void)) -> Slider {
 			_action = action
@@ -23,14 +25,20 @@ extension DSFTouchBar {
 		}
 
 		private var _minAccessoryImage: NSImage?
-		public func minimumValueAccessory(image: NSImage?) -> Slider {
+		@discardableResult public func minimumValueAccessory(image: NSImage?) -> Slider {
 			_minAccessoryImage = image
+			if let tb = self.sliderTouchBarItem {
+				tb.minimumValueAccessory = image != nil ? NSSliderAccessory(image: image!) : nil
+			}
 			return self
 		}
 
 		private var _maxAccessoryImage: NSImage?
-		public func maximumValueAccessory(image: NSImage?) -> Slider {
+		@discardableResult public func maximumValueAccessory(image: NSImage?) -> Slider {
 			_maxAccessoryImage = image
+			if let tb = self.sliderTouchBarItem {
+				tb.maximumValueAccessory = image != nil ? NSSliderAccessory(image: image!) : nil
+			}
 			return self
 		}
 
@@ -76,6 +84,8 @@ extension DSFTouchBar {
 
 				// Init the common elements, and call the create callback if needed
 				self.makeCommon(uiElement: tb.slider)
+
+				self.sliderTouchBarItem = tb
 
 				return tb
 			}
