@@ -106,9 +106,9 @@ class ViewController: NSViewController {
 	lazy var segmentedControl: DSFTouchBar.Segmented = {
 		DSFTouchBar.Segmented("segmented", trackingMode: .selectAny)
 			.customizationLabel("Text Styles")
-			.add(label: "􀅓")
-			.add(label: "􀅔")
-			.add(label: "􀅕")
+			.add(label: "􀅓", image: NSImage(named: NSImage.touchBarAudioOutputVolumeLowTemplateName))
+			.add(label: "􀅔", image: NSImage(named: NSImage.touchBarAudioOutputVolumeMediumTemplateName))
+			.add(label: "􀅕", image: NSImage(named: NSImage.touchBarAudioOutputVolumeHighTemplateName))
 			.bindSelectionIndexes(to: self, withKeyPath: #keyPath(segmented))
 	}()
 

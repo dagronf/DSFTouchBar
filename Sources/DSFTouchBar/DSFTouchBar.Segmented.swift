@@ -73,8 +73,11 @@ extension DSFTouchBar {
 
 				let segmented = NSSegmentedControl()
 				let labels = self._segments.map({ $0.label ?? "" })
+				let images = self._segments.map({ $0.image })
 				segmented.segmentCount = labels.count
 				labels.enumerated().forEach { segmented.setLabel($0.1, forSegment: $0.0) }
+				images.enumerated().forEach { segmented.setImage($0.1, forSegment: $0.0) }
+
 				segmented.trackingMode = trackingMode
 				segmented.target = self
 				segmented.action = #selector(self.act(_:))
