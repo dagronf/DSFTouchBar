@@ -85,7 +85,7 @@ extension DSFTouchBar {
 				}
 
 				// If the user has specified an 'enabled' binding, attach it.
-				if let observer = self.bindEnabledObserver, let keyPath = self.bindTitleKeyPath {
+				if let observer = self.bindEnabledObserver, let keyPath = self.bindEnabledKeyPath {
 					observer.addObserver(self, forKeyPath: keyPath, options: [.new], context: nil)
 
 					// Set the initial value from the bound variable
@@ -95,7 +95,7 @@ extension DSFTouchBar {
 				}
 
 				// If the user has specified a 'title' binding, attach it.
-				if let observer = self.bindTitleObserver, let keyPath = self.bindEnabledKeyPath {
+				if let observer = self.bindTitleObserver, let keyPath = self.bindTitleKeyPath {
 					observer.addObserver(self, forKeyPath: keyPath, options: [.new], context: nil)
 
 					// Set the initial value from the bound variable
