@@ -13,15 +13,10 @@ import DSFTouchBar
 import DSFSparkline
 
 class ViewController: NSViewController {
-	var customBar: DSFTouchBar?
+
 	var colorVC = CustomColorViewController()
 
 	let image = NSImage(named: "testimage")!
-
-	deinit {
-		self.customBar?.destroy()
-		self.customBar = nil
-	}
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -63,7 +58,10 @@ class ViewController: NSViewController {
 	override func viewWillDisappear() {
 		super.viewWillDisappear()
 
-		self.customBar?.destroy()
+		//self.destroyToolBar()
+
+		self.touchBar = nil
+
 	}
 
 	@objc dynamic var bbbbState: NSButton.StateValue = .off
@@ -285,8 +283,13 @@ class ViewController: NSViewController {
 		]
 	)
 
+
+	@objc dynamic var dummyColor = NSColor.systemTeal
+	@objc dynamic var enable3: Bool = false
+	@objc dynamic var backgroundColor3: NSColor = .systemGreen
+
 	override func makeTouchBar() -> NSTouchBar? {
-		self.customBar = DSFTouchBar(
+		let touchbar = DSFTouchBar(
 			baseIdentifier: NSTouchBarItem.Identifier("com.darrenford.touchbar"),
 			customizationIdentifier: NSTouchBar.CustomizationIdentifier("com.darrenford.touchbar"),
 
@@ -306,33 +309,74 @@ class ViewController: NSViewController {
 			//					Swift.print("Pressed!")
 			//				},
 
-			// self.bbbbb,
-			//			self.scrollGroup,
+			 self.bbbbb,
+						self.scrollGroup,
 
-			DSFTouchBar.Group(
-				"Color Groups", equalWidths: true, [
-					self.colorPicker,
-					self.customColorView,
-					self.resetButton,
-					])
-				.customizationLabel("Color Group"),
+//			DSFTouchBar.Button("button-1")
+//				.title("1")
+//				.customizationLabel("The first button")
+//				.action { state in
+//					Swift.print("1 pressed - \(state)")
+//				},
+//
+//			// Button with simple static background color
+//
+//			DSFTouchBar.Button("button-2")
+//				.title("2")
+//				.customizationLabel("The second button")
+//				.color(.brown)
+//				.action { state in
+//					Swift.print("2 pressed - \(state)")
+//				},
+//
+//			DSFTouchBar.Spacer(size: .small),
+//
+//			// Button with background and enabled color bindings
+//
+//			DSFTouchBar.Button("button-3")
+//				.title("Good")
+//				.alternateTitle("Bad")
+//				.bindBackgroundColor(to: self, withKeyPath: #keyPath(backgroundColor3))
+//				.bindEnabled(to: self, withKeyPath: #keyPath(enable3))
+//				.action { state in
+//					self.backgroundColor3 = (state == .on) ? .systemRed : .systemGreen
+//				},
+//
+//			// Button with image
+//
+//			DSFTouchBar.Button("button-4")
+//				.title("Go")
+//				.image(NSImage(named: NSImage.touchBarGoForwardTemplateName))
+//				.imagePosition(.imageRight)
+//				.action { state in
+//					Swift.print("4 pressed - \(state)")
+//				},
 
-			self.smallSpacer,
 
-			self.segmentedControl,
-			self.sparkline,
-			self.smallSpacer,
-
-			self.popover,
-
-			self.sharingService,
+//			DSFTouchBar.Group(
+//				"Color Groups", equalWidths: true, [
+//					self.colorPicker,
+//					self.customColorView,
+//					self.resetButton,
+//					])
+//				.customizationLabel("Color Group"),
+//
+//			self.smallSpacer,
+//
+//			self.segmentedControl,
+//			self.sparkline,
+//			self.smallSpacer,
+//
+//			self.popover,
+//
+//			self.sharingService,
 
 
 
 			DSFTouchBar.OtherItemsPlaceholder()
 		)
 
-		return self.customBar?.makeTouchBar()
+		return touchbar.makeTouchBar()
 	}
 
 	@IBAction func changeAttributedString(_: Any) {

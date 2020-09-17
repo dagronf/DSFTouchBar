@@ -19,6 +19,9 @@ public extension DSFTouchBar {
 			}
 		}
 		private(set) var identifier: NSTouchBarItem.Identifier!
+		var identifierString: String {
+			return self.identifier.rawValue
+		}
 
 		init(leafIdentifier: String) {
 			self.leafIdentifier = leafIdentifier

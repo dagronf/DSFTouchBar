@@ -104,7 +104,7 @@ extension DSFTouchBar {
 		}
 
 		deinit {
-			Swift.print("DSFTouchBar.Text deinit")
+			Swift.print("DSFTouchBar.Text(\(self.identifierString), \"\(_label ?? "")\") deinit")
 		}
 
 		override func destroy() {

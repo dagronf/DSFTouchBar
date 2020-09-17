@@ -94,15 +94,15 @@ extension DSFTouchBar {
 			return self
 		}
 
-		private var bindObserver: Any? = nil
-		private var bindKeyPath: String? = nil
-		public func bindState(to observable: Any, withKeyPath keyPath: String) -> Button {
-			self.bindObserver = observable
-			self.bindKeyPath = keyPath
+		private var bindStateObserver: AnyObject? = nil
+		private var bindStateKeyPath: String? = nil
+		public func bindState(to observable: AnyObject, withKeyPath keyPath: String) -> Button {
+			self.bindStateObserver = observable
+			self.bindStateKeyPath = keyPath
 			return self
 		}
 
-		public init(_ leafIdentifier: String, type: NSButton.ButtonType = .momentaryLight) { //, label: String, image: NSImage? = nil) {
+		public init(_ leafIdentifier: String, type: NSButton.ButtonType = .momentaryLight) {
 			super.init(leafIdentifier: leafIdentifier)
 
 			self.maker = { [weak self] in
@@ -116,6 +116,7 @@ extension DSFTouchBar {
 				let button = NSButton(title: self._title, target: self, action: #selector(self.act(_:)))
 
 				button.translatesAutoresizingMaskIntoConstraints = false
+				button.wantsLayer = true
 				button.image = self._image
 				button.imagePosition = self._imagePosition
 				button.bezelColor = self._color
@@ -138,8 +139,8 @@ extension DSFTouchBar {
 				// If the button type is not an 'on off' type, then the value binding doesn't
 				// exist for the button.  We need to check first.
 				if button.exposedBindings.contains(NSBindingName.value),
-					let observer = self.bindObserver,
-					let keyPath = self.bindKeyPath {
+					let observer = self.bindStateObserver,
+					let keyPath = self.bindStateKeyPath {
 					button.bind(NSBindingName.value,
 								to: observer,
 								withKeyPath: keyPath,
@@ -191,8 +192,8 @@ extension DSFTouchBar {
 
 			self.bindBackgroundColorObserver = nil
 			self.bindBackgroundColorKeyPath = nil
-			self.bindObserver = nil
-			self.bindKeyPath = nil
+			self.bindTitleObserver = nil
+			self.bindTitleKeyPath = nil
 			self._action = nil
 
 			if let but = self.embeddedControl() {
@@ -201,11 +202,14 @@ extension DSFTouchBar {
 				self.destroyCommon(uiElement: but)
 			}
 
+			self.bindStateObserver = nil
+			self.bindStateKeyPath = nil
+
 			super.destroy()
 		}
 
 		deinit {
-			Swift.print("DSFTouchBar.Button deinit")
+			Swift.print("DSFTouchBar.Button(\(self.identifierString), \"\(_title)\") deinit")
 		}
 
 		@objc func act(_ sender: NSButton) {

@@ -40,7 +40,7 @@ extension DSFTouchBar {
 		}
 
 		deinit {
-			Swift.print("DSFTouchBar.Group deinit")
+			Swift.print("DSFTouchBar.Group(\(self.identifierString)) deinit")
 		}
 	}
 }

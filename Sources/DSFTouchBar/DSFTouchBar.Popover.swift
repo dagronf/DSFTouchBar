@@ -61,7 +61,7 @@ extension DSFTouchBar {
 		}
 
 		deinit {
-			Swift.print("DSFTouchBar.Popover deinit")
+			Swift.print("DSFTouchBar.Popover(\(self.identifierString)) deinit")
 		}
 	}
 }

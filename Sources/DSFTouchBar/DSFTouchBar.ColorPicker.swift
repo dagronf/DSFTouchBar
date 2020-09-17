@@ -88,7 +88,7 @@ extension DSFTouchBar {
 		}
 
 		deinit {
-			Swift.print("DSFTouchBar.ColorPicker deinit")
+			Swift.print("DSFTouchBar.ColorPicker(\(self.identifierString)) deinit")
 		}
 
 		@objc public func act(_ colorPicker: Any?) {

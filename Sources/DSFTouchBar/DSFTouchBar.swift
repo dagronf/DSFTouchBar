@@ -9,7 +9,6 @@
 import Cocoa
 
 public class DSFTouchBar: NSObject {
-	private weak var mainBar: NSTouchBar? = nil
 	private let customizationIdentifier: NSTouchBar.CustomizationIdentifier?
 
 	private var items: [DSFTouchBar.Item] = []
@@ -34,19 +33,25 @@ public class DSFTouchBar: NSObject {
 		}
 	}
 
+	// Cleanup handle
+	private var AssociatedObjectHandle: UInt8 = 0
+
 	public func makeTouchBar() -> NSTouchBar? {
 		let mainBar = NSTouchBar()
 		mainBar.delegate = self
 		mainBar.defaultItemIdentifiers = self.defaultIdentifiers
 		mainBar.customizationIdentifier = self.customizationIdentifier
 		mainBar.customizationAllowedItemIdentifiers = self.allowedItemIdentifiers
-		self.mainBar = mainBar
+
+		// Tie the lifecycle of the DSFToolbar object to the lifecycle of the nstoolbar
+		// so that we don't have to manually destroy it
+		objc_setAssociatedObject(mainBar, &AssociatedObjectHandle, self, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+
 		return mainBar
 	}
 
 	deinit {
 		self.destroy()
-		self.mainBar = nil
 		Swift.print("DSFTouchBar deinit")
 	}
 

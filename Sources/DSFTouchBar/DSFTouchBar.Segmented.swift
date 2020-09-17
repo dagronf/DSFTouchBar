@@ -147,7 +147,7 @@ extension DSFTouchBar {
 		}
 
 		deinit {
-			Swift.print("DSFTouchBar.Segmented deinit")
+			Swift.print("DSFTouchBar.Segmented(\(self.identifierString)) deinit")
 		}
 
 		@objc private func act(_ sender: NSSegmentedControl) {
