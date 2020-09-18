@@ -300,7 +300,7 @@ class ViewController: NSViewController {
 	@objc dynamic var enableThing: Bool = false
 
 	override func makeTouchBar() -> NSTouchBar? {
-		let touchbar = DSFTouchBar(
+		let touchbar = DSFTouchBar.Builder(
 			baseIdentifier: NSTouchBarItem.Identifier("com.darrenford.touchbar"),
 			customizationIdentifier: NSTouchBar.CustomizationIdentifier("com.darrenford.touchbar"),
 

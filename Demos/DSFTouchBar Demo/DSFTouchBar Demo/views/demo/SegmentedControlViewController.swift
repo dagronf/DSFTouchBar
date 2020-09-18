@@ -25,14 +25,13 @@ class SegmentedControlViewController: NSViewController {
 			Swift.print("Segment 2 -> \(segmented_2)")
 		}
 	}
-}
 
-extension SegmentedControlViewController {
 	override func makeTouchBar() -> NSTouchBar? {
 		let builder = DSFTouchBar(
 			baseIdentifier: NSTouchBarItem.Identifier("com.darrenford.touchbar.demo.segmented"),
 			customizationIdentifier: NSTouchBar.CustomizationIdentifier("com.darrenford.touchbar.demo.segmented"),
 
+			DSFTouchBar.Text("segment-single").label("Single ->"),
 			DSFTouchBar.Segmented("segmented-1", trackingMode: .selectOne)
 				.add(label: "low", image: NSImage(named: NSImage.touchBarAudioOutputVolumeLowTemplateName))
 				.add(label: "med", image: NSImage(named: NSImage.touchBarAudioOutputVolumeMediumTemplateName))
@@ -41,6 +40,7 @@ extension SegmentedControlViewController {
 
 			DSFTouchBar.Spacer(size: .small),
 
+			DSFTouchBar.Text("segment-multi").label("Multi ->"),
 			DSFTouchBar.Segmented("segmented-2", trackingMode: .selectAny)
 				.add(label: "one")
 				.add(label: "two")

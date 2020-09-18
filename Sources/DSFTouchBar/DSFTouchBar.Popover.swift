@@ -10,7 +10,7 @@ import AppKit
 extension DSFTouchBar {
 	public class Popover: UIElementItemBase {
 
-		private var popoverContent: DSFTouchBar? = nil
+		private var popoverContentBuilder: DSFTouchBar.Builder? = nil
 
 		// Cleanup handle
 		private var AssociatedObjectHandle: UInt8 = 0
@@ -27,10 +27,10 @@ extension DSFTouchBar {
 			self.maker = { [weak self] in
 				guard let `self` = self else { return nil }
 
-				self.popoverContent = nil
+				self.popoverContentBuilder = nil
 
 				let rc = self.baseIdentifier!.rawValue + "." + self.leafIdentifier
-				let pc = DSFTouchBar(baseIdentifier: NSTouchBarItem.Identifier(rc))
+				let pc = DSFTouchBar.Builder(baseIdentifier: NSTouchBarItem.Identifier(rc))
 
 				for item in self._children {
 					pc.add(item: item)
@@ -53,7 +53,7 @@ extension DSFTouchBar {
 				// so that we don't have to manually destroy it
 				objc_setAssociatedObject(tb, &self.AssociatedObjectHandle, pc, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
 
-				self.popoverContent = pc
+				self.popoverContentBuilder = pc
 
 				self._children = []
 
@@ -64,8 +64,8 @@ extension DSFTouchBar {
 		override func destroy() {
 			//self._children.forEach { $0.destroy() }
 
-			self.popoverContent?.destroy()
-			self.popoverContent = nil
+			self.popoverContentBuilder?.destroy()
+			self.popoverContentBuilder = nil
 			super.destroy()
 		}
 
