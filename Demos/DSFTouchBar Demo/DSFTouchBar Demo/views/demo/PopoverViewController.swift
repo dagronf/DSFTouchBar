@@ -27,7 +27,7 @@ class PopoverViewController: NSViewController {
 		// Do view setup here.
 	}
 
-	var popoverContent: DSFTouchBar.Popover {
+	func popoverContent() -> DSFTouchBar.Popover {
 		DSFTouchBar.Popover(
 			"base-popover",
 			collapsedImage: NSImage(named: NSImage.touchBarGetInfoTemplateName)!, [
@@ -45,20 +45,17 @@ class PopoverViewController: NSViewController {
 		)
 	}
 
-	var customTouchBar: DSFTouchBar {
-		DSFTouchBar(
+	override func makeTouchBar() -> NSTouchBar? {
+		let builder = DSFTouchBar.Builder(
 			baseIdentifier: NSTouchBarItem.Identifier("com.darrenford.touchbar.demo.popover"),
 			customizationIdentifier: NSTouchBar.CustomizationIdentifier("com.darrenford.touchbar.demo.popover"),
 			DSFTouchBar.Text("root_text").label("Popover ->"),
 
-			self.popoverContent,
+			self.popoverContent(),
 
 			DSFTouchBar.OtherItemsPlaceholder()
 		)
-	}
-
-	override func makeTouchBar() -> NSTouchBar? {
-		return self.customTouchBar.makeTouchBar()
+		return builder.makeTouchBar()
 	}
 }
 

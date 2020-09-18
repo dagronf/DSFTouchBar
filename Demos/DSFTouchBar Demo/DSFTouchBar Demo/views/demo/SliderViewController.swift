@@ -37,8 +37,8 @@ class SliderViewController: NSViewController {
 		// Do view setup here.
 	}
 
-	lazy var customBar: DSFTouchBar = {
-		DSFTouchBar(
+	var customBar: DSFTouchBar.Builder {
+		DSFTouchBar.Builder(
 			baseIdentifier: NSTouchBarItem.Identifier("com.darrenford.touchbar.demo.slider"),
 			customizationIdentifier: NSTouchBar.CustomizationIdentifier("com.darrenford.touchbar.demo.slider"),
 
@@ -46,7 +46,7 @@ class SliderViewController: NSViewController {
 
 			DSFTouchBar.OtherItemsPlaceholder()
 		)
-	}()
+	}
 
 	override func makeTouchBar() -> NSTouchBar? {
 		return self.customBar.makeTouchBar()

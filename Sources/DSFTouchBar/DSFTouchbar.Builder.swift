@@ -64,12 +64,6 @@ extension DSFTouchBar {
 		/// Add a new item to the toolbar
 		public func add(item: DSFTouchBar.Item) {
 			item.baseIdentifier = self.baseIdentifier
-
-			// Check to make sure that we don't already have a toolbar item with this identifier
-			if let match = self.items.filter({ $0.identifierString == item.identifierString }).first {
-				fatalError("Attempted to add touchbar with matching identifier (\(match.identifierString))")
-			}
-
 			self.items.append(item)
 		}
 

@@ -27,7 +27,7 @@ class TextViewController: NSViewController {
     }
 
 	override func makeTouchBar() -> NSTouchBar? {
-		let builder = DSFTouchBar(
+		let builder = DSFTouchBar.Builder(
 			baseIdentifier: NSTouchBarItem.Identifier("com.darrenford.touchbar.demo.labels"),
 			customizationIdentifier: NSTouchBar.CustomizationIdentifier("com.darrenford.touchbar.demo.labels"),
 

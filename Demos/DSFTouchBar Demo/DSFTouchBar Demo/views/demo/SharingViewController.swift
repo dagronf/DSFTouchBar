@@ -23,7 +23,7 @@ class SharingViewController: NSViewController {
 	}
 
 	override func makeTouchBar() -> NSTouchBar? {
-		let builder = DSFTouchBar(
+		let builder = DSFTouchBar.Builder(
 			baseIdentifier: NSTouchBarItem.Identifier("com.darrenford.touchbar.demo.sharing"),
 			customizationIdentifier: NSTouchBar.CustomizationIdentifier("com.darrenford.touchbar.demo.sharing"),
 

@@ -16,8 +16,8 @@ class ScrollGroupViewController: NSViewController {
         // Do view setup here.
     }
 
-	lazy var customTouchBar: DSFTouchBar = {
-		DSFTouchBar(
+	var customTouchBar: DSFTouchBar.Builder {
+		DSFTouchBar.Builder(
 			baseIdentifier: NSTouchBarItem.Identifier("com.darrenford.touchbar.demo.scrollgroup"),
 			customizationIdentifier: NSTouchBar.CustomizationIdentifier("com.darrenford.touchbar.demo.scrollgroup"),
 
@@ -38,7 +38,7 @@ class ScrollGroupViewController: NSViewController {
 
 			DSFTouchBar.OtherItemsPlaceholder()
 		)
-	}()
+	}
 
 	override func makeTouchBar() -> NSTouchBar? {
 		return self.customTouchBar.makeTouchBar()
