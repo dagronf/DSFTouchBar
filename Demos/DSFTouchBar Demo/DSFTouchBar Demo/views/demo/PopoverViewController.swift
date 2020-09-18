@@ -7,8 +7,6 @@
 
 import Cocoa
 
-import DSFTouchBar
-
 class PopoverViewController: NSViewController {
 
 	@objc dynamic var popoverSliderIntValue: Int = 40

@@ -7,8 +7,6 @@
 
 import Cocoa
 
-import DSFTouchBar
-
 class ButtonsViewController: NSViewController {
 
 	@objc dynamic var enable3: Bool = false

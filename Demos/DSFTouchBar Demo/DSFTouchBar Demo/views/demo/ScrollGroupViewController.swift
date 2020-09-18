@@ -7,8 +7,6 @@
 
 import Cocoa
 
-import DSFTouchBar
-
 class ScrollGroupViewController: NSViewController {
 
     override func viewDidLoad() {

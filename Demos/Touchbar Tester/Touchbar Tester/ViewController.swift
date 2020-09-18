@@ -391,13 +391,12 @@ class ViewController: NSViewController {
 //				},
 
 
-			DSFTouchBar.Group(
-				"Color Groups", equalWidths: true, [
-					self.colorPicker,
-					self.customColorView,
-					self.resetButton,
-					])
-				.customizationLabel("Color Group"),
+			DSFTouchBar.Group("Color-Groups", equalWidths: true, [
+				self.colorPicker,
+				self.customColorView,
+				self.resetButton,
+			])
+			.customizationLabel("Color-Groups"),
 //
 //			self.smallSpacer,
 //

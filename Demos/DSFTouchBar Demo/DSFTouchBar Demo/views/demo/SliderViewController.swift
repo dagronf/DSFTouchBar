@@ -7,8 +7,6 @@
 
 import Cocoa
 
-import DSFTouchBar
-
 class SliderViewController: NSViewController {
 
 	@objc dynamic var showAccessories: Bool = false {

@@ -7,8 +7,6 @@
 
 import Cocoa
 
-import DSFTouchBar
-
 class TextViewController: NSViewController {
 
 	var customBar: DSFTouchBar?

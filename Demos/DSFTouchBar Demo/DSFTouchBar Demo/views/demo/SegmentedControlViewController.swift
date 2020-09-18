@@ -6,7 +6,6 @@
 //
 
 import Cocoa
-import DSFTouchBar
 
 class SegmentedControlViewController: NSViewController {
 	override func viewDidLoad() {

@@ -7,7 +7,6 @@
 
 import Cocoa
 
-import DSFTouchBar
 import DSFSparkline
 
 class SimpleCustomViewViewController: NSViewController {

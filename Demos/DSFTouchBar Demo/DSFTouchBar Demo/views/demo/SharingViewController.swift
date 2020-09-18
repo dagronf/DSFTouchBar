@@ -6,7 +6,6 @@
 //
 
 import Cocoa
-import DSFTouchBar
 
 class SharingViewController: NSViewController {
 
