@@ -8,7 +8,6 @@
 import Cocoa
 
 class TextViewController: NSViewController {
-
 	var customBar: DSFTouchBar?
 
 	@objc dynamic var simpleAttributedString = NSAttributedString(
@@ -19,10 +18,10 @@ class TextViewController: NSViewController {
 		]
 	)
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        // Do view setup here.
-    }
+	override func viewDidLoad() {
+		super.viewDidLoad()
+		// Do view setup here.
+	}
 
 	override func makeTouchBar() -> NSTouchBar? {
 		let builder = DSFTouchBar.Builder(
@@ -31,32 +30,18 @@ class TextViewController: NSViewController {
 
 			// Simple text label
 
-			DSFTouchBar.Text("label-1")
-				.customizationLabel("Static Label Text")
+			DSFTouchBar.Text("label-1", customizationLabel: "Static Label Text")
 				.label("First ->"),
 
 			// Simple attributed text label
 
-			DSFTouchBar.Text("label-2")
-				.customizationLabel("AttributedString with bindings")
+			DSFTouchBar.Text("label-2", customizationLabel: "AttributedString with bindings")
 				.bindAttributedTextLabel(to: self, withKeyPath: #keyPath(simpleAttributedString)),
 
 			DSFTouchBar.OtherItemsPlaceholder()
 		)
 
 		return builder.makeTouchBar()
-	}
-}
-
-extension TextViewController: DemoContentViewController {
-	static func Create() -> NSViewController {
-		return TextViewController()
-	}
-	static func Title() -> String {
-		return "Labels"
-	}
-	func cleanup() {
-		self.touchBar = nil
 	}
 }
 
@@ -67,5 +52,19 @@ extension TextViewController: NSTextFieldDelegate {
 		}
 
 		simpleAttributedString = textField.attributedStringValue
+	}
+}
+
+extension TextViewController: DemoContentViewController {
+	static func Create() -> NSViewController {
+		return TextViewController()
+	}
+
+	static func Title() -> String {
+		return "Labels"
+	}
+
+	func cleanup() {
+		self.touchBar = nil
 	}
 }
