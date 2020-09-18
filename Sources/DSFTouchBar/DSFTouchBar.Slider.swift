@@ -18,11 +18,15 @@ extension DSFTouchBar {
 			return self
 		}
 
+		// MARK: - Slider label
+
 		private var _label: String?
 		public func label(_ label: String) -> Slider {
 			_label = label
 			return self
 		}
+
+		// MARK: - Accessory label (MIN)
 
 		private var _minAccessoryImage: NSImage?
 		@discardableResult public func minimumValueAccessory(image: NSImage?) -> Slider {
@@ -33,6 +37,8 @@ extension DSFTouchBar {
 			return self
 		}
 
+		// MARK: - Accessory label (MAX)
+
 		private var _maxAccessoryImage: NSImage?
 		@discardableResult public func maximumValueAccessory(image: NSImage?) -> Slider {
 			_maxAccessoryImage = image
@@ -42,22 +48,28 @@ extension DSFTouchBar {
 			return self
 		}
 
-		private var bindObserver: Any? = nil
-		private var bindKeyPath: String? = nil
-		public func bindValue(to observable: Any, withKeyPath keyPath: String) -> Slider {
-			self.bindObserver = observable
-			self.bindKeyPath = keyPath
+		// MARK: - Slider Value
+
+		private let _sliderValue = BindableBinding<CGFloat>()
+
+		public func value(_ value: CGFloat) -> Slider {
+			_sliderValue.value = value
 			return self
 		}
+
+		public func bindValue(to observable: AnyObject, withKeyPath keyPath: String) -> Slider {
+			_sliderValue.setup(observable: observable, keyPath: keyPath)
+			return self
+		}
+
+		// MARK: - Initialization and Configuration
 
 		public init(_ leafIdentifier: String, min: CGFloat, max: CGFloat) {
 			assert(min < max)
 			super.init(leafIdentifier: leafIdentifier)
 
 			self.maker = { [weak self] in
-				guard let `self` = self else {
-					return nil
-				}
+				guard let `self` = self else { return nil }
 
 				let tb = NSSliderTouchBarItem(identifier: self.identifier)
 				tb.customizationLabel = self._customizationLabel
@@ -74,16 +86,12 @@ extension DSFTouchBar {
 					tb.maximumValueAccessory = NSSliderAccessory(image: maxImage)
 				}
 
-				if let observer = self.bindObserver,
-					let keyPath = self.bindKeyPath {
-					tb.slider.bind(NSBindingName.value,
-								   to: observer,
-								   withKeyPath: keyPath,
-								   options: nil)
-				}
-
 				// Init the common elements, and call the create callback if needed
 				self.makeCommon(uiElement: tb.slider)
+
+				// Bind the slider value
+
+				self._sliderValue.bind(bindingName: NSBindingName.value, of: tb.slider)
 
 				self.sliderTouchBarItem = tb
 

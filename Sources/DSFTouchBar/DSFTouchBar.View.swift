@@ -24,6 +24,8 @@ extension DSFTouchBar {
 				item.viewController = vc
 				item.customizationLabel = self._customizationLabel
 
+				// Build the common elements
+
 				self.makeCommon(uiElement: vc.view)
 
 				return item

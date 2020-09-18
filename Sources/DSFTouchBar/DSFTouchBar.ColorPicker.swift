@@ -30,12 +30,10 @@ extension DSFTouchBar {
 			_showAlpha = show
 			return self
 		}
-		
-		private weak var bindSelectedColorObserver: AnyObject? = nil
-		private var bindSelectedColorKeyPath: String? = nil
+
+		private let _selectedColor = BindableBinding<NSColor>()
 		public func bindSelectedColor(to observable: AnyObject, withKeyPath keyPath: String) -> ColorPicker {
-			self.bindSelectedColorObserver = observable
-			self.bindSelectedColorKeyPath = keyPath
+			_selectedColor.setup(observable: observable, keyPath: keyPath)
 			return self
 		}
 		
@@ -65,25 +63,26 @@ extension DSFTouchBar {
 				touchbar.showsAlpha = self._showAlpha
 				
 				self.item = touchbar
-				
-				if let observer = self.bindSelectedColorObserver, let keyPath = self.bindSelectedColorKeyPath {
-					self.bind(
-						NSBindingName.ColorPickerSelectedColorBindingName,
-						to: observer,
-						withKeyPath: keyPath,
-						options: [NSBindingOption.continuouslyUpdatesValue : NSNumber(value: true)])
-				}
+
+				// Color observer
+
+				self._selectedColor.bind(
+					bindingName: NSBindingName.ColorPickerSelectedColorBindingName,
+					of: self,
+					checkAvailability: false
+				)
 				
 				return touchbar
 			}
 		}
 
 		override func destroy() {
+
+			self._selectedColor.unbind()
+
 			self._action = nil
 			self.item = nil
-			if let _ = self.bindSelectedColorObserver, let _ = self.bindSelectedColorKeyPath {
-				self.unbind(NSBindingName.ColorPickerSelectedColorBindingName)
-			}
+
 			super.destroy()
 		}
 
@@ -98,7 +97,8 @@ extension DSFTouchBar {
 			}
 			
 			// Pass the changed color value back to our observer if someone is watching
-			if let observer = self.bindSelectedColorObserver, let keyPath = self.bindSelectedColorKeyPath {
+			if let observer = self._selectedColor.bindValueObserver,
+			   let keyPath = self._selectedColor.bindValueKeyPath {
 				observer.setValue(colorpicker.color, forKey: keyPath)
 			}
 			

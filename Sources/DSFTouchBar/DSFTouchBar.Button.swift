@@ -1,6 +1,6 @@
 //
 //  File.swift
-//  
+//
 //
 //  Created by Darren Ford on 2/2/20.
 //
@@ -8,10 +8,8 @@
 import AppKit
 
 extension DSFTouchBar {
-
 	public class Button: UIElementItem<NSButton> {
-
-		//private var _button: NSButton?
+		// private var _button: NSButton?
 
 		private var _type: NSButton.ButtonType = .momentaryLight
 		public func type(_ type: NSButton.ButtonType) -> Button {
@@ -19,6 +17,7 @@ extension DSFTouchBar {
 			return self
 		}
 
+		// MARK: - Attributed Title settings
 
 		private var _attributedTitle: NSAttributedString?
 		public func attributedTitle(_ title: NSAttributedString) -> Button {
@@ -26,22 +25,23 @@ extension DSFTouchBar {
 			return self
 		}
 
-		private var _title: String = "Button"
+		// MARK: - Title settings
+
+		private var _title = BindableBinding<String>()
 		public func title(_ title: String) -> Button {
-			_title = title
+			self._title.value = title
 			if let e = self.embeddedControl() {
 				e.title = title
 			}
 			return self
 		}
 
-		private var bindTitleObserver: AnyObject? = nil
-		private var bindTitleKeyPath: String? = nil
 		public func bindTitle(to observable: AnyObject, withKeyPath keyPath: String) -> Button {
-			self.bindTitleObserver = observable
-			self.bindTitleKeyPath = keyPath
+			self._title.setup(observable: observable, keyPath: keyPath)
 			return self
 		}
+
+		// MARK: - Alternate Title
 
 		private var _alternateTitle: String = ""
 		public func alternateTitle(_ alternateTitle: String) -> Button {
@@ -51,6 +51,8 @@ extension DSFTouchBar {
 			}
 			return self
 		}
+
+		// MARK: - Button image and position
 
 		private var _image: NSImage?
 		private var _imagePosition: NSControl.ImagePosition = .imageLeading
@@ -68,19 +70,20 @@ extension DSFTouchBar {
 			return self
 		}
 
-		private var _color: NSColor?
-		public func color(_ color: NSColor?) -> Button {
-			_color = color
+		// MARK: - Background color settings
+
+		private var _backgroundColor = BindableAttribute<NSColor>()
+		public func backgroundColor(_ value: NSColor?) -> Self {
+			self._backgroundColor.value = value
 			return self
 		}
 
-		private var bindBackgroundColorObserver: AnyObject? = nil
-		private var bindBackgroundColorKeyPath: String? = nil
 		public func bindBackgroundColor(to observable: AnyObject, withKeyPath keyPath: String) -> Button {
-			self.bindBackgroundColorObserver = observable
-			self.bindBackgroundColorKeyPath = keyPath
+			self._backgroundColor.setup(observable: observable, keyPath: keyPath)
 			return self
 		}
+
+		// MARK: - Font Color
 
 		private var _fontColor: NSColor?
 		public func foregroundColor(_ color: NSColor?) -> Button {
@@ -88,22 +91,35 @@ extension DSFTouchBar {
 			return self
 		}
 
+		// MARK: - Action
+
 		private var _action: ((NSControl.StateValue) -> Void)?
 		public func action(_ action: @escaping ((NSControl.StateValue) -> Void)) -> Button {
 			_action = action
 			return self
 		}
 
-		private var bindStateObserver: AnyObject? = nil
-		private var bindStateKeyPath: String? = nil
-		public func bindState(to observable: AnyObject, withKeyPath keyPath: String) -> Button {
-			self.bindStateObserver = observable
-			self.bindStateKeyPath = keyPath
+		// MARK: - State settings
+
+		private let _state = BindableBinding<NSControl.StateValue>()
+		func state(_ value: NSControl.StateValue) -> Self {
+			self._state.value = value
 			return self
 		}
 
+		public func bindState(to observable: AnyObject, withKeyPath keyPath: String) -> Button {
+			self._state.setup(observable: observable, keyPath: keyPath)
+			return self
+		}
+
+		// MARK: - Initializers
+
 		public init(_ leafIdentifier: String, type: NSButton.ButtonType = .momentaryLight) {
 			super.init(leafIdentifier: leafIdentifier)
+
+			let defaultTitle = "Button"
+
+			self._title.value = defaultTitle
 
 			self.maker = { [weak self] in
 				guard let `self` = self else {
@@ -113,13 +129,16 @@ extension DSFTouchBar {
 				let tb = NSCustomTouchBarItem(identifier: self.identifier)
 				tb.customizationLabel = self._customizationLabel
 
-				let button = NSButton(title: self._title, target: self, action: #selector(self.act(_:)))
+				let button = NSButton(
+					title: self._title.value ?? defaultTitle,
+					target: self,
+					action: #selector(self.act(_:)))
 
 				button.translatesAutoresizingMaskIntoConstraints = false
 				button.wantsLayer = true
 				button.image = self._image
 				button.imagePosition = self._imagePosition
-				button.bezelColor = self._color
+				button.bezelColor = self._backgroundColor.value
 				button.setButtonType(type)
 
 				if let att = self._attributedTitle {
@@ -130,70 +149,37 @@ extension DSFTouchBar {
 					let style = NSMutableParagraphStyle()
 					style.alignment = button.alignment
 					let attrs: [NSAttributedString.Key: Any] = [
-						.foregroundColor: fc, .paragraphStyle: style, .font: txtFont as Any
+						.foregroundColor: fc, .paragraphStyle: style, .font: txtFont as Any,
 					]
 					let attrstr = NSAttributedString(string: button.title, attributes: attrs)
 					button.attributedTitle = attrstr
 				}
 
-				// If the button type is not an 'on off' type, then the value binding doesn't
-				// exist for the button.  We need to check first.
-				if button.exposedBindings.contains(NSBindingName.value),
-					let observer = self.bindStateObserver,
-					let keyPath = self.bindStateKeyPath {
-					button.bind(NSBindingName.value,
-								to: observer,
-								withKeyPath: keyPath,
-								options: nil)
-				}
-
-				if button.exposedBindings.contains(NSBindingName.title),
-					let observer = self.bindTitleObserver,
-					let keyPath = self.bindTitleKeyPath {
-					button.bind(NSBindingName.title,
-								to: observer,
-								withKeyPath: keyPath,
-								options: nil)
-				}
-
-				if let observer = self.bindBackgroundColorObserver,
-				   let keyPath = self.bindBackgroundColorKeyPath {
-					observer.addObserver(self, forKeyPath: keyPath, options: [.new], context: nil)
-					// Set the initial value from the binding if we can
-					if let v = observer.value(forKeyPath: keyPath) as? NSColor {
-						button.bezelColor = v
-					}
-				}
-
+				// Build the common elements
 				self.makeCommon(uiElement: button)
+
+				// Bind the state
+				self._state.bind(bindingName: NSBindingName.value, of: button)
+
+				// Bind the title
+				self._title.bind(bindingName: NSBindingName.title, of: button)
+
+				// Background color binding
+				self._backgroundColor.bind { [weak self] newColor in
+					self?.embeddedControl()?.bezelColor = newColor
+				}
+
 				tb.view = button
 
 				return tb
 			}
 		}
 
-		override public func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey: Any]?, context: UnsafeMutableRawPointer?) {
-			if let bindKeyPath = self.bindBackgroundColorKeyPath,
-			   bindKeyPath == keyPath,
-			   let newVal = change?[.newKey] as? NSColor {
-				self.embeddedControl()?.bezelColor = newVal
-			}
-			else {
-				super.observeValue(forKeyPath: keyPath, of: object, change: change, context: context)
-			}
-		}
-
 		override func destroy() {
+			self._title.unbind()
+			self._state.unbind()
+			self._backgroundColor.unbind()
 
-			if let observer = self.bindBackgroundColorObserver,
-			   let keyPath = self.bindBackgroundColorKeyPath {
-				observer.removeObserver(self, forKeyPath: keyPath)
-			}
-
-			self.bindBackgroundColorObserver = nil
-			self.bindBackgroundColorKeyPath = nil
-			self.bindTitleObserver = nil
-			self.bindTitleKeyPath = nil
 			self._action = nil
 
 			if let but = self.embeddedControl() {
@@ -201,9 +187,6 @@ extension DSFTouchBar {
 				but.unbind(NSBindingName.title)
 				self.destroyCommon(uiElement: but)
 			}
-
-			self.bindStateObserver = nil
-			self.bindStateKeyPath = nil
 
 			super.destroy()
 		}
@@ -213,9 +196,11 @@ extension DSFTouchBar {
 		}
 
 		@objc func act(_ sender: NSButton) {
-
-			if _alternateTitle.count > 0 {
-				sender.title = (sender.state == .on) ? self._alternateTitle : self._title
+			// If the button has an alternate title, make sure that we reflect the change in the title binding
+			if let title = self._title.value,
+			   _alternateTitle.count > 0
+			{
+				sender.title = (sender.state == .on) ? self._alternateTitle : title
 			}
 
 			self._action?(sender.state)

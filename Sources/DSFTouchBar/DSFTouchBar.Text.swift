@@ -1,6 +1,6 @@
 //
 //  File.swift
-//  
+//
 //
 //  Created by Darren Ford on 2/2/20.
 //
@@ -8,124 +8,103 @@
 import AppKit
 
 extension DSFTouchBar {
-	
 	public class Text: UIElementItem<NSTextField> {
-		private var _label: String? = "Label"
+		// MARK: - label
+
+		private var _label = BindableBinding<String>()
+
 		public func label(_ label: String) -> Text {
-			_label = label
-			_attributedLabel = nil
+			_label.value = label
+			_attributedLabel.value = nil
 			return self
 		}
 
-		// Label observer
-
-		private var bindObserver: AnyObject? = nil
-		private var bindKeyPath: String? = nil
 		public func bindLabel(to observable: AnyObject, withKeyPath keyPath: String) -> Text {
-			self.bindObserver = observable
-			self.bindKeyPath = keyPath
+			self._label.setup(observable: observable, keyPath: keyPath)
 			return self
 		}
 
-		private var _attributedLabel: NSAttributedString? = nil
+		// MARK: - Attributed label
+
+		private var _attributedLabel = BindableAttribute<NSAttributedString>()
 		public func attributedLabel(_ value: NSAttributedString) -> Text {
-			_attributedLabel = value
-			_label = nil
+			_attributedLabel.value = value
 			return self
 		}
 
-		private var bindAttributedTextLabelObserver: AnyObject? = nil
-		private var bindAttributedTextLabelKeyPath: String? = nil
 		public func bindAttributedTextLabel(to observable: AnyObject, withKeyPath keyPath: String) -> Text {
-			self.bindAttributedTextLabelObserver = observable
-			self.bindAttributedTextLabelKeyPath = keyPath
+			self._attributedLabel.setup(observable: observable, keyPath: keyPath)
 			return self
 		}
 
+		// MARK: - Initialization and Configuration
 
-		public init(_ leafIdentifier: String) {
+		public init(_ leafIdentifier: String, label: String? = nil) {
 			super.init(leafIdentifier: leafIdentifier)
-			
+
+			/// Set the label if specified
+			if let label = label {
+				self._label.value = label
+			}
+
 			self.maker = { [weak self] in
-				guard let `self` = self else {
-					return nil
-				}
-				
-				let tb = NSCustomTouchBarItem(identifier: self.identifier)
-				tb.customizationLabel = self._customizationLabel
-				
-				let field = (self._label != nil) ? NSTextField(labelWithString: self._label!)
-												 : NSTextField(labelWithAttributedString: self._attributedLabel!)
-				field.translatesAutoresizingMaskIntoConstraints = false
-				field.alignment = .center
-				tb.view = field
-
-				// If the plain string value is bound…
-
-				if let observer = self.bindObserver,
-					let keyPath = self.bindKeyPath,
-					field.exposedBindings.contains(NSBindingName.value) {
-					field.bind(NSBindingName.value,
-							   to: observer,
-							   withKeyPath: keyPath,
-							   options: nil)
-
-					// Set the initial value from the binding if we can
-					if let v = observer.value(forKeyPath: keyPath) as? String {
-						field.stringValue = v
-					}
-				}
-
-				// If the attributed string value is bound…
-
-				if let observer = self.bindAttributedTextLabelObserver,
-				   let keyPath = self.bindAttributedTextLabelKeyPath {
-					observer.addObserver(self, forKeyPath: keyPath, options: [.new], context: nil)
-					// Set the initial value from the binding if we can
-					if let v = observer.value(forKeyPath: keyPath) as? NSAttributedString {
-						field.attributedStringValue = v
-					}
-				}
-
-				self.makeCommon(uiElement: field)
-				return tb
+				self?.makeTouchbarItem()
 			}
 		}
 
-		override public func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey: Any]?, context: UnsafeMutableRawPointer?) {
-			if let bindKeyPath = self.bindAttributedTextLabelKeyPath,
-			   bindKeyPath == keyPath,
-			   let newVal = change?[.newKey] as? NSAttributedString {
-				self.embeddedControl()?.attributedStringValue = newVal
+		private func makeTouchbarItem() -> NSTouchBarItem? {
+			let tb = NSCustomTouchBarItem(identifier: self.identifier)
+			tb.customizationLabel = self._customizationLabel
+
+			// If there's an attributed label, use it.  If not, fall back to the base label
+			let field: NSTextField
+			if let attributed = self._attributedLabel.value {
+				field = NSTextField(labelWithAttributedString: attributed)
+			}
+			else if let basicLabel = self._label.value {
+				field = NSTextField(labelWithString: basicLabel)
 			}
 			else {
-				super.observeValue(forKeyPath: keyPath, of: object, change: change, context: context)
+				field = NSTextField(labelWithString: "Label")
 			}
+
+			field.translatesAutoresizingMaskIntoConstraints = false
+			field.alignment = .center
+			tb.view = field
+
+			// Build the common elements
+
+			self.makeCommon(uiElement: field)
+
+			// If the plain string value is bound, bind the field value to the label
+			self._label.bind(bindingName: NSBindingName.value, of: field)
+
+			// If the attributed string value is bound…
+			self._attributedLabel.bind { [weak self] (value) -> (Void) in
+				self?.embeddedControl()?.attributedStringValue = value
+			}
+
+			return tb
 		}
 
 		deinit {
-			Swift.print("DSFTouchBar.Text(\(self.identifierString), \"\(_label ?? "")\") deinit")
+			Swift.print("DSFTouchBar.Text(\(self.identifierString), \"\(_label.value)\") deinit")
 		}
 
 		override func destroy() {
 			if let field = self.embeddedControl() {
 				field.unbind(NSBindingName.value)
 
-				if let observer = self.bindAttributedTextLabelObserver,
-				   let keyPath = self.bindAttributedTextLabelKeyPath {
-					observer.removeObserver(self, forKeyPath: keyPath)
-				}
+				// If there were bindings to the label, remove them
+				self._label.unbind()
 
-				self.bindObserver = nil
-				self.bindKeyPath = nil
+				// If there were bindings to the attributed label, remove them
+				self._attributedLabel.unbind()
 
-				self.bindAttributedTextLabelKeyPath = nil
-				self.bindAttributedTextLabelObserver = nil
-
+				// And destroy the common elements
 				self.destroyCommon(uiElement: field)
 			}
 			super.destroy()
 		}
 	}
-	
 }

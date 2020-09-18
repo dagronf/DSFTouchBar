@@ -43,21 +43,31 @@ extension DSFTouchBar {
 			return self
 		}
 
-		private weak var bindSelectedIndexObserver: AnyObject? = nil
-		private var bindSelectedIndexKeyPath: String? = nil
-		public func bindSelectedIndex(to observable: AnyObject, withKeyPath keyPath: String) -> Segmented {
-			self.bindSelectedIndexObserver = observable
-			self.bindSelectedIndexKeyPath = keyPath
+		// MARK: - Selected Index
+
+		private let _selectedIndex = BindableBinding<Int>()
+		func selectedIndex(_ value: Int) -> Self {
+			self._selectedIndex.value = value
+			return self
+		}
+		public func bindSelectionIndex(to observable: AnyObject, withKeyPath keyPath: String) -> Segmented {
+			self._selectedIndex.setup(observable: observable, keyPath: keyPath)
 			return self
 		}
 
-		private weak var bindSelectionIndexesObserver: AnyObject? = nil
-		private var bindSelectionIndexesKeyPath: String? = nil
-		public func bindSelectionIndexes(to observable: AnyObject, withKeyPath keyPath: String) -> Segmented {
-			self.bindSelectionIndexesObserver = observable
-			self.bindSelectionIndexesKeyPath = keyPath
+		// MARK: - Selected Indexes
+
+		private let _selectedIndexes = BindableBinding<NSSet>()
+		func selectedIndexes(_ value: Set<Int>) -> Self {
+			self._selectedIndexes.value = NSSet(set: value)
 			return self
 		}
+		public func bindSelectionIndexes(to observable: AnyObject, withKeyPath keyPath: String) -> Segmented {
+			self._selectedIndexes.setup(observable: observable, keyPath: keyPath)
+			return self
+		}
+
+		// MARK: - Initializers
 
 		public init(_ leafIdentifier: String, trackingMode: NSSegmentedControl.SwitchTracking = .selectOne ) {
 			super.init(leafIdentifier: leafIdentifier)
@@ -88,33 +98,22 @@ extension DSFTouchBar {
 					segmented.selectedSegmentBezelColor = color
 				}
 
-				// See if we have to bind to the selected index
-				if let observer = self.bindSelectedIndexObserver,
-					let keyPath = self.bindSelectedIndexKeyPath {
-					segmented.bind(
-						NSBindingName.selectedIndex,
-						to: observer,
-						withKeyPath: keyPath,
-						options: nil)
-				}
-
-				// See if we have to bind to the selected indexes (multiple)
-				// For multiple selection, we have to bind the reverse as well, or else we don't get
-				// a two-way binding to the control
-				if let observer = self.bindSelectionIndexesObserver, let keyPath = self.bindSelectionIndexesKeyPath {
-					segmented.bind(
-						NSBindingName.SegmentedControlSelectionIndexes,
-						to: observer,
-						withKeyPath: keyPath,
-						options: [NSBindingOption.continuouslyUpdatesValue : NSNumber(value: true)])
-					observer.bind(
-						NSBindingName(keyPath),
-						to: segmented,
-						withKeyPath: NSBindingName.SegmentedControlSelectionIndexes.rawValue,
-						options: [NSBindingOption.continuouslyUpdatesValue : NSNumber(value: true)])
-				}
+				// Common elements
 
 				self.makeCommon(uiElement: segmented)
+
+				// See if we have to bind to the selected index
+
+				self._selectedIndex.bind(bindingName: NSBindingName.selectedIndex, of: segmented)
+
+				// Multiple selection indexes
+
+				self._selectedIndexes.bind(bindingName: NSBindingName.SegmentedControlSelectionIndexes, of: segmented, checkAvailability: false)
+
+				// For multiple selection, we have to bind the reverse as well, or else we don't get
+				// a two-way binding to the control
+
+				self._selectedIndexes.reverseBind()
 
 				tb.view = segmented
 				return tb
@@ -124,23 +123,10 @@ extension DSFTouchBar {
 		override func destroy() {
 			_action = nil
 
+			self._selectedIndex.unbind()
+			self._selectedIndexes.unbind()
+
 			if let control = self.embeddedControl() {
-
-				if let _ = self.bindSelectedIndexObserver {
-					control.unbind(NSBindingName.selectedIndex)
-					self.bindSelectedIndexObserver = nil
-				}
-
-				if let observer = self.bindSelectionIndexesObserver,
-				   let keyPath = self.bindSelectionIndexesKeyPath {
-					control.unbind(NSBindingName.SegmentedControlSelectionIndexes)
-
-					// Remove the reverse binding
-					observer.unbind(NSBindingName(keyPath))
-
-					self.bindSelectionIndexesObserver = nil
-				}
-
 				self.destroyCommon(uiElement: control)
 			}
 			super.destroy()

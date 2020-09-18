@@ -52,7 +52,7 @@ public class DSFTouchBar: NSObject {
 
 	deinit {
 		self.destroy()
-		Swift.print("DSFTouchBar deinit")
+		Swift.print("DSFTouchBar(\(self.baseIdentifier.rawValue)) deinit")
 	}
 
 	public func add(item: DSFTouchBar.Item) {

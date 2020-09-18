@@ -20,7 +20,7 @@ public extension DSFTouchBar {
 		}
 		private(set) var identifier: NSTouchBarItem.Identifier!
 		var identifierString: String {
-			return self.identifier.rawValue
+			return self.identifier?.rawValue ?? "<dealloced>"
 		}
 
 		init(leafIdentifier: String) {
@@ -69,19 +69,15 @@ public extension DSFTouchBar {
 			return self
 		}
 
-		private var bindVisibilityObserver: Any?
-		private var bindVisibilityKeyPath: String?
-		public func bindVisibility(to observable: Any, withKeyPath keyPath: String) -> Self {
-			self.bindVisibilityObserver = observable
-			self.bindVisibilityKeyPath = keyPath
+		private let _hidden = BindableBinding<Bool>()
+		public func bindIsHidden(to observable: AnyObject, withKeyPath keyPath: String) -> Self {
+			self._hidden.setup(observable: observable, keyPath: keyPath)
 			return self
 		}
 
-		private var bindEnabledObserver: Any?
-		private var bindEnabledKeyPath: String?
-		public func bindEnabled(to observable: Any, withKeyPath keyPath: String) -> Self {
-			self.bindEnabledObserver = observable
-			self.bindEnabledKeyPath = keyPath
+		private let _enabled = BindableBinding<Bool>()
+		public func bindIsEnabled(to observable: AnyObject, withKeyPath keyPath: String) -> Self {
+			self._enabled.setup(observable: observable, keyPath: keyPath)
 			return self
 		}
 
@@ -106,40 +102,24 @@ public extension DSFTouchBar {
 
 			// Enabled
 
-			if uiElement.exposedBindings.contains(NSBindingName.enabled),
-				let observer = self.bindEnabledObserver,
-				let keyPath = self.bindEnabledKeyPath {
-				uiElement.bind(NSBindingName.enabled,
-							   to: observer,
-							   withKeyPath: keyPath,
-							   options: nil)
-			}
+			self._enabled.bind(bindingName: NSBindingName.enabled, of: uiElement)
 
 			// Visibility
 
-			if uiElement.exposedBindings.contains(NSBindingName.visible),
-				let observer = self.bindVisibilityObserver,
-				let keyPath = self.bindVisibilityKeyPath {
-				uiElement.bind(NSBindingName.visible,
-							   to: observer,
-							   withKeyPath: keyPath,
-							   options: nil)
-			}
+			self._hidden.bind(bindingName: NSBindingName.hidden, of: uiElement)
 
-			if let contr = self._onCreate {
-				contr(uiElement)
-			}
+			// If there's a create block, call it
+			self._onCreate?(uiElement)
 		}
 
 		func destroyCommon(uiElement: T) {
-			uiElement.unbind(NSBindingName.enabled)
-			uiElement.unbind(NSBindingName.visible)
-			if let destroyCallback = self._onDestroy {
-				destroyCallback(uiElement)
-			}
+			//uiElement.unbind(NSBindingName.enabled)
+			//uiElement.unbind(NSBindingName.visible)
 
-			self.bindEnabledObserver = nil
-			self.bindVisibilityObserver = nil
+			self._hidden.unbind()
+			self._enabled.unbind()
+
+			self._onDestroy?(uiElement)
 
 			self._onCreate = nil
 			self._onDestroy = nil

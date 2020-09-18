@@ -13,27 +13,17 @@ extension DSFTouchBar {
 
 		// MARK: - Enabled support
 
-		private var bindEnabledObserver: NSObject?
-		private var bindEnabledKeyPath: String?
+		private let _enabled = BindableAttribute<Bool>()
 		public func bindEnabled(to observable: NSObject, withKeyPath keyPath: String) -> SharingServicePicker {
-			self.bindEnabledObserver = observable
-			self.bindEnabledKeyPath = keyPath
+			self._enabled.setup(observable: observable, keyPath: keyPath)
 			return self
 		}
 
 		// MARK: - Title bindings and settings
 
-		private var _title: String?
+		private let _title = BindableAttribute<String>()
 		public func title(_ title: String) -> SharingServicePicker {
-			_title = title
-			return self
-		}
-
-		private var bindTitleObserver: AnyObject?
-		private var bindTitleKeyPath: String?
-		public func bindTitle(to observable: AnyObject, withKeyPath keyPath: String) -> SharingServicePicker {
-			self.bindTitleObserver = observable
-			self.bindTitleKeyPath = keyPath
+			_title.value = title
 			return self
 		}
 
@@ -64,7 +54,7 @@ extension DSFTouchBar {
 		{
 			super.init(leafIdentifier: leafIdentifier)
 
-			self._title = title
+			self._title.value = title
 			self._image = image
 
 			self.maker = { [weak self] in
@@ -80,58 +70,29 @@ extension DSFTouchBar {
 					item.buttonImage = image
 				}
 
-				if let title = self._title {
+				if let title = self._title.value {
 					item.buttonTitle = title
 				}
 
 				// If the user has specified an 'enabled' binding, attach it.
-				if let observer = self.bindEnabledObserver, let keyPath = self.bindEnabledKeyPath {
-					observer.addObserver(self, forKeyPath: keyPath, options: [.new], context: nil)
-
-					// Set the initial value from the bound variable
-					if let v = observer.value(forKeyPath: keyPath), let enabled = v as? Bool {
-						self.sharingServiceItem?.isEnabled = enabled
-					}
+				self._enabled.bind { [weak self] newEnabledState in
+					self?.sharingServiceItem?.isEnabled = newEnabledState
 				}
 
 				// If the user has specified a 'title' binding, attach it.
-				if let observer = self.bindTitleObserver, let keyPath = self.bindTitleKeyPath {
-					observer.addObserver(self, forKeyPath: keyPath, options: [.new], context: nil)
-
-					// Set the initial value from the bound variable
-					if let v = observer.value(forKeyPath: keyPath), let title = v as? String {
-						self.sharingServiceItem?.buttonTitle = title
-					}
+				self._title.bind { [weak self] newTitle in
+					self?.sharingServiceItem?.buttonTitle = newTitle
 				}
 
 				return item
 			}
 		}
 
-		override public func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey: Any]?, context: UnsafeMutableRawPointer?) {
-			if let bindKeyPath = self.bindEnabledKeyPath, bindKeyPath == keyPath,
-			   let newVal = change?[.newKey] as? Bool {
-				self.sharingServiceItem?.isEnabled = newVal
-			}
-			else if let bindKeyPath = self.bindTitleKeyPath, bindKeyPath == keyPath,
-			   let newVal = change?[.newKey] as? String {
-				self.sharingServiceItem?.buttonTitle = newVal
-			}
-			else {
-				super.observeValue(forKeyPath: keyPath, of: object, change: change, context: context)
-			}
-		}
-
 		override func destroy() {
-			if let observer = self.bindEnabledObserver, let keyPath = self.bindEnabledKeyPath {
-				observer.removeObserver(self, forKeyPath: keyPath)
-			}
-			if let observer = self.bindTitleObserver, let keyPath = self.bindTitleKeyPath {
-				observer.removeObserver(self, forKeyPath: keyPath)
-			}
+			self._enabled.unbind()
+			self._title.unbind()
+
 			self.provideItemsBlock = nil
-			self.bindEnabledObserver = nil
-			self.bindTitleObserver = nil
 			self.sharingServiceItem = nil
 			super.destroy()
 		}

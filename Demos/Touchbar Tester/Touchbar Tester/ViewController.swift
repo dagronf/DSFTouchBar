@@ -88,7 +88,7 @@ class ViewController: NSViewController {
 		DSFTouchBar.Button("resetbutton")
 			.customizationLabel("Reset back to defaults")
 			.title("Reset")
-			.color(NSColor.red)
+			.backgroundColor(NSColor.red)
 			.foregroundColor(NSColor.white)
 			.action { [weak self] _ in
 				self?.pickerColor = NSColor.white
@@ -101,14 +101,14 @@ class ViewController: NSViewController {
 			//.width(50)
 	}()
 
-	lazy var segmentedControl: DSFTouchBar.Segmented = {
+	var segmentedControl: DSFTouchBar.Segmented {
 		DSFTouchBar.Segmented("segmented", trackingMode: .selectAny)
 			.customizationLabel("Text Styles")
 			.add(label: "􀅓", image: NSImage(named: NSImage.touchBarAudioOutputVolumeLowTemplateName))
 			.add(label: "􀅔", image: NSImage(named: NSImage.touchBarAudioOutputVolumeMediumTemplateName))
 			.add(label: "􀅕", image: NSImage(named: NSImage.touchBarAudioOutputVolumeHighTemplateName))
 			.bindSelectionIndexes(to: self, withKeyPath: #keyPath(segmented))
-	}()
+	}
 
 	lazy var groupInScrollGroup: DSFTouchBar.ScrollGroup = {
 		DSFTouchBar.ScrollGroup("scroll-group", [
@@ -193,6 +193,7 @@ class ViewController: NSViewController {
 				])
 				.customizationLabel("Yum Yum Container"),
 				DSFTouchBar.Slider("sklider", min: 0.0, max: 1.0)
+					.width(200)
 				.bindValue(to: self, withKeyPath: #keyPath(sliderValue)),
 
 				DSFTouchBar.Button("buuuut")
@@ -274,7 +275,7 @@ class ViewController: NSViewController {
 		sharingAvailable.toggle()
 	}
 
-	@objc var labelTitle: String = "Fish LT"
+	@objc dynamic var labelTitle: String = "Fish LT"
 
 	@objc dynamic var attrt = NSAttributedString(
 		string: "This is a test",
@@ -288,6 +289,16 @@ class ViewController: NSViewController {
 	@objc dynamic var enable3: Bool = false
 	@objc dynamic var backgroundColor3: NSColor = .systemGreen
 
+	@objc dynamic var visibilityThing: Bool = false {
+		didSet {
+			visibilityThingOpposite = !visibilityThing
+		}
+	}
+
+	@objc dynamic var visibilityThingOpposite: Bool = true
+
+	@objc dynamic var enableThing: Bool = false
+
 	override func makeTouchBar() -> NSTouchBar? {
 		let touchbar = DSFTouchBar(
 			baseIdentifier: NSTouchBarItem.Identifier("com.darrenford.touchbar"),
@@ -298,19 +309,46 @@ class ViewController: NSViewController {
 			//			self.asgroup,
 			//			self.scrollGroup,
 
-			// DSFTouchBar.Text("text.3331")
-			// .label("Noodle"),
-			// .attributedLabel(attrt)
-			// .bindAttributedTextLabel(to: self, withKeyPath: #keyPath(attrt)),
-			// .bindLabel(to: self, withKeyPath: #keyPath(labelTitle)),
-			//			DSFTouchBar.Button("text.3332")
-			//				.title("Fish and chips")
-			//				.action { (state) in
-			//					Swift.print("Pressed!")
-			//				},
+//			DSFTouchBar.Text("text.3331")
+//				//.label("Noodle")
+//				.bindLabel(to: self, withKeyPath: #keyPath(labelTitle)),
+//
+//			DSFTouchBar.Button("button-thing")
+//				.title("Bongle!")
+//				.bindIsHidden(to: self, withKeyPath: #keyPath(visibilityThing))
+//				.bindIsEnabled(to: self, withKeyPath: #keyPath(enableThing))
+//				.action { state in
+//					self.labelTitle = state == .on ? "caterpillar" : "noodle"
+//				},
+//
+//			DSFTouchBar.Button("button2-thing")
+//				.title("toggleV")
+//				.action { state in
+//					self.visibilityThing.toggle()
+//				},
+//
+//			DSFTouchBar.Button("button3-thing")
+//				.title("toggleEnabled")
+//				.bindIsEnabled(to: self, withKeyPath: #keyPath(visibilityThingOpposite))
+//				.action { state in
+//					self.enableThing.toggle()
+//				},
+//
+//			self.popover,
 
-			 self.bbbbb,
-						self.scrollGroup,
+//			 DSFTouchBar.Text("text.3331")
+//			 .label("Noodle")
+//			.attributedLabel(attrt)
+//			 .bindAttributedTextLabel(to: self, withKeyPath: #keyPath(attrt)),
+			 //.bindLabel(to: self, withKeyPath: #keyPath(labelTitle)),
+//						DSFTouchBar.Button("text.3332")
+//							.title("Fish and chips")
+//							.action { (state) in
+//								Swift.print("Pressed!")
+//							},
+
+//			 self.bbbbb,
+//						self.scrollGroup,
 
 //			DSFTouchBar.Button("button-1")
 //				.title("1")
@@ -353,23 +391,23 @@ class ViewController: NSViewController {
 //				},
 
 
-//			DSFTouchBar.Group(
-//				"Color Groups", equalWidths: true, [
-//					self.colorPicker,
-//					self.customColorView,
-//					self.resetButton,
-//					])
-//				.customizationLabel("Color Group"),
+			DSFTouchBar.Group(
+				"Color Groups", equalWidths: true, [
+					self.colorPicker,
+					self.customColorView,
+					self.resetButton,
+					])
+				.customizationLabel("Color Group"),
 //
 //			self.smallSpacer,
 //
-//			self.segmentedControl,
+			self.segmentedControl,
 //			self.sparkline,
 //			self.smallSpacer,
 //
-//			self.popover,
+			//self.popover,
 //
-//			self.sharingService,
+			self.sharingService,
 
 
 
