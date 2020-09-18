@@ -69,8 +69,10 @@ extension DSFTouchBar {
 
 		// MARK: - Initializers
 
-		public init(_ leafIdentifier: String, trackingMode: NSSegmentedControl.SwitchTracking = .selectOne ) {
-			super.init(leafIdentifier: leafIdentifier)
+		public init(_ leafIdentifier: String,
+					customizationLabel: String? = nil,
+					trackingMode: NSSegmentedControl.SwitchTracking = .selectOne ) {
+			super.init(leafIdentifier: leafIdentifier, customizationLabel: customizationLabel)
 
 			self.maker = { [weak self] in
 				guard let `self` = self else {

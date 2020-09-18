@@ -29,18 +29,16 @@ class ButtonsViewController: NSViewController {
 
 			// Simple button
 
-			DSFTouchBar.Button("button-1")
+			DSFTouchBar.Button("button-1", customizationLabel: "The first button")
 				.title("1")
-				.customizationLabel("The first button")
 				.action { state in
 					Swift.print("1 pressed - \(state)")
 				},
 
 			// Button with simple static background color
 
-			DSFTouchBar.Button("button-2")
+			DSFTouchBar.Button("button-2", customizationLabel: "The second button")
 				.title("2")
-				.customizationLabel("The second button")
 				.backgroundColor(.brown)
 				.action { state in
 					Swift.print("2 pressed - \(state)")

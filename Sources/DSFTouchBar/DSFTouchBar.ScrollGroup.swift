@@ -14,9 +14,11 @@ extension DSFTouchBar {
 
 		private(set) public var _children: [DSFTouchBar.Item] = []
 
-		public init(_ leafIdentifier: String, _ children: [DSFTouchBar.Item]) {
+		public init(_ leafIdentifier: String,
+					customizationLabel: String? = nil,
+					_ children: [DSFTouchBar.Item]) {
 			self._children = children
-			super.init(leafIdentifier: leafIdentifier)
+			super.init(leafIdentifier: leafIdentifier, customizationLabel: customizationLabel)
 
 			self.maker = { [weak self] in
 				return self?.make()

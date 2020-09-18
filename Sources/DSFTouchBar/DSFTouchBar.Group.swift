@@ -13,10 +13,10 @@ extension DSFTouchBar {
 		private(set) public var _children: [DSFTouchBar.Item] = []
 		private var _equalWidths: Bool = false
 
-		public init(_ leafIdentifier: String, equalWidths: Bool = false, _ children: [DSFTouchBar.Item]) {
+		public init(_ leafIdentifier: String, customizationLabel: String? = nil, equalWidths: Bool = false, _ children: [DSFTouchBar.Item]) {
 			_children = children
 			_equalWidths = equalWidths
-			super.init(leafIdentifier: leafIdentifier)
+			super.init(leafIdentifier: leafIdentifier, customizationLabel: customizationLabel)
 
 			self.maker = { [weak self] in
 				return self?.make()

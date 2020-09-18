@@ -46,13 +46,15 @@ extension DSFTouchBar {
 		/// Create a new sharing button in the toolbar.
 		/// - Parameters:
 		///   - leafIdentifier: The leaf identifier for the share item. Must be unique within the current toolbar
+		///   - customizationLabel: The label to be displayed in the customization panel
 		///   - title: An optional title to be displayed on the share button
 		///   - image: An optional image to be displayed on the share button
 		public init(_ leafIdentifier: String,
+					customizationLabel: String? = nil,
 					title: String? = nil,
 					image: NSImage? = nil)
 		{
-			super.init(leafIdentifier: leafIdentifier)
+			super.init(leafIdentifier: leafIdentifier, customizationLabel: customizationLabel)
 
 			self._title.value = title
 			self._image = image

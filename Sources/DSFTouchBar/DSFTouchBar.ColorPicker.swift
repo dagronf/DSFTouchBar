@@ -46,8 +46,8 @@ extension DSFTouchBar {
 			}
 		}
 		
-		public init(_ leafIdentifier: String) {
-			super.init(leafIdentifier: leafIdentifier)
+		public init(_ leafIdentifier: String, customizationLabel: String? = nil) {
+			super.init(leafIdentifier: leafIdentifier, customizationLabel: customizationLabel)
 			
 			self.maker = { [weak self] in
 				guard let `self` = self else {

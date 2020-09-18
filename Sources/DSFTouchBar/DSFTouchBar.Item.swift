@@ -18,13 +18,25 @@ public extension DSFTouchBar {
 				}
 			}
 		}
+
+		// MARK: TouchBarItem identifier
+
 		private(set) var identifier: NSTouchBarItem.Identifier!
 		var identifierString: String {
 			return self.identifier?.rawValue ?? "<dealloced>"
 		}
 
-		init(leafIdentifier: String) {
+		// MARK: Customization label
+
+		var _customizationLabel: String?
+		public func customizationLabel(_ value: String) -> Self {
+			_customizationLabel = value
+			return self
+		}
+
+		init(leafIdentifier: String, customizationLabel: String? = nil) {
 			self.leafIdentifier = leafIdentifier
+			self._customizationLabel = customizationLabel
 		}
 
 		init(identifier: NSTouchBarItem.Identifier) {
@@ -43,12 +55,6 @@ public extension DSFTouchBar {
 		var _isDefault: Bool = true
 		public func `default`(_ value: Bool) -> Self {
 			_isDefault = value
-			return self
-		}
-
-		var _customizationLabel: String?
-		public func customizationLabel(_ value: String) -> Self {
-			_customizationLabel = value
 			return self
 		}
 	}
@@ -113,8 +119,6 @@ public extension DSFTouchBar {
 		}
 
 		func destroyCommon(uiElement: T) {
-			//uiElement.unbind(NSBindingName.enabled)
-			//uiElement.unbind(NSBindingName.visible)
 
 			self._hidden.unbind()
 			self._enabled.unbind()

@@ -64,9 +64,11 @@ extension DSFTouchBar {
 
 		// MARK: - Initialization and Configuration
 
-		public init(_ leafIdentifier: String, min: CGFloat, max: CGFloat) {
+		public init(_ leafIdentifier: String,
+					customizationLabel: String? = nil,
+					min: CGFloat, max: CGFloat) {
 			assert(min < max)
-			super.init(leafIdentifier: leafIdentifier)
+			super.init(leafIdentifier: leafIdentifier, customizationLabel: customizationLabel)
 
 			self.maker = { [weak self] in
 				guard let `self` = self else { return nil }

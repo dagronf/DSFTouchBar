@@ -61,6 +61,6 @@ extension SliderViewController: DemoContentViewController {
 	}
 
 	func cleanup() {
-		self.customBar.destroy()
+		self.touchBar = nil
 	}
 }

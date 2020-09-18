@@ -114,8 +114,10 @@ extension DSFTouchBar {
 
 		// MARK: - Initializers
 
-		public init(_ leafIdentifier: String, type: NSButton.ButtonType = .momentaryLight) {
-			super.init(leafIdentifier: leafIdentifier)
+		public init(_ leafIdentifier: String,
+					customizationLabel: String? = nil,
+					type: NSButton.ButtonType = .momentaryLight) {
+			super.init(leafIdentifier: leafIdentifier, customizationLabel: customizationLabel)
 
 			let defaultTitle = "Button"
 

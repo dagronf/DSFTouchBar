@@ -13,12 +13,14 @@ extension DSFTouchBar {
 
 		private var _label = BindableBinding<String>()
 
+		/// Set the label for the text object
 		public func label(_ label: String) -> Text {
 			_label.value = label
 			_attributedLabel.value = nil
 			return self
 		}
 
+		/// Bind the label of the text
 		public func bindLabel(to observable: AnyObject, withKeyPath keyPath: String) -> Text {
 			self._label.setup(observable: observable, keyPath: keyPath)
 			return self
@@ -27,6 +29,8 @@ extension DSFTouchBar {
 		// MARK: - Attributed label
 
 		private var _attributedLabel = BindableAttribute<NSAttributedString>()
+
+		/// Set the attributed text for the label
 		public func attributedLabel(_ value: NSAttributedString) -> Text {
 			_attributedLabel.value = value
 			return self
@@ -39,8 +43,10 @@ extension DSFTouchBar {
 
 		// MARK: - Initialization and Configuration
 
-		public init(_ leafIdentifier: String, label: String? = nil) {
-			super.init(leafIdentifier: leafIdentifier)
+		public init(_ leafIdentifier: String,
+					customizationLabel: String? = nil,
+					label: String? = nil) {
+			super.init(leafIdentifier: leafIdentifier, customizationLabel: customizationLabel)
 
 			/// Set the label if specified
 			if let label = label {
