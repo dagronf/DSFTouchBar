@@ -1,0 +1,496 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 52;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		231364A42509B28D00568D2E /* DemoContentContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 231364A32509B28D00568D2E /* DemoContentContainer.swift */; };
+		23179381251453C1008E17D3 /* DSFLabelledTextField in Frameworks */ = {isa = PBXBuildFile; productRef = 23179380251453C1008E17D3 /* DSFLabelledTextField */; };
+		233750DD25138393006E6171 /* SharingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 233750DB25138393006E6171 /* SharingViewController.swift */; };
+		233750DE25138393006E6171 /* SharingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 233750DC25138393006E6171 /* SharingViewController.xib */; };
+		234511272506FBA3006363CC /* TextViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 234511252506FBA3006363CC /* TextViewController.swift */; };
+		234511282506FBA3006363CC /* TextViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 234511262506FBA3006363CC /* TextViewController.xib */; };
+		2345112B25070712006363CC /* SliderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2345112925070712006363CC /* SliderViewController.swift */; };
+		2345112C25070712006363CC /* SliderViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2345112A25070712006363CC /* SliderViewController.xib */; };
+		23550E722508AA4A003DAB46 /* SegmentedControlViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23550E702508AA4A003DAB46 /* SegmentedControlViewController.swift */; };
+		23550E732508AA4A003DAB46 /* SegmentedControlViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 23550E712508AA4A003DAB46 /* SegmentedControlViewController.xib */; };
+		23550E762508AFEC003DAB46 /* DSFSparkline in Frameworks */ = {isa = PBXBuildFile; productRef = 23550E752508AFEC003DAB46 /* DSFSparkline */; };
+		23550E792508B005003DAB46 /* SimpleCustomViewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23550E772508B005003DAB46 /* SimpleCustomViewViewController.swift */; };
+		23550E7A2508B005003DAB46 /* SimpleCustomViewViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 23550E782508B005003DAB46 /* SimpleCustomViewViewController.xib */; };
+		235870182506125700E170B0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 235870172506125700E170B0 /* AppDelegate.swift */; };
+		2358701A2506125700E170B0 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 235870192506125700E170B0 /* ViewController.swift */; };
+		2358701C2506125800E170B0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2358701B2506125800E170B0 /* Assets.xcassets */; };
+		2358701F2506125800E170B0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2358701D2506125800E170B0 /* Main.storyboard */; };
+		2358702A2506132E00E170B0 /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 235870282506132E00E170B0 /* ListViewController.swift */; };
+		2358702D250614A500E170B0 /* DemoContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2358702C250614A500E170B0 /* DemoContainerViewController.swift */; };
+		235870312506156E00E170B0 /* ButtonsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2358702F2506156E00E170B0 /* ButtonsViewController.swift */; };
+		235870322506156E00E170B0 /* ButtonsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 235870302506156E00E170B0 /* ButtonsViewController.xib */; };
+		235870352506195A00E170B0 /* DSFTouchBar in Frameworks */ = {isa = PBXBuildFile; productRef = 235870342506195A00E170B0 /* DSFTouchBar */; };
+		235892BB250ADD9D001BA2EE /* ScrollGroupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 235892B9250ADD9D001BA2EE /* ScrollGroupViewController.swift */; };
+		235892BC250ADD9D001BA2EE /* ScrollGroupViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 235892BA250ADD9D001BA2EE /* ScrollGroupViewController.xib */; };
+		235892BF250AE8A8001BA2EE /* PopoverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 235892BD250AE8A8001BA2EE /* PopoverViewController.swift */; };
+		235892C0250AE8A8001BA2EE /* PopoverViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 235892BE250AE8A8001BA2EE /* PopoverViewController.xib */; };
+		23AB4FA825087A81006A7380 /* ColorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23AB4FA625087A81006A7380 /* ColorViewController.swift */; };
+		23AB4FA925087A81006A7380 /* ColorViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 23AB4FA725087A81006A7380 /* ColorViewController.xib */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		231364A32509B28D00568D2E /* DemoContentContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoContentContainer.swift; sourceTree = "<group>"; };
+		233750DB25138393006E6171 /* SharingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharingViewController.swift; sourceTree = "<group>"; };
+		233750DC25138393006E6171 /* SharingViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SharingViewController.xib; sourceTree = "<group>"; };
+		234511252506FBA3006363CC /* TextViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextViewController.swift; sourceTree = "<group>"; };
+		234511262506FBA3006363CC /* TextViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TextViewController.xib; sourceTree = "<group>"; };
+		2345112925070712006363CC /* SliderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SliderViewController.swift; sourceTree = "<group>"; };
+		2345112A25070712006363CC /* SliderViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SliderViewController.xib; sourceTree = "<group>"; };
+		23550E702508AA4A003DAB46 /* SegmentedControlViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentedControlViewController.swift; sourceTree = "<group>"; };
+		23550E712508AA4A003DAB46 /* SegmentedControlViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SegmentedControlViewController.xib; sourceTree = "<group>"; };
+		23550E772508B005003DAB46 /* SimpleCustomViewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleCustomViewViewController.swift; sourceTree = "<group>"; };
+		23550E782508B005003DAB46 /* SimpleCustomViewViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SimpleCustomViewViewController.xib; sourceTree = "<group>"; };
+		235870142506125700E170B0 /* DSFTouchBar Demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "DSFTouchBar Demo.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		235870172506125700E170B0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		235870192506125700E170B0 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		2358701B2506125800E170B0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		2358701E2506125800E170B0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		235870202506125800E170B0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		235870212506125800E170B0 /* DSFTouchBar_Demo.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = DSFTouchBar_Demo.entitlements; sourceTree = "<group>"; };
+		235870282506132E00E170B0 /* ListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewController.swift; sourceTree = "<group>"; };
+		2358702C250614A500E170B0 /* DemoContainerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoContainerViewController.swift; sourceTree = "<group>"; };
+		2358702F2506156E00E170B0 /* ButtonsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonsViewController.swift; sourceTree = "<group>"; };
+		235870302506156E00E170B0 /* ButtonsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ButtonsViewController.xib; sourceTree = "<group>"; };
+		235892B9250ADD9D001BA2EE /* ScrollGroupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollGroupViewController.swift; sourceTree = "<group>"; };
+		235892BA250ADD9D001BA2EE /* ScrollGroupViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ScrollGroupViewController.xib; sourceTree = "<group>"; };
+		235892BD250AE8A8001BA2EE /* PopoverViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopoverViewController.swift; sourceTree = "<group>"; };
+		235892BE250AE8A8001BA2EE /* PopoverViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PopoverViewController.xib; sourceTree = "<group>"; };
+		23AB4FA625087A81006A7380 /* ColorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorViewController.swift; sourceTree = "<group>"; };
+		23AB4FA725087A81006A7380 /* ColorViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ColorViewController.xib; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		235870112506125700E170B0 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				23550E762508AFEC003DAB46 /* DSFSparkline in Frameworks */,
+				23179381251453C1008E17D3 /* DSFLabelledTextField in Frameworks */,
+				235870352506195A00E170B0 /* DSFTouchBar in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		2358700B2506125700E170B0 = {
+			isa = PBXGroup;
+			children = (
+				235870162506125700E170B0 /* DSFTouchBar Demo */,
+				235870152506125700E170B0 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		235870152506125700E170B0 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				235870142506125700E170B0 /* DSFTouchBar Demo.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		235870162506125700E170B0 /* DSFTouchBar Demo */ = {
+			isa = PBXGroup;
+			children = (
+				235870272506130F00E170B0 /* views */,
+				235870172506125700E170B0 /* AppDelegate.swift */,
+				235870192506125700E170B0 /* ViewController.swift */,
+				2358701B2506125800E170B0 /* Assets.xcassets */,
+				2358701D2506125800E170B0 /* Main.storyboard */,
+				235870202506125800E170B0 /* Info.plist */,
+				235870212506125800E170B0 /* DSFTouchBar_Demo.entitlements */,
+			);
+			path = "DSFTouchBar Demo";
+			sourceTree = "<group>";
+		};
+		235870272506130F00E170B0 /* views */ = {
+			isa = PBXGroup;
+			children = (
+				2358702E2506155500E170B0 /* demo */,
+				235870282506132E00E170B0 /* ListViewController.swift */,
+				2358702C250614A500E170B0 /* DemoContainerViewController.swift */,
+				231364A32509B28D00568D2E /* DemoContentContainer.swift */,
+			);
+			path = views;
+			sourceTree = "<group>";
+		};
+		2358702E2506155500E170B0 /* demo */ = {
+			isa = PBXGroup;
+			children = (
+				2358702F2506156E00E170B0 /* ButtonsViewController.swift */,
+				235870302506156E00E170B0 /* ButtonsViewController.xib */,
+				234511252506FBA3006363CC /* TextViewController.swift */,
+				234511262506FBA3006363CC /* TextViewController.xib */,
+				2345112925070712006363CC /* SliderViewController.swift */,
+				2345112A25070712006363CC /* SliderViewController.xib */,
+				23AB4FA625087A81006A7380 /* ColorViewController.swift */,
+				23AB4FA725087A81006A7380 /* ColorViewController.xib */,
+				23550E702508AA4A003DAB46 /* SegmentedControlViewController.swift */,
+				23550E712508AA4A003DAB46 /* SegmentedControlViewController.xib */,
+				23550E772508B005003DAB46 /* SimpleCustomViewViewController.swift */,
+				23550E782508B005003DAB46 /* SimpleCustomViewViewController.xib */,
+				235892B9250ADD9D001BA2EE /* ScrollGroupViewController.swift */,
+				235892BA250ADD9D001BA2EE /* ScrollGroupViewController.xib */,
+				235892BD250AE8A8001BA2EE /* PopoverViewController.swift */,
+				235892BE250AE8A8001BA2EE /* PopoverViewController.xib */,
+				233750DB25138393006E6171 /* SharingViewController.swift */,
+				233750DC25138393006E6171 /* SharingViewController.xib */,
+			);
+			path = demo;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		235870132506125700E170B0 /* DSFTouchBar Demo */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 235870242506125800E170B0 /* Build configuration list for PBXNativeTarget "DSFTouchBar Demo" */;
+			buildPhases = (
+				235870102506125700E170B0 /* Sources */,
+				235870112506125700E170B0 /* Frameworks */,
+				235870122506125700E170B0 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "DSFTouchBar Demo";
+			packageProductDependencies = (
+				235870342506195A00E170B0 /* DSFTouchBar */,
+				23550E752508AFEC003DAB46 /* DSFSparkline */,
+				23179380251453C1008E17D3 /* DSFLabelledTextField */,
+			);
+			productName = "DSFTouchBar Demo";
+			productReference = 235870142506125700E170B0 /* DSFTouchBar Demo.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		2358700C2506125700E170B0 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1200;
+				LastUpgradeCheck = 1200;
+				TargetAttributes = {
+					235870132506125700E170B0 = {
+						CreatedOnToolsVersion = 12.0;
+					};
+				};
+			};
+			buildConfigurationList = 2358700F2506125700E170B0 /* Build configuration list for PBXProject "DSFTouchBar Demo" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 2358700B2506125700E170B0;
+			packageReferences = (
+				235870332506195A00E170B0 /* XCRemoteSwiftPackageReference "DSFTouchBar" */,
+				23550E742508AFEC003DAB46 /* XCRemoteSwiftPackageReference "DSFSparkline" */,
+				2317937F251453C1008E17D3 /* XCRemoteSwiftPackageReference "DSFLabelledTextField" */,
+			);
+			productRefGroup = 235870152506125700E170B0 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				235870132506125700E170B0 /* DSFTouchBar Demo */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		235870122506125700E170B0 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				233750DE25138393006E6171 /* SharingViewController.xib in Resources */,
+				2358701C2506125800E170B0 /* Assets.xcassets in Resources */,
+				23550E732508AA4A003DAB46 /* SegmentedControlViewController.xib in Resources */,
+				23550E7A2508B005003DAB46 /* SimpleCustomViewViewController.xib in Resources */,
+				235892BC250ADD9D001BA2EE /* ScrollGroupViewController.xib in Resources */,
+				235892C0250AE8A8001BA2EE /* PopoverViewController.xib in Resources */,
+				235870322506156E00E170B0 /* ButtonsViewController.xib in Resources */,
+				23AB4FA925087A81006A7380 /* ColorViewController.xib in Resources */,
+				2345112C25070712006363CC /* SliderViewController.xib in Resources */,
+				2358701F2506125800E170B0 /* Main.storyboard in Resources */,
+				234511282506FBA3006363CC /* TextViewController.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		235870102506125700E170B0 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2358701A2506125700E170B0 /* ViewController.swift in Sources */,
+				235892BF250AE8A8001BA2EE /* PopoverViewController.swift in Sources */,
+				2345112B25070712006363CC /* SliderViewController.swift in Sources */,
+				23550E722508AA4A003DAB46 /* SegmentedControlViewController.swift in Sources */,
+				235892BB250ADD9D001BA2EE /* ScrollGroupViewController.swift in Sources */,
+				2358702D250614A500E170B0 /* DemoContainerViewController.swift in Sources */,
+				235870312506156E00E170B0 /* ButtonsViewController.swift in Sources */,
+				235870182506125700E170B0 /* AppDelegate.swift in Sources */,
+				23550E792508B005003DAB46 /* SimpleCustomViewViewController.swift in Sources */,
+				231364A42509B28D00568D2E /* DemoContentContainer.swift in Sources */,
+				2358702A2506132E00E170B0 /* ListViewController.swift in Sources */,
+				23AB4FA825087A81006A7380 /* ColorViewController.swift in Sources */,
+				234511272506FBA3006363CC /* TextViewController.swift in Sources */,
+				233750DD25138393006E6171 /* SharingViewController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		2358701D2506125800E170B0 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				2358701E2506125800E170B0 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		235870222506125800E170B0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		235870232506125800E170B0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+			};
+			name = Release;
+		};
+		235870252506125800E170B0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "DSFTouchBar Demo/DSFTouchBar_Demo.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = 3L6RK3LGGW;
+				ENABLE_HARDENED_RUNTIME = YES;
+				INFOPLIST_FILE = "DSFTouchBar Demo/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.darrenford.DSFTouchBar-Demo";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		235870262506125800E170B0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "DSFTouchBar Demo/DSFTouchBar_Demo.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = 3L6RK3LGGW;
+				ENABLE_HARDENED_RUNTIME = YES;
+				INFOPLIST_FILE = "DSFTouchBar Demo/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.darrenford.DSFTouchBar-Demo";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		2358700F2506125700E170B0 /* Build configuration list for PBXProject "DSFTouchBar Demo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				235870222506125800E170B0 /* Debug */,
+				235870232506125800E170B0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		235870242506125800E170B0 /* Build configuration list for PBXNativeTarget "DSFTouchBar Demo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				235870252506125800E170B0 /* Debug */,
+				235870262506125800E170B0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		2317937F251453C1008E17D3 /* XCRemoteSwiftPackageReference "DSFLabelledTextField" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/dagronf/DSFLabelledTextField.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.1;
+			};
+		};
+		23550E742508AFEC003DAB46 /* XCRemoteSwiftPackageReference "DSFSparkline" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/dagronf/DSFSparkline/";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+		235870332506195A00E170B0 /* XCRemoteSwiftPackageReference "DSFTouchBar" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/dagronf/DSFTouchBar.git";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		23179380251453C1008E17D3 /* DSFLabelledTextField */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2317937F251453C1008E17D3 /* XCRemoteSwiftPackageReference "DSFLabelledTextField" */;
+			productName = DSFLabelledTextField;
+		};
+		23550E752508AFEC003DAB46 /* DSFSparkline */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 23550E742508AFEC003DAB46 /* XCRemoteSwiftPackageReference "DSFSparkline" */;
+			productName = DSFSparkline;
+		};
+		235870342506195A00E170B0 /* DSFTouchBar */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 235870332506195A00E170B0 /* XCRemoteSwiftPackageReference "DSFTouchBar" */;
+			productName = DSFTouchBar;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = 2358700C2506125700E170B0 /* Project object */;
+}

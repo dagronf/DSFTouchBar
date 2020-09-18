@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="17132" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+    <dependencies>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17132"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="ButtonsViewController" customModule="DSFTouchBar_Demo" customModuleProvider="target">
+            <connections>
+                <outlet property="view" destination="Hz6-mo-xeY" id="0bl-1N-x8E"/>
+            </connections>
+        </customObject>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <customView translatesAutoresizingMaskIntoConstraints="NO" id="Hz6-mo-xeY">
+            <rect key="frame" x="0.0" y="0.0" width="480" height="272"/>
+            <subviews>
+                <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="sU4-rP-drP">
+                    <rect key="frame" x="18" y="236" width="119" height="18"/>
+                    <buttonCell key="cell" type="check" title="Enable Button 3" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="6jx-jH-uJy">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <binding destination="-2" name="value" keyPath="self.enable3" id="eFv-ih-OE9"/>
+                    </connections>
+                </button>
+            </subviews>
+            <constraints>
+                <constraint firstItem="sU4-rP-drP" firstAttribute="top" secondItem="Hz6-mo-xeY" secondAttribute="top" constant="20" symbolic="YES" id="7f3-a6-XbF"/>
+                <constraint firstItem="sU4-rP-drP" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" constant="20" symbolic="YES" id="umP-Ow-HD4"/>
+            </constraints>
+            <point key="canvasLocation" x="-146" y="154"/>
+        </customView>
+        <userDefaultsController representsSharedInstance="YES" id="zQh-WP-mrF"/>
+    </objects>
+</document>

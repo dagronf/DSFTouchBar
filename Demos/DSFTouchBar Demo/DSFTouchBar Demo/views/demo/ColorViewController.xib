@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="17132" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+    <dependencies>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17132"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="ColorViewController" customModule="DSFTouchBar_Demo" customModuleProvider="target">
+            <connections>
+                <outlet property="view" destination="Hz6-mo-xeY" id="0bl-1N-x8E"/>
+            </connections>
+        </customObject>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <customView translatesAutoresizingMaskIntoConstraints="NO" id="Hz6-mo-xeY">
+            <rect key="frame" x="0.0" y="0.0" width="480" height="272"/>
+            <subviews>
+                <colorWell translatesAutoresizingMaskIntoConstraints="NO" id="z2S-51-jcA">
+                    <rect key="frame" x="195" y="106" width="91" height="60"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="60" id="ViM-uq-1h8"/>
+                        <constraint firstAttribute="width" constant="91" id="udJ-Rn-hfb"/>
+                    </constraints>
+                    <color key="color" red="0.05813049898" green="0.055541899059999997" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    <connections>
+                        <binding destination="-2" name="value" keyPath="self.selectedColor" id="Ztx-H1-TH2"/>
+                    </connections>
+                </colorWell>
+            </subviews>
+            <constraints>
+                <constraint firstItem="z2S-51-jcA" firstAttribute="centerX" secondItem="Hz6-mo-xeY" secondAttribute="centerX" id="HTJ-D1-vbO"/>
+                <constraint firstItem="z2S-51-jcA" firstAttribute="centerY" secondItem="Hz6-mo-xeY" secondAttribute="centerY" id="c02-PT-q97"/>
+            </constraints>
+            <point key="canvasLocation" x="17" y="154"/>
+        </customView>
+        <userDefaultsController representsSharedInstance="YES" id="nmL-Zd-Pid"/>
+    </objects>
+</document>
