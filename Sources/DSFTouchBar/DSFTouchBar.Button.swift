@@ -124,7 +124,7 @@ extension DSFTouchBar {
 
 			self._title.value = defaultTitle
 
-			self.maker = { [weak self] in
+			self.itemBuilder = { [weak self] in
 				guard let `self` = self else {
 					return nil
 				}

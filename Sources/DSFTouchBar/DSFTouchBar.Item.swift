@@ -44,11 +44,11 @@ public extension DSFTouchBar {
 		}
 
 		func destroy() {
-			self.maker = nil
+			self.itemBuilder = nil
 		}
 
 		/// The block used to create the specific touchbar item
-		var maker: (() -> NSTouchBarItem?)?
+		var itemBuilder: (() -> NSTouchBarItem?)?
 	}
 
 	class UIElementItemBase: Item {

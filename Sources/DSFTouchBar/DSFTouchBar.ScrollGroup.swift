@@ -20,12 +20,12 @@ extension DSFTouchBar {
 			self._children = children
 			super.init(leafIdentifier: leafIdentifier, customizationLabel: customizationLabel)
 
-			self.maker = { [weak self] in
-				return self?.make()
+			self.itemBuilder = { [weak self] in
+				return self?.buildItem()
 			}
 		}
 
-		func make() -> NSCustomTouchBarItem {
+		func buildItem() -> NSCustomTouchBarItem {
 
 			self._children.forEach { $0.baseIdentifier = self.baseIdentifier }
 
@@ -54,7 +54,7 @@ extension DSFTouchBar {
 								metrics: nil, views: ["item": v]))
 
 			self._children.forEach { child in
-				if let item = child.maker?() {
+				if let item = child.itemBuilder?() {
 					guard let view = item.view else {
 						Swift.print("Cannot embed '\(item.identifier.rawValue)' inside scrollgroup '\(self.identifier.rawValue)'")
 						return

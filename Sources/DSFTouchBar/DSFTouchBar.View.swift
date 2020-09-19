@@ -16,7 +16,7 @@ extension DSFTouchBar {
 			self.viewController = viewController
 			super.init(leafIdentifier: leafIdentifier)
 
-			self.maker = { [weak self] in
+			self.itemBuilder = { [weak self] in
 				guard let `self` = self,
 					  let vc = self.viewController else { return nil }
 

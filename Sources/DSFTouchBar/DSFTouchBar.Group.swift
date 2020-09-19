@@ -18,15 +18,15 @@ extension DSFTouchBar {
 			_equalWidths = equalWidths
 			super.init(leafIdentifier: leafIdentifier, customizationLabel: customizationLabel)
 
-			self.maker = { [weak self] in
-				return self?.make()
+			self.itemBuilder = { [weak self] in
+				return self?.buildItem()
 			}
 		}
 
-		private func make() -> NSTouchBarItem {
+		private func buildItem() -> NSTouchBarItem {
 			self._children.forEach { $0.baseIdentifier = self.baseIdentifier }
 
-			let groupItems = self._children.compactMap { $0.maker?() }
+			let groupItems = self._children.compactMap { $0.itemBuilder?() }
 			let tb = NSGroupTouchBarItem(identifier: self.identifier, items: groupItems)
 			tb.customizationLabel = self._customizationLabel
 			tb.prefersEqualWidths = self._equalWidths

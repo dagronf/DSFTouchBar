@@ -97,7 +97,7 @@ extension DSFTouchBar.Builder {
 extension DSFTouchBar.Builder: NSTouchBarDelegate {
 	public func touchBar(_: NSTouchBar, makeItemForIdentifier identifier: NSTouchBarItem.Identifier) -> NSTouchBarItem? {
 		guard let item = self.item(for: identifier),
-			  let makerBlock = item.maker else {
+			  let makerBlock = item.itemBuilder else {
 			return nil
 		}
 		return makerBlock()

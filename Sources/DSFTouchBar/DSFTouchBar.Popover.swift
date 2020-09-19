@@ -22,7 +22,7 @@ extension DSFTouchBar {
 			_children = children
 			super.init(leafIdentifier: leafIdentifier)
 
-			self.maker = { [weak self] in
+			self.itemBuilder = { [weak self] in
 				guard let `self` = self else { return nil }
 
 				self.popoverContentBuilder = nil

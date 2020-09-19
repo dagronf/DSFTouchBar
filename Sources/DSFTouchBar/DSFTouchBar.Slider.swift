@@ -70,7 +70,7 @@ extension DSFTouchBar {
 			assert(min < max)
 			super.init(leafIdentifier: leafIdentifier, customizationLabel: customizationLabel)
 
-			self.maker = { [weak self] in
+			self.itemBuilder = { [weak self] in
 				guard let `self` = self else { return nil }
 
 				let tb = NSSliderTouchBarItem(identifier: self.identifier)
@@ -92,7 +92,6 @@ extension DSFTouchBar {
 				self.makeCommon(uiElement: tb.slider)
 
 				// Bind the slider value
-
 				self._sliderValue.bind(bindingName: NSBindingName.value, of: tb.slider)
 
 				self.sliderTouchBarItem = tb

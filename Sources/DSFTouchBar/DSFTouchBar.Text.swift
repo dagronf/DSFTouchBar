@@ -53,7 +53,7 @@ extension DSFTouchBar {
 				self._label.value = label
 			}
 
-			self.maker = { [weak self] in
+			self.itemBuilder = { [weak self] in
 				self?.makeTouchbarItem()
 			}
 		}
