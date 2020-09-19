@@ -64,7 +64,11 @@ class ViewController: NSViewController {
 
 	}
 
-	@objc dynamic var bbbbState: NSButton.StateValue = .off
+	@objc dynamic var bbbbState: NSButton.StateValue = .on {
+		didSet {
+			Swift.print("bbbbState change")
+		}
+	}
 
 	lazy var bbbbb: DSFTouchBar.Button = {
 		DSFTouchBar.Button("bbgbuttons")
@@ -347,7 +351,7 @@ class ViewController: NSViewController {
 //								Swift.print("Pressed!")
 //							},
 
-//			 self.bbbbb,
+			 self.bbbbb,
 //						self.scrollGroup,
 
 //			DSFTouchBar.Button("button-1")
@@ -391,16 +395,16 @@ class ViewController: NSViewController {
 //				},
 
 
-			DSFTouchBar.Group("Color-Groups", equalWidths: true, [
-				self.colorPicker,
-				self.customColorView,
-				self.resetButton,
-			])
-			.customizationLabel("Color-Groups"),
+//			DSFTouchBar.Group("Color-Groups", equalWidths: true, [
+//				self.colorPicker,
+//				self.customColorView,
+//				self.resetButton,
+//			])
+//			.customizationLabel("Color-Groups"),
 //
 //			self.smallSpacer,
 //
-			self.segmentedControl,
+			//self.segmentedControl,
 //			self.sparkline,
 //			self.smallSpacer,
 //

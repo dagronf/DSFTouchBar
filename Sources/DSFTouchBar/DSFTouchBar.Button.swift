@@ -101,7 +101,7 @@ extension DSFTouchBar {
 
 		// MARK: - State settings
 
-		private let _state = BindableBinding<NSControl.StateValue>()
+		private let _state = BindableAttribute<NSControl.StateValue>()
 		func state(_ value: NSControl.StateValue) -> Self {
 			self._state.value = value
 			return self
@@ -116,7 +116,8 @@ extension DSFTouchBar {
 
 		public init(_ leafIdentifier: String,
 					customizationLabel: String? = nil,
-					type: NSButton.ButtonType = .momentaryLight) {
+					type: NSButton.ButtonType = .momentaryLight)
+		{
 			super.init(leafIdentifier: leafIdentifier, customizationLabel: customizationLabel)
 
 			let defaultTitle = "Button"
@@ -134,7 +135,8 @@ extension DSFTouchBar {
 				let button = NSButton(
 					title: self._title.value ?? defaultTitle,
 					target: self,
-					action: #selector(self.act(_:)))
+					action: #selector(self.act(_:))
+				)
 
 				button.translatesAutoresizingMaskIntoConstraints = false
 				button.wantsLayer = true
@@ -160,13 +162,26 @@ extension DSFTouchBar {
 				// Build the common elements
 				self.makeCommon(uiElement: button)
 
-				// Bind the state
-				self._state.bind(bindingName: NSBindingName.value, of: button)
+				// Bind the button state
+
+				self._state.bind { [weak self] newState in
+					guard let `self` = self,
+						  let button = self.embeddedControl() else { return }
+					button.state = newState
+
+					if button.alternateTitle.count > 0 {
+						button.title = (button.state == .on)
+							? self._alternateTitle
+							: self._title.value ?? "Button"
+					}
+				}
 
 				// Bind the title
+
 				self._title.bind(bindingName: NSBindingName.title, of: button)
 
 				// Background color binding
+
 				self._backgroundColor.bind { [weak self] newColor in
 					self?.embeddedControl()?.bezelColor = newColor
 				}
@@ -203,6 +218,13 @@ extension DSFTouchBar {
 			   _alternateTitle.count > 0
 			{
 				sender.title = (sender.state == .on) ? self._alternateTitle : title
+			}
+
+			/// If we have a state observer, notify that it has changed
+			if let observer = self._state.bindValueObserver,
+			   let keyPath = self._state.bindValueKeyPath
+			{
+				observer.setValue(sender.state, forKey: keyPath)
 			}
 
 			self._action?(sender.state)

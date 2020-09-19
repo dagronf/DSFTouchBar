@@ -1,7 +1,6 @@
 //
-//  File.swift
+//  DSFTouchBar.Item.swift
 //  
-//
 //  Created by Darren Ford on 2/2/20.
 //
 
@@ -48,6 +47,7 @@ public extension DSFTouchBar {
 			self.maker = nil
 		}
 
+		/// The block used to create the specific touchbar item
 		var maker: (() -> NSTouchBarItem?)?
 	}
 

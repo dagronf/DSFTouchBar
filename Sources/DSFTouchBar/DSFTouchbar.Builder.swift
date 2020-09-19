@@ -7,6 +7,9 @@
 
 import Cocoa
 
+// Cleanup handle
+private var DSFTouchBarBuilderAssociatedObjectHandle: UInt8 = 0
+
 extension DSFTouchBar {
 
 	public class Builder: NSObject {
@@ -14,6 +17,7 @@ extension DSFTouchBar {
 		// (Optional) the customization identifier for the toolbar
 		private let customizationIdentifier: NSTouchBar.CustomizationIdentifier?
 
+		// The items to be added to the touchbar
 		private var items: [DSFTouchBar.Item] = []
 
 		// For DSFTouchBar, all items are allowed to be displayed
@@ -39,9 +43,6 @@ extension DSFTouchBar {
 			}
 		}
 
-		// Cleanup handle
-		private var AssociatedObjectHandle: UInt8 = 0
-
 		public func makeTouchBar() -> NSTouchBar? {
 			let mainBar = NSTouchBar()
 			mainBar.delegate = self
@@ -51,7 +52,7 @@ extension DSFTouchBar {
 
 			// Tie the lifecycle of the DSFToolbar object to the lifecycle of the nstoolbar
 			// so that we don't have to manually destroy it
-			objc_setAssociatedObject(mainBar, &AssociatedObjectHandle, self, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+			objc_setAssociatedObject(mainBar, &DSFTouchBarBuilderAssociatedObjectHandle, self, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
 
 			return mainBar
 		}
@@ -85,6 +86,13 @@ extension DSFTouchBar {
 		}
 	}
 }
+
+extension DSFTouchBar.Builder {
+	static func Retrieve(from touchBar: NSTouchBar) -> DSFTouchBar.Builder? {
+		return objc_getAssociatedObject(touchBar, &DSFTouchBarBuilderAssociatedObjectHandle) as? DSFTouchBar.Builder
+	}
+}
+
 
 extension DSFTouchBar.Builder: NSTouchBarDelegate {
 	public func touchBar(_: NSTouchBar, makeItemForIdentifier identifier: NSTouchBarItem.Identifier) -> NSTouchBarItem? {

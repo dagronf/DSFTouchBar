@@ -1,6 +1,5 @@
 //
-//  File.swift
-//  
+//  DSFTouchBar.OtherItems.swift
 //
 //  Created by Darren Ford on 2/2/20.
 //

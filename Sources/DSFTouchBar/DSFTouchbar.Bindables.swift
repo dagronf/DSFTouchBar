@@ -1,6 +1,5 @@
 //
-//  File.swift
-//
+//  DSFTouchbar.Bindables.swift
 //
 //  Created by Darren Ford on 18/9/20.
 //
@@ -11,8 +10,8 @@ class BindableAttribute<VALUETYPE>: NSObject {
 	// The value of the attribute
 	var value: VALUETYPE?
 
-	private weak var bindValueObserver: AnyObject?
-	private var bindValueKeyPath: String?
+	private(set) weak var bindValueObserver: AnyObject?
+	private(set) var bindValueKeyPath: String?
 
 	private var valueChangeCallback: ((VALUETYPE) -> Void)?
 
@@ -40,8 +39,7 @@ class BindableAttribute<VALUETYPE>: NSObject {
 
 	func unbind() {
 		if let observer = self.bindValueObserver,
-		   let keyPath = self.bindValueKeyPath
-		{
+		   let keyPath = self.bindValueKeyPath {
 			observer.removeObserver(self, forKeyPath: keyPath)
 		}
 	}
@@ -49,8 +47,7 @@ class BindableAttribute<VALUETYPE>: NSObject {
 	override public func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey: Any]?, context: UnsafeMutableRawPointer?) {
 		if let changeCallback = self.valueChangeCallback,
 		   let observerKeyPath = self.bindValueKeyPath, observerKeyPath == keyPath,
-		   let newVal = change?[.newKey] as? VALUETYPE
-		{
+		   let newVal = change?[.newKey] as? VALUETYPE {
 			changeCallback(newVal)
 		}
 		else {
@@ -86,8 +83,7 @@ class BindableBinding<VALUETYPE>: NSObject {
 		}
 
 		guard let observer = self.bindValueObserver,
-			  let keyPath = self.bindValueKeyPath else
-		{
+			  let keyPath = self.bindValueKeyPath else {
 			return
 		}
 		self.boundObject = boundObject
@@ -97,18 +93,18 @@ class BindableBinding<VALUETYPE>: NSObject {
 			options[NSBindingOption.continuouslyUpdatesValue] = NSNumber(value: true)
 		}
 
-		boundObject.bind(bindingName,
-						 to: observer,
-						 withKeyPath: keyPath,
-						 options: options.count == 0 ? nil : options)
+		boundObject.bind(
+			bindingName,
+			to: observer,
+			withKeyPath: keyPath,
+			options: options.count == 0 ? nil : options)
 	}
 
 	func reverseBind() {
 		guard let observer = self.bindValueObserver,
 			  let keyPath = self.bindValueKeyPath,
 			  let boundObject = self.boundObject,
-			  let bindingName = self.bindingName else
-		{
+			  let bindingName = self.bindingName else {
 			return
 		}
 
@@ -117,23 +113,22 @@ class BindableBinding<VALUETYPE>: NSObject {
 			options[NSBindingOption.continuouslyUpdatesValue] = NSNumber(value: true)
 		}
 
-		observer.bind(NSBindingName(keyPath),
-					  to: boundObject,
-					  withKeyPath: bindingName.rawValue,
-					  options: options.count == 0 ? nil : options)
+		observer.bind(
+			NSBindingName(keyPath),
+			to: boundObject,
+			withKeyPath: bindingName.rawValue,
+			options: options.count == 0 ? nil : options)
 	}
 
 	func unbind() {
 		if let boundObject = self.boundObject,
-		   let bindingName = self.bindingName
-		{
+		   let bindingName = self.bindingName {
 			boundObject.unbind(bindingName)
 			self.boundObject = nil
 		}
 
 		if let keyPath = self.bindValueKeyPath,
-		   let observer = self.bindValueObserver
-		{
+		   let observer = self.bindValueObserver {
 			observer.unbind(NSBindingName(keyPath))
 		}
 	}

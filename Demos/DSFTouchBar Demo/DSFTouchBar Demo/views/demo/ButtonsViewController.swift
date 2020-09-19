@@ -11,10 +11,19 @@ class ButtonsViewController: NSViewController {
 
 	@objc dynamic var enable3: Bool = false
 	@objc dynamic var backgroundColor3: NSColor = .systemGreen
+	@objc dynamic var button2State: NSButton.StateValue = .off {
+		didSet {
+			Swift.print("Button(2) - STATE CHANGE - \(button2State)")
+		}
+	}
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		// Do view setup here.
+	}
+
+	@IBAction func toggleButton2(_ sender: Any) {
+		self.button2State = (self.button2State == .on) ? .off : .on
 	}
 
 	deinit {
@@ -29,20 +38,19 @@ class ButtonsViewController: NSViewController {
 
 			// Simple button
 
-			DSFTouchBar.Button("button-1", customizationLabel: "The first button")
-				.title("1")
+			DSFTouchBar.Button("button-1", customizationLabel: "Action Button")
+				.title("Simple")
 				.action { state in
-					Swift.print("1 pressed - \(state)")
+					Swift.print("Button(1) - ACTION - \(state)")
 				},
 
 			// Button with simple static background color
 
-			DSFTouchBar.Button("button-2", customizationLabel: "The second button")
-				.title("2")
+			DSFTouchBar.Button("button-2", customizationLabel: "State-bound button")
+				.title("OFF")
+				.alternateTitle("ON")
 				.backgroundColor(.brown)
-				.action { state in
-					Swift.print("2 pressed - \(state)")
-				},
+				.bindState(to: self, withKeyPath: #keyPath(button2State)),
 
 			DSFTouchBar.Spacer(size: .small),
 

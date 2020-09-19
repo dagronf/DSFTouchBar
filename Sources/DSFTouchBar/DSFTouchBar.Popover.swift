@@ -1,6 +1,5 @@
 //
-//  File.swift
-//  
+//  DSFTouchBar.Popover.swift
 //
 //  Created by Darren Ford on 2/2/20.
 //
@@ -9,18 +8,17 @@ import AppKit
 
 extension DSFTouchBar {
 	public class Popover: UIElementItemBase {
-
-		private var popoverContentBuilder: DSFTouchBar.Builder? = nil
+		private var popoverContentBuilder: DSFTouchBar.Builder?
 
 		// Cleanup handle
 		private var AssociatedObjectHandle: UInt8 = 0
 
-
 		private(set) var _children: [DSFTouchBar.Item] = []
 		public init(_ leafIdentifier: String,
-			 collapsedLabel: String? = nil,
-			 collapsedImage: NSImage? = nil,
-			 _ children: [DSFTouchBar.Item]) {
+					collapsedLabel: String? = nil,
+					collapsedImage: NSImage? = nil,
+					_ children: [DSFTouchBar.Item])
+		{
 			_children = children
 			super.init(leafIdentifier: leafIdentifier)
 
@@ -62,8 +60,6 @@ extension DSFTouchBar {
 		}
 
 		override func destroy() {
-			//self._children.forEach { $0.destroy() }
-
 			self.popoverContentBuilder?.destroy()
 			self.popoverContentBuilder = nil
 			super.destroy()
