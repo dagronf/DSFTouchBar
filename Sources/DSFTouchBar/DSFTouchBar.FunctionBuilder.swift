@@ -62,6 +62,32 @@ public extension DSFTouchBar {
 	}
 }
 
+// MARK: - Group FunctionBuilder
+
+@_functionBuilder
+public struct DSFTouchBarGroupBuilder {
+	static func buildBlock() -> [DSFTouchBar.Item] { [] }
+}
+
+public extension DSFTouchBarGroupBuilder {
+	static func buildBlock(_ settings: DSFTouchBar.Item...) -> [DSFTouchBar.Item] {
+		settings
+	}
+}
+
+public extension DSFTouchBar.Group {
+	convenience init(
+		_ leafIdentifier: String,
+		customizationLabel: String? = nil,
+		equalWidths: Bool = false,
+		@DSFTouchBarGroupBuilder builder: () -> [DSFTouchBar.Item]) {
+		self.init(leafIdentifier,
+				  customizationLabel: customizationLabel,
+				  equalWidths: equalWidths,
+				  builder())
+	}
+}
+
 // MARK: - Scroll Group FunctionBuilder
 
 @_functionBuilder
