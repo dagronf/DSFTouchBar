@@ -7,6 +7,8 @@
 
 import Cocoa
 
+import DSFTouchBar
+
 class TextViewController: NSViewController {
 	var customBar: DSFTouchBar?
 
@@ -24,22 +26,20 @@ class TextViewController: NSViewController {
 	}
 
 	override func makeTouchBar() -> NSTouchBar? {
-		let builder = DSFTouchBar.Builder(
+		let builder = DSFTouchBar.Build(
 			baseIdentifier: NSTouchBarItem.Identifier("com.darrenford.touchbar.demo.labels"),
-			customizationIdentifier: NSTouchBar.CustomizationIdentifier("com.darrenford.touchbar.demo.labels"),
+			customizationIdentifier: NSTouchBar.CustomizationIdentifier("com.darrenford.touchbar.demo.labels")) {
 
 			// Simple text label
-
 			DSFTouchBar.Text("label-1", customizationLabel: "Static Label Text")
-				.label("First ->"),
+				.label("First ->")
 
 			// Simple attributed text label
-
 			DSFTouchBar.Text("label-2", customizationLabel: "AttributedString with bindings")
-				.bindAttributedTextLabel(to: self, withKeyPath: #keyPath(simpleAttributedString)),
+				.bindAttributedTextLabel(to: self, withKeyPath: #keyPath(simpleAttributedString))
 
 			DSFTouchBar.OtherItemsPlaceholder()
-		)
+		}
 
 		return builder.makeTouchBar()
 	}

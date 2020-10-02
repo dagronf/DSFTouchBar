@@ -7,6 +7,8 @@
 
 import Cocoa
 
+import DSFTouchBar
+
 class SegmentedControlViewController: NSViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -26,29 +28,31 @@ class SegmentedControlViewController: NSViewController {
 	}
 
 	override func makeTouchBar() -> NSTouchBar? {
-		let builder = DSFTouchBar.Builder(
+		let builder = DSFTouchBar.Build(
 			baseIdentifier: NSTouchBarItem.Identifier("com.darrenford.touchbar.demo.segmented"),
-			customizationIdentifier: NSTouchBar.CustomizationIdentifier("com.darrenford.touchbar.demo.segmented"),
+			customizationIdentifier: NSTouchBar.CustomizationIdentifier("com.darrenford.touchbar.demo.segmented")) {
 
-			DSFTouchBar.Text("segment-single").label("Single ->"),
+			DSFTouchBar.Text("segment-single").label("Single ->")
+			
 			DSFTouchBar.Segmented("segmented-1", trackingMode: .selectOne)
 				.add(label: "low", image: NSImage(named: NSImage.touchBarAudioOutputVolumeLowTemplateName))
 				.add(label: "med", image: NSImage(named: NSImage.touchBarAudioOutputVolumeMediumTemplateName))
 				.add(label: "high", image: NSImage(named: NSImage.touchBarAudioOutputVolumeHighTemplateName))
-				.bindSelectionIndexes(to: self, withKeyPath: #keyPath(segmented_1)),
+				.bindSelectionIndexes(to: self, withKeyPath: #keyPath(segmented_1))
 
-			DSFTouchBar.Spacer(size: .small),
+			DSFTouchBar.Spacer(size: .small)
 
-			DSFTouchBar.Text("segment-multi").label("Multi ->"),
+			DSFTouchBar.Text("segment-multi").label("Multi ->")
+
 			DSFTouchBar.Segmented("segmented-2", trackingMode: .selectAny)
 				.add(label: "one")
 				.add(label: "two")
 				.add(label: "three")
 				.bindSelectionIndexes(to: self, withKeyPath: #keyPath(segmented_2))
-				.selectedColor(.systemYellow),
+				.selectedColor(.systemYellow)
 
 			DSFTouchBar.OtherItemsPlaceholder()
-		)
+		}
 
 		return builder.makeTouchBar()
 	}

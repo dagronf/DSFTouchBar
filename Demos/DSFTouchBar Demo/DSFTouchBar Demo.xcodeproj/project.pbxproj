@@ -34,22 +34,7 @@
 		235892C0250AE8A8001BA2EE /* PopoverViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 235892BE250AE8A8001BA2EE /* PopoverViewController.xib */; };
 		23AB4FA825087A81006A7380 /* ColorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23AB4FA625087A81006A7380 /* ColorViewController.swift */; };
 		23AB4FA925087A81006A7380 /* ColorViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 23AB4FA725087A81006A7380 /* ColorViewController.xib */; };
-		23F3122E25146A5100115D12 /* DSFTouchBar.View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F3121E25146A5100115D12 /* DSFTouchBar.View.swift */; };
-		23F3122F25146A5100115D12 /* DSFTouchbar.Builder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F3121F25146A5100115D12 /* DSFTouchbar.Builder.swift */; };
-		23F3123025146A5100115D12 /* DSFTouchBar.OtherItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F3122025146A5100115D12 /* DSFTouchBar.OtherItems.swift */; };
-		23F3123125146A5100115D12 /* DSFTouchBar.Popover.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F3122125146A5100115D12 /* DSFTouchBar.Popover.swift */; };
-		23F3123225146A5100115D12 /* DSFTouchBar.Spacer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F3122225146A5100115D12 /* DSFTouchBar.Spacer.swift */; };
-		23F3123325146A5100115D12 /* DSFTouchBar.Button.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F3122325146A5100115D12 /* DSFTouchBar.Button.swift */; };
-		23F3123425146A5100115D12 /* DSFTouchBar.Text.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F3122425146A5100115D12 /* DSFTouchBar.Text.swift */; };
-		23F3123525146A5100115D12 /* DSFTouchBar.Group.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F3122525146A5100115D12 /* DSFTouchBar.Group.swift */; };
-		23F3123625146A5100115D12 /* DSFTouchbar.Bindables.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F3122625146A5100115D12 /* DSFTouchbar.Bindables.swift */; };
-		23F3123725146A5100115D12 /* DSFTouchBar.ScrollGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F3122725146A5100115D12 /* DSFTouchBar.ScrollGroup.swift */; };
-		23F3123825146A5100115D12 /* DSFTouchBar.Slider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F3122825146A5100115D12 /* DSFTouchBar.Slider.swift */; };
-		23F3123925146A5100115D12 /* DSFTouchBar.SharingServicePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F3122925146A5100115D12 /* DSFTouchBar.SharingServicePicker.swift */; };
-		23F3123A25146A5100115D12 /* DSFTouchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F3122A25146A5100115D12 /* DSFTouchBar.swift */; };
-		23F3123B25146A5100115D12 /* DSFTouchBar.Segmented.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F3122B25146A5100115D12 /* DSFTouchBar.Segmented.swift */; };
-		23F3123C25146A5100115D12 /* DSFTouchBar.Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F3122C25146A5100115D12 /* DSFTouchBar.Item.swift */; };
-		23F3123D25146A5100115D12 /* DSFTouchBar.ColorPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F3122D25146A5100115D12 /* DSFTouchBar.ColorPicker.swift */; };
+		23C37D492526A45A0002DE34 /* DSFTouchBar in Frameworks */ = {isa = PBXBuildFile; productRef = 23C37D482526A45A0002DE34 /* DSFTouchBar */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -81,22 +66,7 @@
 		235892BE250AE8A8001BA2EE /* PopoverViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PopoverViewController.xib; sourceTree = "<group>"; };
 		23AB4FA625087A81006A7380 /* ColorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorViewController.swift; sourceTree = "<group>"; };
 		23AB4FA725087A81006A7380 /* ColorViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ColorViewController.xib; sourceTree = "<group>"; };
-		23F3121E25146A5100115D12 /* DSFTouchBar.View.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DSFTouchBar.View.swift; path = ../../../../Sources/DSFTouchBar/DSFTouchBar.View.swift; sourceTree = "<group>"; };
-		23F3121F25146A5100115D12 /* DSFTouchbar.Builder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DSFTouchbar.Builder.swift; path = ../../../../Sources/DSFTouchBar/DSFTouchbar.Builder.swift; sourceTree = "<group>"; };
-		23F3122025146A5100115D12 /* DSFTouchBar.OtherItems.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DSFTouchBar.OtherItems.swift; path = ../../../../Sources/DSFTouchBar/DSFTouchBar.OtherItems.swift; sourceTree = "<group>"; };
-		23F3122125146A5100115D12 /* DSFTouchBar.Popover.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DSFTouchBar.Popover.swift; path = ../../../../Sources/DSFTouchBar/DSFTouchBar.Popover.swift; sourceTree = "<group>"; };
-		23F3122225146A5100115D12 /* DSFTouchBar.Spacer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DSFTouchBar.Spacer.swift; path = ../../../../Sources/DSFTouchBar/DSFTouchBar.Spacer.swift; sourceTree = "<group>"; };
-		23F3122325146A5100115D12 /* DSFTouchBar.Button.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DSFTouchBar.Button.swift; path = ../../../../Sources/DSFTouchBar/DSFTouchBar.Button.swift; sourceTree = "<group>"; };
-		23F3122425146A5100115D12 /* DSFTouchBar.Text.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DSFTouchBar.Text.swift; path = ../../../../Sources/DSFTouchBar/DSFTouchBar.Text.swift; sourceTree = "<group>"; };
-		23F3122525146A5100115D12 /* DSFTouchBar.Group.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DSFTouchBar.Group.swift; path = ../../../../Sources/DSFTouchBar/DSFTouchBar.Group.swift; sourceTree = "<group>"; };
-		23F3122625146A5100115D12 /* DSFTouchbar.Bindables.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DSFTouchbar.Bindables.swift; path = ../../../../Sources/DSFTouchBar/DSFTouchbar.Bindables.swift; sourceTree = "<group>"; };
-		23F3122725146A5100115D12 /* DSFTouchBar.ScrollGroup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DSFTouchBar.ScrollGroup.swift; path = ../../../../Sources/DSFTouchBar/DSFTouchBar.ScrollGroup.swift; sourceTree = "<group>"; };
-		23F3122825146A5100115D12 /* DSFTouchBar.Slider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DSFTouchBar.Slider.swift; path = ../../../../Sources/DSFTouchBar/DSFTouchBar.Slider.swift; sourceTree = "<group>"; };
-		23F3122925146A5100115D12 /* DSFTouchBar.SharingServicePicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DSFTouchBar.SharingServicePicker.swift; path = ../../../../Sources/DSFTouchBar/DSFTouchBar.SharingServicePicker.swift; sourceTree = "<group>"; };
-		23F3122A25146A5100115D12 /* DSFTouchBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DSFTouchBar.swift; path = ../../../../Sources/DSFTouchBar/DSFTouchBar.swift; sourceTree = "<group>"; };
-		23F3122B25146A5100115D12 /* DSFTouchBar.Segmented.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DSFTouchBar.Segmented.swift; path = ../../../../Sources/DSFTouchBar/DSFTouchBar.Segmented.swift; sourceTree = "<group>"; };
-		23F3122C25146A5100115D12 /* DSFTouchBar.Item.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DSFTouchBar.Item.swift; path = ../../../../Sources/DSFTouchBar/DSFTouchBar.Item.swift; sourceTree = "<group>"; };
-		23F3122D25146A5100115D12 /* DSFTouchBar.ColorPicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DSFTouchBar.ColorPicker.swift; path = ../../../../Sources/DSFTouchBar/DSFTouchBar.ColorPicker.swift; sourceTree = "<group>"; };
+		23C37D432526A43F0002DE34 /* DSFTouchBar */ = {isa = PBXFileReference; lastKnownFileType = folder; name = DSFTouchBar; path = ../../..; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,6 +75,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				23550E762508AFEC003DAB46 /* DSFSparkline in Frameworks */,
+				23C37D492526A45A0002DE34 /* DSFTouchBar in Frameworks */,
 				23179381251453C1008E17D3 /* DSFLabelledTextField in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -117,6 +88,7 @@
 			children = (
 				235870162506125700E170B0 /* DSFTouchBar Demo */,
 				235870152506125700E170B0 /* Products */,
+				23C37D472526A45A0002DE34 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -131,7 +103,7 @@
 		235870162506125700E170B0 /* DSFTouchBar Demo */ = {
 			isa = PBXGroup;
 			children = (
-				23F3121D25146A3A00115D12 /* dsftouchbar-source */,
+				23C37D432526A43F0002DE34 /* DSFTouchBar */,
 				235870272506130F00E170B0 /* views */,
 				235870172506125700E170B0 /* AppDelegate.swift */,
 				235870192506125700E170B0 /* ViewController.swift */,
@@ -179,27 +151,11 @@
 			path = demo;
 			sourceTree = "<group>";
 		};
-		23F3121D25146A3A00115D12 /* dsftouchbar-source */ = {
+		23C37D472526A45A0002DE34 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				23F3122625146A5100115D12 /* DSFTouchbar.Bindables.swift */,
-				23F3121F25146A5100115D12 /* DSFTouchbar.Builder.swift */,
-				23F3122325146A5100115D12 /* DSFTouchBar.Button.swift */,
-				23F3122D25146A5100115D12 /* DSFTouchBar.ColorPicker.swift */,
-				23F3122525146A5100115D12 /* DSFTouchBar.Group.swift */,
-				23F3122C25146A5100115D12 /* DSFTouchBar.Item.swift */,
-				23F3122025146A5100115D12 /* DSFTouchBar.OtherItems.swift */,
-				23F3122125146A5100115D12 /* DSFTouchBar.Popover.swift */,
-				23F3122725146A5100115D12 /* DSFTouchBar.ScrollGroup.swift */,
-				23F3122B25146A5100115D12 /* DSFTouchBar.Segmented.swift */,
-				23F3122925146A5100115D12 /* DSFTouchBar.SharingServicePicker.swift */,
-				23F3122825146A5100115D12 /* DSFTouchBar.Slider.swift */,
-				23F3122225146A5100115D12 /* DSFTouchBar.Spacer.swift */,
-				23F3122A25146A5100115D12 /* DSFTouchBar.swift */,
-				23F3122425146A5100115D12 /* DSFTouchBar.Text.swift */,
-				23F3121E25146A5100115D12 /* DSFTouchBar.View.swift */,
 			);
-			path = "dsftouchbar-source";
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -216,11 +172,13 @@
 			buildRules = (
 			);
 			dependencies = (
+				23C37D462526A4540002DE34 /* PBXTargetDependency */,
 			);
 			name = "DSFTouchBar Demo";
 			packageProductDependencies = (
 				23550E752508AFEC003DAB46 /* DSFSparkline */,
 				23179380251453C1008E17D3 /* DSFLabelledTextField */,
+				23C37D482526A45A0002DE34 /* DSFTouchBar */,
 			);
 			productName = "DSFTouchBar Demo";
 			productReference = 235870142506125700E170B0 /* DSFTouchBar Demo.app */;
@@ -289,39 +247,30 @@
 			buildActionMask = 2147483647;
 			files = (
 				2358701A2506125700E170B0 /* ViewController.swift in Sources */,
-				23F3123A25146A5100115D12 /* DSFTouchBar.swift in Sources */,
 				235892BF250AE8A8001BA2EE /* PopoverViewController.swift in Sources */,
 				2345112B25070712006363CC /* SliderViewController.swift in Sources */,
-				23F3123925146A5100115D12 /* DSFTouchBar.SharingServicePicker.swift in Sources */,
 				23550E722508AA4A003DAB46 /* SegmentedControlViewController.swift in Sources */,
 				235892BB250ADD9D001BA2EE /* ScrollGroupViewController.swift in Sources */,
 				2358702D250614A500E170B0 /* DemoContainerViewController.swift in Sources */,
-				23F3122E25146A5100115D12 /* DSFTouchBar.View.swift in Sources */,
 				235870312506156E00E170B0 /* ButtonsViewController.swift in Sources */,
 				235870182506125700E170B0 /* AppDelegate.swift in Sources */,
-				23F3123025146A5100115D12 /* DSFTouchBar.OtherItems.swift in Sources */,
-				23F3123325146A5100115D12 /* DSFTouchBar.Button.swift in Sources */,
 				23550E792508B005003DAB46 /* SimpleCustomViewViewController.swift in Sources */,
 				231364A42509B28D00568D2E /* DemoContentContainer.swift in Sources */,
-				23F3123125146A5100115D12 /* DSFTouchBar.Popover.swift in Sources */,
-				23F3123225146A5100115D12 /* DSFTouchBar.Spacer.swift in Sources */,
-				23F3123825146A5100115D12 /* DSFTouchBar.Slider.swift in Sources */,
 				2358702A2506132E00E170B0 /* ListViewController.swift in Sources */,
-				23F3123625146A5100115D12 /* DSFTouchbar.Bindables.swift in Sources */,
-				23F3123425146A5100115D12 /* DSFTouchBar.Text.swift in Sources */,
 				23AB4FA825087A81006A7380 /* ColorViewController.swift in Sources */,
 				234511272506FBA3006363CC /* TextViewController.swift in Sources */,
-				23F3122F25146A5100115D12 /* DSFTouchbar.Builder.swift in Sources */,
-				23F3123525146A5100115D12 /* DSFTouchBar.Group.swift in Sources */,
-				23F3123B25146A5100115D12 /* DSFTouchBar.Segmented.swift in Sources */,
-				23F3123D25146A5100115D12 /* DSFTouchBar.ColorPicker.swift in Sources */,
 				233750DD25138393006E6171 /* SharingViewController.swift in Sources */,
-				23F3123C25146A5100115D12 /* DSFTouchBar.Item.swift in Sources */,
-				23F3123725146A5100115D12 /* DSFTouchBar.ScrollGroup.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		23C37D462526A4540002DE34 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			productRef = 23C37D452526A4540002DE34 /* DSFTouchBar */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		2358701D2506125800E170B0 /* Main.storyboard */ = {
@@ -544,6 +493,14 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 23550E742508AFEC003DAB46 /* XCRemoteSwiftPackageReference "DSFSparkline" */;
 			productName = DSFSparkline;
+		};
+		23C37D452526A4540002DE34 /* DSFTouchBar */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = DSFTouchBar;
+		};
+		23C37D482526A45A0002DE34 /* DSFTouchBar */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = DSFTouchBar;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="17132" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="17503.1" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17132"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17503.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -685,11 +685,20 @@
         <scene sceneID="R2V-B0-nI4">
             <objects>
                 <windowController id="B8D-0N-5wS" sceneMemberID="viewController">
-                    <window key="window" title="Window" allowsToolTipsWhenApplicationIsInactive="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="IQv-IB-iLA">
-                        <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
+                    <window key="window" title="Window" allowsToolTipsWhenApplicationIsInactive="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" titlebarAppearsTransparent="YES" titleVisibility="hidden" id="IQv-IB-iLA">
+                        <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES" fullSizeContentView="YES"/>
                         <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
                         <rect key="contentRect" x="196" y="240" width="480" height="270"/>
                         <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
+                        <toolbar key="toolbar" implicitIdentifier="E3EB3C28-7139-4903-B2E1-22F29A99DDCB" autosavesConfiguration="NO" allowsUserCustomization="NO" showsBaselineSeparator="NO" displayMode="iconAndLabel" sizeMode="regular" id="wp9-Va-zSS">
+                            <allowedToolbarItems>
+                                <toolbarItem implicitItemIdentifier="NSToolbarSpaceItem" id="bT2-dr-n3N"/>
+                                <toolbarItem implicitItemIdentifier="NSToolbarFlexibleSpaceItem" id="NrK-pO-dzl"/>
+                            </allowedToolbarItems>
+                            <defaultToolbarItems>
+                                <toolbarItem reference="NrK-pO-dzl"/>
+                            </defaultToolbarItems>
+                        </toolbar>
                         <connections>
                             <outlet property="delegate" destination="B8D-0N-5wS" id="98r-iN-zZc"/>
                         </connections>
@@ -707,7 +716,7 @@
             <objects>
                 <splitViewController id="3am-MJ-YcK" sceneMemberID="viewController">
                     <splitViewItems>
-                        <splitViewItem canCollapse="YES" behavior="sidebar" id="KcD-Oo-ovc"/>
+                        <splitViewItem holdingPriority="255" behavior="contentList" separatorStyle="shadow" id="KcD-Oo-ovc"/>
                         <splitViewItem id="HTb-Wl-CTt"/>
                     </splitViewItems>
                     <splitView key="splitView" dividerStyle="thin" vertical="YES" id="JaG-ho-eae">
@@ -732,17 +741,17 @@
             <objects>
                 <viewController id="89i-DC-sWK" customClass="ListViewController" customModule="DSFTouchBar_Demo" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="TcF-qH-AHH">
-                        <rect key="frame" x="0.0" y="0.0" width="209" height="300"/>
+                        <rect key="frame" x="0.0" y="0.0" width="209" height="310"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
-                            <scrollView borderType="none" autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VNU-1f-Vye">
-                                <rect key="frame" x="0.0" y="0.0" width="209" height="300"/>
-                                <clipView key="contentView" id="DB4-QO-caD">
-                                    <rect key="frame" x="0.0" y="0.0" width="209" height="300"/>
+                            <scrollView verticalHuggingPriority="100" borderType="none" autohidesScrollers="YES" horizontalLineScroll="26" horizontalPageScroll="10" verticalLineScroll="26" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VNU-1f-Vye">
+                                <rect key="frame" x="0.0" y="0.0" width="209" height="310"/>
+                                <clipView key="contentView" drawsBackground="NO" id="DB4-QO-caD">
+                                    <rect key="frame" x="0.0" y="0.0" width="209" height="310"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" rowSizeStyle="automatic" viewBased="YES" id="z96-ca-eey">
-                                            <rect key="frame" x="0.0" y="0.0" width="209" height="300"/>
+                                        <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" tableStyle="sourceList" columnReordering="NO" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" rowHeight="24" rowSizeStyle="automatic" viewBased="YES" translatesAutoresizingMaskIntoConstraints="NO" id="z96-ca-eey">
+                                            <rect key="frame" x="0.0" y="0.0" width="209" height="268"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <size key="intercellSpacing" width="3" height="2"/>
                                             <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -760,13 +769,11 @@
                                                     </textFieldCell>
                                                     <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                     <prototypeCellViews>
-                                                        <tableCellView identifier="ListItem" id="LKi-4T-mM2">
-                                                            <rect key="frame" x="1" y="1" width="206" height="17"/>
-                                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                        <tableCellView identifier="ListItem" translatesAutoresizingMaskIntoConstraints="NO" id="LKi-4T-mM2">
+                                                            <rect key="frame" x="1" y="1" width="206" height="24"/>
                                                             <subviews>
-                                                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CrG-U1-i3A">
-                                                                    <rect key="frame" x="0.0" y="1" width="206" height="16"/>
-                                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="999" translatesAutoresizingMaskIntoConstraints="NO" id="CrG-U1-i3A">
+                                                                    <rect key="frame" x="10" y="4" width="194" height="16"/>
                                                                     <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" id="FOA-iL-TAU">
                                                                         <font key="font" usesAppearanceFont="YES"/>
                                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -774,6 +781,12 @@
                                                                     </textFieldCell>
                                                                 </textField>
                                                             </subviews>
+                                                            <constraints>
+                                                                <constraint firstItem="CrG-U1-i3A" firstAttribute="top" secondItem="LKi-4T-mM2" secondAttribute="top" constant="4" id="8EY-b3-6q1"/>
+                                                                <constraint firstItem="CrG-U1-i3A" firstAttribute="leading" secondItem="LKi-4T-mM2" secondAttribute="leading" constant="12" id="Dgh-gQ-JlB"/>
+                                                                <constraint firstAttribute="bottom" secondItem="CrG-U1-i3A" secondAttribute="bottom" constant="4" id="Jrk-MX-PcG"/>
+                                                                <constraint firstAttribute="trailing" secondItem="CrG-U1-i3A" secondAttribute="trailing" constant="4" id="c4b-Xj-6aE"/>
+                                                            </constraints>
                                                             <connections>
                                                                 <outlet property="textField" destination="CrG-U1-i3A" id="EvH-ZW-o6T"/>
                                                             </connections>
@@ -787,7 +800,9 @@
                                             </connections>
                                         </tableView>
                                     </subviews>
+                                    <nil key="backgroundColor"/>
                                 </clipView>
+                                <edgeInsets key="contentInsets" left="0.0" right="0.0" top="42" bottom="0.0"/>
                                 <scroller key="horizontalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="Rel-hI-r6A">
                                     <rect key="frame" x="1" y="119" width="223" height="15"/>
                                     <autoresizingMask key="autoresizingMask"/>
@@ -811,7 +826,7 @@
                 </viewController>
                 <customObject id="RSo-oz-0vw" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="692.5" y="537"/>
+            <point key="canvasLocation" x="692.5" y="605"/>
         </scene>
         <!--Demo Container View Controller-->
         <scene sceneID="WMi-9A-cdg">

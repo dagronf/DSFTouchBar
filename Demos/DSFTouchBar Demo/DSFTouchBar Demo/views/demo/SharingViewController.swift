@@ -7,6 +7,8 @@
 
 import Cocoa
 
+import DSFTouchBar
+
 class SharingViewController: NSViewController {
 
 	/// The image to use for sharing
@@ -22,9 +24,9 @@ class SharingViewController: NSViewController {
 	}
 
 	override func makeTouchBar() -> NSTouchBar? {
-		let builder = DSFTouchBar.Builder(
+		let builder = DSFTouchBar.Build(
 			baseIdentifier: NSTouchBarItem.Identifier("com.darrenford.touchbar.demo.sharing"),
-			customizationIdentifier: NSTouchBar.CustomizationIdentifier("com.darrenford.touchbar.demo.sharing"),
+			customizationIdentifier: NSTouchBar.CustomizationIdentifier("com.darrenford.touchbar.demo.sharing")) {
 
 			// Sharing of an image
 
@@ -33,7 +35,7 @@ class SharingViewController: NSViewController {
 				.provideItems { [weak self] in
 					guard let `self` = self else { return [] }
 					return [self.shareImage]
-				},
+				}
 
 			// Sharing of text
 
@@ -42,10 +44,10 @@ class SharingViewController: NSViewController {
 				.provideItems { [weak self] in
 					guard let `self` = self else { return [] }
 					return [self.shareText]
-				},
+				}
 
 			DSFTouchBar.OtherItemsPlaceholder()
-		)
+		}
 		return builder.makeTouchBar()
 	}
 }

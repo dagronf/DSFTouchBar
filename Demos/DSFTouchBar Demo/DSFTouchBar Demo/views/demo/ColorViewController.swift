@@ -7,6 +7,8 @@
 
 import Cocoa
 
+import DSFTouchBar
+
 class ColorViewController: NSViewController {
 
 	let colorVC = CustomColorViewController()
@@ -26,19 +28,19 @@ class ColorViewController: NSViewController {
 
 	override func makeTouchBar() -> NSTouchBar? {
 
-		let builder = DSFTouchBar.Builder(
+		let builder = DSFTouchBar.Build(
 			baseIdentifier: NSTouchBarItem.Identifier("com.darrenford.touchbar.demo.slider"),
-			customizationIdentifier: NSTouchBar.CustomizationIdentifier("com.darrenford.touchbar.demo.slider"),
+			customizationIdentifier: NSTouchBar.CustomizationIdentifier("com.darrenford.touchbar.demo.slider")) {
 
 			DSFTouchBar.ColorPicker("color-picker")
-				.bindSelectedColor(to: self, withKeyPath: #keyPath(selectedColor)),
+				.bindSelectedColor(to: self, withKeyPath: #keyPath(selectedColor))
 
 			DSFTouchBar.View("colorswatch", viewController: self.colorVC)
 				.customizationLabel("Color swatch")
-				.width(75),
+				.width(75)
 
 			DSFTouchBar.OtherItemsPlaceholder()
-		)
+		}
 
 		return builder.makeTouchBar()
 	}

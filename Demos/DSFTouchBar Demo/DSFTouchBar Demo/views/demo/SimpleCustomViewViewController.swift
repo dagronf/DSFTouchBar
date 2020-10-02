@@ -8,6 +8,7 @@
 import Cocoa
 
 import DSFSparkline
+import DSFTouchBar
 
 class SimpleCustomViewViewController: NSViewController {
 
@@ -30,33 +31,33 @@ class SimpleCustomViewViewController: NSViewController {
 	}
 
 	func sparklineBar() -> DSFTouchBar.Builder {
-		return DSFTouchBar.Builder(
+		return DSFTouchBar.Build(
 			baseIdentifier: NSTouchBarItem.Identifier("com.darrenford.touchbar.demo.custom-view"),
-			customizationIdentifier: NSTouchBar.CustomizationIdentifier("com.darrenford.touchbar.demo.custom-view"),
+			customizationIdentifier: NSTouchBar.CustomizationIdentifier("com.darrenford.touchbar.demo.custom-view")) {
 
 			DSFTouchBar.Text("label")
-				.label("Sparklines ->"),
+				.label("Sparklines ->")
 
 			DSFTouchBar.View("sparkline1", viewController: self.sparklineVC1)
 				.customizationLabel("Sparkline 1")
-				.width(100),
+				.width(100)
 
 			DSFTouchBar.View("sparkline2", viewController: self.sparklineVC2)
 				.customizationLabel("Sparkline 2")
-				.width(100),
+				.width(100)
 
-			DSFTouchBar.Spacer(size: .small),
+			DSFTouchBar.Spacer(size: .small)
 
 			DSFTouchBar.View("sparkline3", viewController: self.sparklineVC3)
 				.customizationLabel("Sparkline 3")
-				.width(75),
+				.width(75)
 
 			DSFTouchBar.View("sparkline4", viewController: self.sparklineVC4)
 				.customizationLabel("Sparkline 4")
-				.width(75),
+				.width(75)
 
 			DSFTouchBar.OtherItemsPlaceholder()
-		)
+		}
 	}
 
 	override func makeTouchBar() -> NSTouchBar? {

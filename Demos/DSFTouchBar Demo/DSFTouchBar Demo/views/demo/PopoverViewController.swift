@@ -7,6 +7,8 @@
 
 import Cocoa
 
+import DSFTouchBar
+
 class PopoverViewController: NSViewController {
 
 	@objc dynamic var popoverSliderIntValue: Int = 40
@@ -26,33 +28,29 @@ class PopoverViewController: NSViewController {
 	}
 
 	func popoverContent() -> DSFTouchBar.Popover {
-		DSFTouchBar.Popover(
-			"base-popover",
-			collapsedImage: NSImage(named: NSImage.touchBarGetInfoTemplateName)!, [
-				DSFTouchBar.Button("reset-button")
-					.customizationLabel("Reset Button")
-					.title("Reset")
-					.backgroundColor(.systemRed)
-					.action { [weak self] _ in
-						// Reset slider back to default
-						self?.popoverSliderValue = 40
-					},
-				DSFTouchBar.Slider("slider", min: 0.0, max: 100.0)
-					.bindValue(to: self, withKeyPath: #keyPath(popoverSliderValue)),
-			]
-		)
+		let buttonImage = NSImage(named: NSImage.touchBarGetInfoTemplateName)!
+		return DSFTouchBar.Popover("base-popover", collapsedImage: buttonImage) {
+			DSFTouchBar.Button("reset-button")
+				.customizationLabel("Reset Button")
+				.title("Reset")
+				.backgroundColor(.systemRed)
+				.action { [weak self] _ in
+					// Reset slider back to default
+					self?.popoverSliderValue = 40
+				}
+			DSFTouchBar.Slider("slider", min: 0.0, max: 100.0)
+				.bindValue(to: self, withKeyPath: #keyPath(popoverSliderValue))
+		}
 	}
 
 	override func makeTouchBar() -> NSTouchBar? {
-		let builder = DSFTouchBar.Builder(
+		let builder = DSFTouchBar.Build(
 			baseIdentifier: NSTouchBarItem.Identifier("com.darrenford.touchbar.demo.popover"),
-			customizationIdentifier: NSTouchBar.CustomizationIdentifier("com.darrenford.touchbar.demo.popover"),
-			DSFTouchBar.Text("root_text").label("Popover ->"),
-
-			self.popoverContent(),
-
+			customizationIdentifier: NSTouchBar.CustomizationIdentifier("com.darrenford.touchbar.demo.popover")) {
+			DSFTouchBar.Text("root_text").label("Popover ->")
+			self.popoverContent()
 			DSFTouchBar.OtherItemsPlaceholder()
-		)
+		}
 		return builder.makeTouchBar()
 	}
 }

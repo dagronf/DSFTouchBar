@@ -6,6 +6,7 @@
 //
 
 import Cocoa
+import DSFTouchBar
 
 class ButtonsViewController: NSViewController {
 
@@ -32,9 +33,9 @@ class ButtonsViewController: NSViewController {
 
 	override func makeTouchBar() -> NSTouchBar? {
 
-		let builder = DSFTouchBar.Builder(
+		let builder = DSFTouchBar.Build(
 			baseIdentifier: NSTouchBarItem.Identifier("com.darrenford.touchbar.demo.buttons"),
-			customizationIdentifier: NSTouchBar.CustomizationIdentifier("com.darrenford.touchbar.demo.buttons"),
+			customizationIdentifier: NSTouchBar.CustomizationIdentifier("com.darrenford.touchbar.demo.buttons")) {
 
 			// Simple button
 
@@ -42,7 +43,7 @@ class ButtonsViewController: NSViewController {
 				.title("Simple")
 				.action { state in
 					Swift.print("Button(1) - ACTION - \(state)")
-				},
+				}
 
 			// Button with simple static background color
 
@@ -50,9 +51,9 @@ class ButtonsViewController: NSViewController {
 				.title("OFF")
 				.alternateTitle("ON")
 				.backgroundColor(.brown)
-				.bindState(to: self, withKeyPath: #keyPath(button2State)),
+				.bindState(to: self, withKeyPath: #keyPath(button2State))
 
-			DSFTouchBar.Spacer(size: .small),
+			DSFTouchBar.Spacer(size: .small)
 
 			// Button with background and enabled color bindings
 
@@ -63,7 +64,7 @@ class ButtonsViewController: NSViewController {
 				.bindIsEnabled(to: self, withKeyPath: #keyPath(enable3))
 				.action { [weak self] state in
 					self?.backgroundColor3 = (state == .on) ? .systemRed : .systemGreen
-				},
+				}
 
 			// Button with image
 
@@ -73,10 +74,10 @@ class ButtonsViewController: NSViewController {
 				.imagePosition(.imageRight)
 				.action { state in
 					Swift.print("4 pressed - \(state)")
-				},
+				}
 
 			DSFTouchBar.OtherItemsPlaceholder()
-		)
+		}
 
 		return builder.makeTouchBar()
 	}
