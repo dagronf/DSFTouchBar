@@ -351,7 +351,15 @@ class ViewController: NSViewController {
 //								Swift.print("Pressed!")
 //							},
 
-			 self.bbbbb,
+//			 self.bbbbb,
+
+			DSFTouchBar.Group("group", customizationLabel: "Smile Icons") {
+				DSFTouchBar.Text("heart").label("😀💝")
+				DSFTouchBar.Text("hat-bow").label("😀👒")
+				DSFTouchBar.Text("koala").label("😀🐨")
+			},
+
+
 //						self.scrollGroup,
 
 //			DSFTouchBar.Button("button-1")

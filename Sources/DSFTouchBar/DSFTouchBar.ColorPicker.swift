@@ -44,12 +44,16 @@ extension DSFTouchBar {
 			_action = action
 			return self
 		}
+
+		// MARK: - Allow Alpha
 		
 		private var _showAlpha: Bool = false
 		public func showAlpha(_ show: Bool) -> ColorPicker {
 			_showAlpha = show
 			return self
 		}
+
+		// MARK: - Selected color
 
 		private let _selectedColor = BindableBinding<NSColor>()
 		public func bindSelectedColor(to observable: AnyObject, withKeyPath keyPath: String) -> ColorPicker {
@@ -122,9 +126,7 @@ extension DSFTouchBar {
 				observer.setValue(colorpicker.color, forKey: keyPath)
 			}
 			
-			if let action = self._action {
-				action(colorpicker.color)
-			}
+			self._action?(colorpicker.color)
 		}
 	}
 	

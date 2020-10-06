@@ -50,28 +50,20 @@ extension DSFTouchBar {
 			return self
 		}
 
+		// MARK: - Action
+
 		/// Assign an action block to the touchbar item to be called when the control changes state
 		public func action(_ action: @escaping (([Int]) -> Void)) -> Segmented {
 			_action = action
 			return self
 		}
 
+		// MARK: - Selected Color
+
 		/// Set the color to use for highlighting 'active' cells within the control
 		/// - Parameter color: The color to use
 		public func selectedColor(_ color: NSColor) -> Segmented {
 			_selectedColor = color
-			return self
-		}
-
-		// MARK: - Selected Index
-
-		private let _selectedIndex = BindableBinding<Int>()
-		func selectedIndex(_ value: Int) -> Self {
-			self._selectedIndex.value = value
-			return self
-		}
-		public func bindSelectionIndex(to observable: AnyObject, withKeyPath keyPath: String) -> Segmented {
-			self._selectedIndex.setup(observable: observable, keyPath: keyPath)
 			return self
 		}
 
@@ -82,7 +74,7 @@ extension DSFTouchBar {
 			self._selectedIndexes.value = NSSet(set: value)
 			return self
 		}
-		public func bindSelectionIndexes(to observable: AnyObject, withKeyPath keyPath: String) -> Segmented {
+		public func bindSelection(to observable: AnyObject, withKeyPath keyPath: String) -> Segmented {
 			self._selectedIndexes.setup(observable: observable, keyPath: keyPath)
 			return self
 		}
@@ -124,10 +116,6 @@ extension DSFTouchBar {
 
 				self.makeCommon(uiElement: segmented)
 
-				// See if we have to bind to the selected index
-
-				self._selectedIndex.bind(bindingName: NSBindingName.selectedIndex, of: segmented)
-
 				// Multiple selection indexes
 
 				self._selectedIndexes.bind(bindingName: NSBindingName.SegmentedControlSelectionIndexes, of: segmented, checkAvailability: false)
@@ -145,7 +133,6 @@ extension DSFTouchBar {
 		override func destroy() {
 			_action = nil
 
-			self._selectedIndex.unbind()
 			self._selectedIndexes.unbind()
 
 			if let control = self.embeddedControl() {

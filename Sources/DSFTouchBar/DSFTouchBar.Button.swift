@@ -165,6 +165,8 @@ extension DSFTouchBar {
 				button.bezelColor = self._backgroundColor.value
 				button.setButtonType(type)
 
+				button.alternateTitle = self._alternateTitle
+
 				if let att = self._attributedTitle {
 					button.attributedTitle = att
 				}

@@ -74,7 +74,7 @@ public extension DSFTouchBar {
 
 	class UIElementItemBase: Item {
 		var _isDefault: Bool = true
-		public func `default`(_ value: Bool) -> Self {
+		public func isDefault(_ value: Bool) -> Self {
 			_isDefault = value
 			return self
 		}
