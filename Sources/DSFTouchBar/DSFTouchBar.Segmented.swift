@@ -32,11 +32,12 @@ private extension NSBindingName {
 }
 
 extension DSFTouchBar {
+
+	/// A segmented control for the touchbar
 	public class Segmented: UIElementItem<NSSegmentedControl> {
 
-		private var _action: (([Int]) -> Void)?
+		// The segment definitions
 		private var _segments: [(label: String?, image: NSImage?)] = []
-		private var _selectedColor: NSColor?
 
 		/// Add a new segment button to the segmented control
 		/// - Parameters:
@@ -52,16 +53,23 @@ extension DSFTouchBar {
 
 		// MARK: - Action
 
+		/// The bound action
+		private var _action: ((Set<Int>) -> Void)?
+
 		/// Assign an action block to the touchbar item to be called when the control changes state
-		public func action(_ action: @escaping (([Int]) -> Void)) -> Segmented {
+		/// - Parameter action: The action to call when the selection(s) change in the control.
+		/// - Returns: self
+		public func action(_ action: @escaping ((Set<Int>) -> Void)) -> Segmented {
 			_action = action
 			return self
 		}
 
 		// MARK: - Selected Color
+		private var _selectedColor: NSColor?
 
 		/// Set the color to use for highlighting 'active' cells within the control
 		/// - Parameter color: The color to use
+		/// - Returns: self
 		public func selectedColor(_ color: NSColor) -> Segmented {
 			_selectedColor = color
 			return self
@@ -70,12 +78,20 @@ extension DSFTouchBar {
 		// MARK: - Selected Indexes
 
 		private let _selectedIndexes = BindableAttributeBinding<NSIndexSet>()
-		func selectedIndexes(_ value: Set<Int>) -> Self {
-			let iss = NSMutableIndexSet()
-			value.forEach { iss.add($0) }
-			self._selectedIndexes.value = iss
+
+		/// Set the selection for the segmented control
+		/// - Parameter value: The segmentedcontrol segments to select
+		/// - Returns: self
+		public func selectedIndexes(_ value: Set<Int>) -> Self {
+			self._selectedIndexes.value = NSIndexSet(value)
 			return self
 		}
+
+		/// Bind the selection to an NSIndexSet
+		/// - Parameters:
+		///   - observable: The object containing the NSIndexSet to be observed
+		///   - keyPath: The keyPath to the NSIndexSet to be observed
+		/// - Returns: self
 		public func bindSelection<TYPE>(to observable: NSObject, withKeyPath keyPath: ReferenceWritableKeyPath<TYPE, NSIndexSet>) -> Segmented {
 			self._selectedIndexes.setup(observable: observable, keyPath: keyPath)
 			return self
@@ -147,22 +163,22 @@ extension DSFTouchBar {
 			Swift.print("DSFTouchBar.Segmented(\(self.identifierString)) deinit")
 		}
 
+		// Gets called when the user interacts with the control
 		@objc private func act(_ sender: NSSegmentedControl) {
-			var selected: [Int] = []
-			let indexes = NSMutableIndexSet()
-			for i in 0 ..< sender.segmentCount {
-				if sender.isSelected(forSegment: i) {
-					selected.append(i)
-					indexes.add(i)
-				}
-			}
-			sender.selectedIndexes = indexes
-			self._action?(selected)
+
+			let selectedIndexes = sender.selectedIndexSet
+
+			// Have to force update our custom observable unfortunately.
+			sender.selectedIndexes = NSIndexSet(indexSet: selectedIndexes)
+
+			// And pass the action onto the owner if it was requested
+			self._action?(Set(selectedIndexes))
 		}
 	}
 }
 
 private extension NSSegmentedControl {
+	/// Custom observable object for retrieving the selected indexes
 	@objc dynamic var selectedIndexes: NSIndexSet {
 		get {
 			let result = NSMutableIndexSet()

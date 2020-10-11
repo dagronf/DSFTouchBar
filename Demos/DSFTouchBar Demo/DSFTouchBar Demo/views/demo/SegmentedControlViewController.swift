@@ -58,11 +58,11 @@ class SegmentedControlViewController: NSViewController {
 	}
 
 	@IBAction func reset1(_: Any) {
-		self.segmented_1 = NSIndexSet()
+		self.segmented_1 = NSIndexSet([1, 2])
 	}
 
 	@IBAction func reset2(_: Any) {
-		self.segmented_2 = NSIndexSet()
+		self.segmented_2 = NSIndexSet([0, 2])
 	}
 }
 

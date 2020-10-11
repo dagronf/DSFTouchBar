@@ -291,18 +291,4 @@ class BindableAttributeBinding<VALUETYPE>: NSObject {
 			observer.unbind(NSBindingName(keyPath))
 		}
 	}
-
-	let eee = NegateValueTransformer()
-	class NegateValueTransformer: ValueTransformer {
-		override class func transformedValueClass() -> AnyClass {
-			return NSNumber.self
-		}
-
-		override func transformedValue(_ value: Any?) -> Any? {
-			guard let v = value as? NSNumber else {
-				return NSNumber(value: false)
-			}
-			return NSNumber(value: !v.boolValue)
-		}
-	}
 }

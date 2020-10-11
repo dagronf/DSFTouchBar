@@ -9,20 +9,18 @@ import Cocoa
 
 let DemoViewControllerDidChangeNotification = Notification.Name("DemoViewControllerDidChangeNotification")
 
-
 class DemoContainerViewController: NSViewController {
-
-	var current: NSViewController? = nil
+	var current: NSViewController?
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		// Do view setup here.
 
-
 		NotificationCenter.default.addObserver(
 			forName: DemoListItemSelectedChangedNotification,
 			object: DemoContent,
-			queue: OperationQueue.main) { [weak self] (notification) in
+			queue: OperationQueue.main
+		) { [weak self] notification in
 			if let name = notification.userInfo?["named"] as? String {
 				self?.selectedName(name: name)
 			}
@@ -30,7 +28,6 @@ class DemoContainerViewController: NSViewController {
 	}
 
 	func selectedName(name: String) {
-
 		if let c = current {
 			c.view.removeFromSuperview()
 			if let c = c as? DemoContentViewController {
@@ -48,19 +45,20 @@ class DemoContainerViewController: NSViewController {
 		self.view.addSubview(c.view)
 		c.view.frame = self.view.bounds
 
-		//self.view.window?.makeFirstResponder(c)
-
 		self.view.addConstraints(NSLayoutConstraint.constraints(
-							withVisualFormat: "V:|[item]|",
-							options: .alignAllCenterX,
-									metrics: nil, views: ["item": c.view]))
+			withVisualFormat: "V:|[item]|",
+			options: .alignAllCenterX,
+			metrics: nil, views: ["item": c.view]
+		))
 		self.view.addConstraints(NSLayoutConstraint.constraints(
-							withVisualFormat: "H:|[item]|",
-							options: .alignAllCenterY,
-							metrics: nil, views: ["item": c.view]))
+			withVisualFormat: "H:|[item]|",
+			options: .alignAllCenterY,
+			metrics: nil, views: ["item": c.view]
+		))
 
 		NotificationCenter.default.post(
 			name: DemoViewControllerDidChangeNotification,
-			object: DemoContent, userInfo: ["vc": c])
+			object: DemoContent, userInfo: ["vc": c]
+		)
 	}
 }
