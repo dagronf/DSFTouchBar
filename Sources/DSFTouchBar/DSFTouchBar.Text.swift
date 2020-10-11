@@ -31,7 +31,7 @@ extension DSFTouchBar {
 	public class Text: UIElementItem<NSTextField> {
 		// MARK: - label
 
-		private var _label = BindableBinding<String>()
+		private var _label = BindableAttributeBinding<String>()
 
 		/// Set the label for the text object
 		public func label(_ label: String) -> Text {
@@ -41,14 +41,14 @@ extension DSFTouchBar {
 		}
 
 		/// Bind the label of the text
-		public func bindLabel(to observable: AnyObject, withKeyPath keyPath: String) -> Text {
+		public func bindLabel<TYPE>(to observable: AnyObject, withKeyPath keyPath: ReferenceWritableKeyPath<TYPE, String>) -> Text {
 			self._label.setup(observable: observable, keyPath: keyPath)
 			return self
 		}
 
 		// MARK: - Attributed label
 
-		private var _attributedLabel = BindableAttribute<NSAttributedString>()
+		private var _attributedLabel = BindableTypedAttribute<NSAttributedString>()
 
 		/// Set the attributed text for the label
 		public func attributedLabel(_ value: NSAttributedString) -> Text {
@@ -56,7 +56,7 @@ extension DSFTouchBar {
 			return self
 		}
 
-		public func bindAttributedTextLabel(to observable: AnyObject, withKeyPath keyPath: String) -> Text {
+		public func bindAttributedTextLabel<TYPE>(to observable: NSObject, withKeyPath keyPath: ReferenceWritableKeyPath<TYPE, NSAttributedString>) -> Text {
 			self._attributedLabel.setup(observable: observable, keyPath: keyPath)
 			return self
 		}

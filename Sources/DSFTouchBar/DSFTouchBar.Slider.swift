@@ -70,14 +70,14 @@ extension DSFTouchBar {
 
 		// MARK: - Slider Value
 
-		private let _sliderValue = BindableBinding<CGFloat>()
+		private let _sliderValue = BindableAttributeBinding<CGFloat>()
 
 		public func value(_ value: CGFloat) -> Slider {
 			_sliderValue.value = value
 			return self
 		}
 
-		public func bindValue(to observable: AnyObject, withKeyPath keyPath: String) -> Slider {
+		public func bindValue<TYPE>(to observable: NSObject, withKeyPath keyPath: ReferenceWritableKeyPath<TYPE, CGFloat>) -> Slider {
 			_sliderValue.setup(observable: observable, keyPath: keyPath)
 			return self
 		}

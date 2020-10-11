@@ -69,12 +69,14 @@ extension DSFTouchBar {
 
 		// MARK: - Selected Indexes
 
-		private let _selectedIndexes = BindableBinding<NSSet>()
+		private let _selectedIndexes = BindableAttributeBinding<NSIndexSet>()
 		func selectedIndexes(_ value: Set<Int>) -> Self {
-			self._selectedIndexes.value = NSSet(set: value)
+			let iss = NSMutableIndexSet()
+			value.forEach { iss.add($0) }
+			self._selectedIndexes.value = iss
 			return self
 		}
-		public func bindSelection(to observable: AnyObject, withKeyPath keyPath: String) -> Segmented {
+		public func bindSelection<TYPE>(to observable: NSObject, withKeyPath keyPath: ReferenceWritableKeyPath<TYPE, NSIndexSet>) -> Segmented {
 			self._selectedIndexes.setup(observable: observable, keyPath: keyPath)
 			return self
 		}

@@ -29,7 +29,7 @@ class SliderViewController: NSViewController {
 	lazy var slider: DSFTouchBar.Slider = {
 		DSFTouchBar.Slider("primary", min: 0.0, max: 1.0)
 			.label("Slider")
-			.bindValue(to: self, withKeyPath: #keyPath(sliderValue))
+			.bindValue(to: self, withKeyPath: \SliderViewController.sliderValue)
 	}()
 
 	override func viewDidLoad() {

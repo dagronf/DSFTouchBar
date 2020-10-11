@@ -75,7 +75,7 @@ class ViewController: NSViewController {
 			.title("Fish")
 			.alternateTitle("FISH!")
 			.type(.toggle)
-			.bindState(to: self, withKeyPath: #keyPath(bbbbState))
+			.bindState(to: self, withKeyPath: \ViewController.bbbbState)
 			.action { [weak self] state in
 				self?.pickerColor = state == .off ? NSColor.white : NSColor.red
 			}
@@ -85,7 +85,7 @@ class ViewController: NSViewController {
 		DSFTouchBar.ColorPicker("colorpicker")
 			.customizationLabel("This is the color picker")
 			.showAlpha(true)
-			.bindSelectedColor(to: self, withKeyPath: #keyPath(pickerColor))
+			.bindSelectedColor(to: self, withKeyPath: \ViewController.pickerColor)
 	}()
 
 	lazy var resetButton: DSFTouchBar.Button = {
@@ -111,7 +111,7 @@ class ViewController: NSViewController {
 			.add(label: "􀅓", image: NSImage(named: NSImage.touchBarAudioOutputVolumeLowTemplateName))
 			.add(label: "􀅔", image: NSImage(named: NSImage.touchBarAudioOutputVolumeMediumTemplateName))
 			.add(label: "􀅕", image: NSImage(named: NSImage.touchBarAudioOutputVolumeHighTemplateName))
-			.bindSelectionIndexes(to: self, withKeyPath: #keyPath(segmented))
+			.bindSelection(to: self, withKeyPath: \ViewController.segmented)
 	}
 
 	lazy var groupInScrollGroup: DSFTouchBar.ScrollGroup = {
@@ -185,7 +185,7 @@ class ViewController: NSViewController {
 			collapsedImage: NSImage(named: NSImage.touchBarGetInfoTemplateName)!, [
 				DSFTouchBar.Group("popover.text.grup", equalWidths: false, [
 					DSFTouchBar.Text("text.blah")
-					.bindLabel(to: self, withKeyPath: #keyPath(popoverLabel)),
+						.bindLabel(to: self, withKeyPath: \ViewController.popoverLabel),
 
 					DSFTouchBar.Button("buuuut2")
 					.customizationLabel("22")
@@ -198,7 +198,7 @@ class ViewController: NSViewController {
 				.customizationLabel("Yum Yum Container"),
 				DSFTouchBar.Slider("sklider", min: 0.0, max: 1.0)
 					.width(200)
-				.bindValue(to: self, withKeyPath: #keyPath(sliderValue)),
+					.bindValue(to: self, withKeyPath: \ViewController.sliderValue),
 
 				DSFTouchBar.Button("buuuut")
 				.customizationLabel("Noodle poodle")
@@ -267,7 +267,7 @@ class ViewController: NSViewController {
 
 	var sharingService: DSFTouchBar.SharingServicePicker {
 		return DSFTouchBar.SharingServicePicker("sharey", title: "Shared")
-			.bindEnabled(to: self, withKeyPath: #keyPath(sharingAvailable))
+			.bindIsEnabled(to: self, withKeyPath: \ViewController.sharingAvailable)
 			.provideItems { [weak self] in
 				guard let `self` = self else { return [] }
 				return [self.image]

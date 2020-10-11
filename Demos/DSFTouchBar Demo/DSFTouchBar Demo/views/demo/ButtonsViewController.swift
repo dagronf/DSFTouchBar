@@ -51,7 +51,7 @@ class ButtonsViewController: NSViewController {
 				.title("OFF")
 				.alternateTitle("ON")
 				.backgroundColor(.brown)
-				.bindState(to: self, withKeyPath: #keyPath(button2State))
+				.bindState(to: self, withKeyPath: \ButtonsViewController.button2State)
 
 			DSFTouchBar.Spacer(size: .small)
 
@@ -60,8 +60,8 @@ class ButtonsViewController: NSViewController {
 			DSFTouchBar.Button("button-3")
 				.title("Good")
 				.alternateTitle("Bad")
-				.bindBackgroundColor(to: self, withKeyPath: #keyPath(backgroundColor3))
-				.bindIsEnabled(to: self, withKeyPath: #keyPath(enable3))
+				.bindBackgroundColor(to: self, withKeyPath: \ButtonsViewController.backgroundColor3)
+				.bindIsEnabled(to: self, withKeyPath: \ButtonsViewController.enable3)
 				.action { [weak self] state in
 					self?.backgroundColor3 = (state == .on) ? .systemRed : .systemGreen
 				}

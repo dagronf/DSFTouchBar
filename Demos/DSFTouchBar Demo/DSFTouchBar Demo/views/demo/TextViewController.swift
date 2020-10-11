@@ -36,7 +36,7 @@ class TextViewController: NSViewController {
 
 			// Simple attributed text label
 			DSFTouchBar.Text("label-2", customizationLabel: "AttributedString with bindings")
-				.bindAttributedTextLabel(to: self, withKeyPath: #keyPath(simpleAttributedString))
+				.bindAttributedTextLabel(to: self, withKeyPath: \TextViewController.simpleAttributedString)
 
 			DSFTouchBar.OtherItemsPlaceholder()
 		}

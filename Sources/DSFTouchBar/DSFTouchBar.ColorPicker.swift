@@ -55,8 +55,8 @@ extension DSFTouchBar {
 
 		// MARK: - Selected color
 
-		private let _selectedColor = BindableBinding<NSColor>()
-		public func bindSelectedColor(to observable: AnyObject, withKeyPath keyPath: String) -> ColorPicker {
+		private let _selectedColor = BindableAttributeBinding<NSColor>()
+		public func bindSelectedColor<TYPE>(to observable: NSObject, withKeyPath keyPath: ReferenceWritableKeyPath<TYPE, NSColor>) -> ColorPicker {
 			_selectedColor.setup(observable: observable, keyPath: keyPath)
 			return self
 		}

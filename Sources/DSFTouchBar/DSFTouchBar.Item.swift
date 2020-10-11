@@ -96,14 +96,14 @@ public extension DSFTouchBar {
 			return self
 		}
 
-		private let _hidden = BindableBinding<Bool>()
-		public func bindIsHidden(to observable: AnyObject, withKeyPath keyPath: String) -> Self {
+		private let _hidden = BindableAttributeBinding<Bool>()
+		public func bindIsHidden<TYPE>(to observable: NSObject, withKeyPath keyPath: ReferenceWritableKeyPath<TYPE, Bool>) -> Self {
 			self._hidden.setup(observable: observable, keyPath: keyPath)
 			return self
 		}
 
-		private let _enabled = BindableBinding<Bool>()
-		public func bindIsEnabled(to observable: AnyObject, withKeyPath keyPath: String) -> Self {
+		private let _enabled = BindableAttributeBinding<Bool>()
+		public func bindIsEnabled<TYPE>(to observable: NSObject, withKeyPath keyPath: ReferenceWritableKeyPath<TYPE, Bool>) -> Self {
 			self._enabled.setup(observable: observable, keyPath: keyPath)
 			return self
 		}

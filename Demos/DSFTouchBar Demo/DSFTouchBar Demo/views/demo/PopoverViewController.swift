@@ -29,7 +29,7 @@ class PopoverViewController: NSViewController {
 
 	func popoverContent() -> DSFTouchBar.Popover {
 		let buttonImage = NSImage(named: NSImage.touchBarGetInfoTemplateName)!
-		return DSFTouchBar.Popover("base-popover", collapsedImage: buttonImage) {
+		return DSFTouchBar.Popover("base-popover", collapsedImage: buttonImage, [
 			DSFTouchBar.Button("reset-button")
 				.customizationLabel("Reset Button")
 				.title("Reset")
@@ -38,9 +38,10 @@ class PopoverViewController: NSViewController {
 					// Reset slider back to default
 					self?.popoverSliderValue = 40
 				}
+			,
 			DSFTouchBar.Slider("slider", min: 0.0, max: 100.0)
-				.bindValue(to: self, withKeyPath: #keyPath(popoverSliderValue))
-		}
+				.bindValue(to: self, withKeyPath: \PopoverViewController.popoverSliderValue)
+		])
 	}
 
 	override func makeTouchBar() -> NSTouchBar? {

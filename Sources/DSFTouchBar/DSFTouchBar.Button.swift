@@ -47,7 +47,7 @@ extension DSFTouchBar {
 
 		// MARK: - Title settings
 
-		private var _title = BindableBinding<String>()
+		private var _title = BindableAttributeBinding<String>()
 		public func title(_ title: String) -> Button {
 			self._title.value = title
 			if let e = self.embeddedControl() {
@@ -56,7 +56,7 @@ extension DSFTouchBar {
 			return self
 		}
 
-		public func bindTitle(to observable: AnyObject, withKeyPath keyPath: String) -> Button {
+		public func bindTitle<TYPE>(to observable: AnyObject, withKeyPath keyPath: ReferenceWritableKeyPath<TYPE, String>) -> Button {
 			self._title.setup(observable: observable, keyPath: keyPath)
 			return self
 		}
@@ -92,13 +92,13 @@ extension DSFTouchBar {
 
 		// MARK: - Background color settings
 
-		private var _backgroundColor = BindableAttribute<NSColor>()
+		private var _backgroundColor = BindableTypedAttribute<NSColor>()
 		public func backgroundColor(_ value: NSColor?) -> Self {
 			self._backgroundColor.value = value
 			return self
 		}
 
-		public func bindBackgroundColor(to observable: AnyObject, withKeyPath keyPath: String) -> Button {
+		public func bindBackgroundColor<TYPE>(to observable: NSObject, withKeyPath keyPath: ReferenceWritableKeyPath<TYPE, NSColor>) -> Button {
 			self._backgroundColor.setup(observable: observable, keyPath: keyPath)
 			return self
 		}
@@ -121,13 +121,13 @@ extension DSFTouchBar {
 
 		// MARK: - State settings
 
-		private let _state = BindableAttribute<NSControl.StateValue>()
+		private let _state = BindableTypedAttribute<NSControl.StateValue>()
 		func state(_ value: NSControl.StateValue) -> Self {
 			self._state.value = value
 			return self
 		}
 
-		public func bindState(to observable: AnyObject, withKeyPath keyPath: String) -> Button {
+		public func bindState<TYPE>(to observable: NSObject, withKeyPath keyPath: ReferenceWritableKeyPath<TYPE, NSControl.StateValue>) -> Button {
 			self._state.setup(observable: observable, keyPath: keyPath)
 			return self
 		}
@@ -242,13 +242,10 @@ extension DSFTouchBar {
 				sender.title = (sender.state == .on) ? self._alternateTitle : title
 			}
 
-			/// If we have a state observer, notify that it has changed
-			if let observer = self._state.bindValueObserver,
-			   let keyPath = self._state.bindValueKeyPath
-			{
-				observer.setValue(sender.state, forKey: keyPath)
-			}
+			// If we have a state observer, notify that it has changed
+			self._state.updateValue(sender.state)
 
+			// Any call the action
 			self._action?(sender.state)
 		}
 	}

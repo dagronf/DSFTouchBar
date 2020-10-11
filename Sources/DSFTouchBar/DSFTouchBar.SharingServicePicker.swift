@@ -33,15 +33,15 @@ extension DSFTouchBar {
 
 		// MARK: - Enabled support
 
-		private let _enabled = BindableAttribute<Bool>()
-		public func bindIsEnabled(to observable: NSObject, withKeyPath keyPath: String) -> SharingServicePicker {
+		private let _enabled = BindableTypedAttribute<Bool>()
+		public func bindIsEnabled<TYPE>(to observable: NSObject, withKeyPath keyPath: ReferenceWritableKeyPath<TYPE, Bool>) -> SharingServicePicker {
 			self._enabled.setup(observable: observable, keyPath: keyPath)
 			return self
 		}
 
 		// MARK: - Title bindings and settings
 
-		private let _title = BindableAttribute<String>()
+		private let _title = BindableTypedAttribute<String>()
 		public func title(_ title: String) -> SharingServicePicker {
 			_title.value = title
 			return self

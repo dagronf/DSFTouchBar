@@ -38,7 +38,7 @@ class SegmentedControlViewController: NSViewController {
 				.add(label: "low", image: NSImage(named: NSImage.touchBarAudioOutputVolumeLowTemplateName))
 				.add(label: "med", image: NSImage(named: NSImage.touchBarAudioOutputVolumeMediumTemplateName))
 				.add(label: "high", image: NSImage(named: NSImage.touchBarAudioOutputVolumeHighTemplateName))
-				.bindSelection(to: self, withKeyPath: #keyPath(segmented_1))
+				.bindSelection(to: self, withKeyPath: \SegmentedControlViewController.segmented_1)
 
 			DSFTouchBar.Spacer(size: .small)
 
@@ -48,7 +48,7 @@ class SegmentedControlViewController: NSViewController {
 				.add(label: "one")
 				.add(label: "two")
 				.add(label: "three")
-				.bindSelection(to: self, withKeyPath: #keyPath(segmented_2))
+				.bindSelection(to: self, withKeyPath: \SegmentedControlViewController.segmented_2)
 				.selectedColor(.systemYellow)
 
 			DSFTouchBar.OtherItemsPlaceholder()

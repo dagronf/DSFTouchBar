@@ -13,10 +13,10 @@ class ColorViewController: NSViewController {
 
 	let colorVC = CustomColorViewController()
 
-	@objc dynamic var selectedColor: NSColor? = .blue {
+	@objc dynamic var selectedColor: NSColor = .blue {
 		didSet {
 			if let e = self.colorVC.view as? CustomColorView {
-				e.color = self.selectedColor ?? .clear
+				e.color = self.selectedColor
 			}
 		}
 	}
@@ -33,7 +33,7 @@ class ColorViewController: NSViewController {
 			customizationIdentifier: NSTouchBar.CustomizationIdentifier("com.darrenford.touchbar.demo.slider")) {
 
 			DSFTouchBar.ColorPicker("color-picker")
-				.bindSelectedColor(to: self, withKeyPath: #keyPath(selectedColor))
+				.bindSelectedColor(to: self, withKeyPath: \ColorViewController.selectedColor)
 
 			DSFTouchBar.View("colorswatch", viewController: self.colorVC)
 				.customizationLabel("Color swatch")
