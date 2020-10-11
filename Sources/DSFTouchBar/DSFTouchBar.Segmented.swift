@@ -160,7 +160,7 @@ extension DSFTouchBar {
 		}
 
 		deinit {
-			Swift.print("DSFTouchBar.Segmented(\(self.identifierString)) deinit")
+			Logging.memory(#"DSFTouchBar.Segmented[%@] deinit"#, args: self.identifierString)
 		}
 
 		// Gets called when the user interacts with the control

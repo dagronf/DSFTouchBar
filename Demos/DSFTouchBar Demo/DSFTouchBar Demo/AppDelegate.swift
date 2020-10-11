@@ -7,6 +7,8 @@
 
 import Cocoa
 
+import DSFTouchBar
+
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
 
@@ -16,6 +18,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 	func applicationDidFinishLaunching(_ aNotification: Notification) {
 		// Insert code here to initialize your application
 		NSApplication.shared.isAutomaticCustomizeTouchBarMenuItemEnabled = true
+
+		// turn on memory logging to make sure we're cleaning up
+		DSFTouchBar.EnableLogging(true)
 	}
 
 	func applicationWillTerminate(_ aNotification: Notification) {

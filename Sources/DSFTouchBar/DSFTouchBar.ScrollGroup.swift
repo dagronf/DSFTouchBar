@@ -98,7 +98,7 @@ extension DSFTouchBar {
 		}
 
 		deinit {
-			Swift.print("DSFTouchBar.ScrollGroup(\(self.identifierString)) deinit")
+			Logging.memory(#"DSFTouchBar.ScrollGroup[%@] deinit"#, args: self.identifierString)
 		}
 	}
 }

@@ -32,22 +32,36 @@ extension DSFTouchBar {
 		// private var _button: NSButton?
 
 		private var _type: NSButton.ButtonType = .momentaryLight
+
+		/// Set the button type for the button
 		public func type(_ type: NSButton.ButtonType) -> Button {
 			_type = type
+			if let e = self.embeddedControl() {
+				e.setButtonType(type)
+			}
 			return self
 		}
 
 		// MARK: - Attributed Title settings
 
 		private var _attributedTitle: NSAttributedString?
+
+		/// Set the attributed (styled) title for the button
 		public func attributedTitle(_ title: NSAttributedString) -> Button {
 			_attributedTitle = title
+			if let e = self.embeddedControl() {
+				e.attributedTitle = title
+			}
 			return self
 		}
 
 		// MARK: - Title settings
 
 		private var _title = BindableAttributeBinding<String>()
+
+		/// Set the title
+		/// - Parameter title: The title for the button
+		/// - Returns: self
 		public func title(_ title: String) -> Button {
 			self._title.value = title
 			if let e = self.embeddedControl() {
@@ -56,7 +70,13 @@ extension DSFTouchBar {
 			return self
 		}
 
-		public func bindTitle<TYPE>(to observable: AnyObject, withKeyPath keyPath: ReferenceWritableKeyPath<TYPE, String>) -> Button {
+		/// Bind the title for the button to an observer
+		/// - Parameters:
+		///   - observable: The observing object
+		///   - keyPath: The key path to the member variable to observe
+		/// - Returns: self
+		@discardableResult
+		public func bindTitle<TYPE>(to observable: NSObject, withKeyPath keyPath: ReferenceWritableKeyPath<TYPE, String>) -> Button {
 			self._title.setup(observable: observable, keyPath: keyPath)
 			return self
 		}
@@ -64,6 +84,11 @@ extension DSFTouchBar {
 		// MARK: - Alternate Title
 
 		private var _alternateTitle: String = ""
+
+		/// Set the alternative title (the title displayed when 'on')
+		/// - Parameter alternateTitle: The alternative title
+		/// - Returns: self
+		@discardableResult
 		public func alternateTitle(_ alternateTitle: String) -> Button {
 			_alternateTitle = alternateTitle
 			if let e = self.embeddedControl() {
@@ -76,6 +101,10 @@ extension DSFTouchBar {
 
 		private var _image: NSImage?
 		private var _imagePosition: NSControl.ImagePosition = .imageLeading
+
+		/// Set the position for the image on the button
+		/// - Parameter position: the position
+		/// - Returns: self
 		public func imagePosition(_ position: NSControl.ImagePosition) -> Button {
 			_imagePosition = position
 			if let e = self.embeddedControl() {
@@ -84,20 +113,36 @@ extension DSFTouchBar {
 			return self
 		}
 
+		/// Set the image and image position for the button
+		/// - Parameters:
+		///   - image: the image to display
+		///   - imagePosition: the position on the button to display the image
+		/// - Returns: self
 		public func image(_ image: NSImage?, imagePosition: NSControl.ImagePosition = .imageLeading) -> Button {
 			_image = image
 			_imagePosition = imagePosition
+			if let e = self.embeddedControl() {
+				e.image = image
+				e.imagePosition = imagePosition
+			}
 			return self
 		}
 
 		// MARK: - Background color settings
 
 		private var _backgroundColor = BindableTypedAttribute<NSColor>()
+
+		/// Set the background color for the button
 		public func backgroundColor(_ value: NSColor?) -> Self {
 			self._backgroundColor.value = value
 			return self
 		}
 
+		/// Bind the background color of the button to an observable
+		/// - Parameters:
+		///   - observable: The object to observe
+		///   - keyPath: The key path of the member variable to observe
+		/// - Returns: self
 		public func bindBackgroundColor<TYPE>(to observable: NSObject, withKeyPath keyPath: ReferenceWritableKeyPath<TYPE, NSColor>) -> Button {
 			self._backgroundColor.setup(observable: observable, keyPath: keyPath)
 			return self
@@ -106,6 +151,8 @@ extension DSFTouchBar {
 		// MARK: - Font Color
 
 		private var _fontColor: NSColor?
+
+		/// Set the foreground color to use for the text on the button
 		public func foregroundColor(_ color: NSColor?) -> Button {
 			_fontColor = color
 			return self
@@ -114,6 +161,10 @@ extension DSFTouchBar {
 		// MARK: - Action
 
 		private var _action: ((NSControl.StateValue) -> Void)?
+
+		/// Set the action callback block
+		/// - Parameter action: the action block to perform
+		/// - Returns: self
 		public func action(_ action: @escaping ((NSControl.StateValue) -> Void)) -> Button {
 			_action = action
 			return self
@@ -122,11 +173,18 @@ extension DSFTouchBar {
 		// MARK: - State settings
 
 		private let _state = BindableTypedAttribute<NSControl.StateValue>()
+
+		/// Set the state for the button
 		func state(_ value: NSControl.StateValue) -> Self {
 			self._state.value = value
 			return self
 		}
 
+		/// Bind the state to an observable key path
+		/// - Parameters:
+		///   - observable: The object to observe
+		///   - keyPath: The key path for the member variable in the observable object
+		/// - Returns: self
 		public func bindState<TYPE>(to observable: NSObject, withKeyPath keyPath: ReferenceWritableKeyPath<TYPE, NSControl.StateValue>) -> Button {
 			self._state.setup(observable: observable, keyPath: keyPath)
 			return self
@@ -214,31 +272,9 @@ extension DSFTouchBar {
 			}
 		}
 
-		override func destroy() {
-			self._title.unbind()
-			self._state.unbind()
-			self._backgroundColor.unbind()
-
-			self._action = nil
-
-			if let but = self.embeddedControl() {
-				but.unbind(NSBindingName.value)
-				but.unbind(NSBindingName.title)
-				self.destroyCommon(uiElement: but)
-			}
-
-			super.destroy()
-		}
-
-		deinit {
-			Swift.print("DSFTouchBar.Button(\(self.identifierString), \"\(_title)\") deinit")
-		}
-
-		@objc func act(_ sender: NSButton) {
+		@objc private func act(_ sender: NSButton) {
 			// If the button has an alternate title, make sure that we reflect the change in the title binding
-			if let title = self._title.value,
-			   _alternateTitle.count > 0
-			{
+			if let title = self._title.value, _alternateTitle.count > 0 {
 				sender.title = (sender.state == .on) ? self._alternateTitle : title
 			}
 
@@ -247,6 +283,26 @@ extension DSFTouchBar {
 
 			// Any call the action
 			self._action?(sender.state)
+		}
+
+		// MARK: - Cleanup and destroy
+
+		override func destroy() {
+			self._title.unbind()
+			self._state.unbind()
+			self._backgroundColor.unbind()
+
+			self._action = nil
+
+			if let but = self.embeddedControl() {
+				self.destroyCommon(uiElement: but)
+			}
+
+			super.destroy()
+		}
+
+		deinit {
+			Logging.memory(#"DSFTouchBar.Button[%@] deinit"#, args: self.identifierString)
 		}
 	}
 }

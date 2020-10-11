@@ -88,7 +88,7 @@ extension DSFTouchBar {
 
 		deinit {
 			self.destroy()
-			Swift.print("DSFTouchBar(\(self.baseIdentifier.rawValue)) deinit")
+			Logging.memory(#"DSFTouchBar[%@] deinit"#, args: self.baseIdentifier.rawValue)
 		}
 
 		/// Add a new item to the toolbar

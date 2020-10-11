@@ -41,7 +41,7 @@ extension DSFTouchBar {
 		}
 
 		/// Bind the label of the text
-		public func bindLabel<TYPE>(to observable: AnyObject, withKeyPath keyPath: ReferenceWritableKeyPath<TYPE, String>) -> Text {
+		public func bindLabel<TYPE>(to observable: NSObject, withKeyPath keyPath: ReferenceWritableKeyPath<TYPE, String>) -> Text {
 			self._label.setup(observable: observable, keyPath: keyPath)
 			return self
 		}
@@ -114,7 +114,7 @@ extension DSFTouchBar {
 		}
 
 		deinit {
-			Swift.print("DSFTouchBar.Text(\(self.identifierString), \"\(_label.value)\") deinit")
+			Logging.memory(#"DSFTouchBar.Text[%@] deinit"#, args: self.identifierString)
 		}
 
 		override func destroy() {

@@ -1,8 +1,9 @@
 //
-//  DSFTouchBar.Spacer.swift
-//  DSFTouchBar
+//  logging.swift
+//  DSFToolbar
 //
-//  Created by Darren Ford on 2/10/20.
+//  Basic logging framework for DSFToolbar
+//  Created by Darren Ford on 5/10/20.
 //
 //  MIT license
 //
@@ -27,28 +28,39 @@
 
 import Foundation
 
+import os
+
+// See https://www.avanderlee.com/workflow/oslog-unified-logging/
+
+private var _MemoryLogging = false
+
 extension DSFTouchBar {
-	public class Spacer: Item {
+	public static func EnableLogging(_ value: Bool) {
+		_MemoryLogging = value
+	}
+}
 
-		public enum Size {
-			case small
-			case large
-			case flexible
+
+internal extension OSLog {
+	private static var subsystem = Bundle.main.bundleIdentifier!
+
+	/// Logs the view cycles like viewDidLoad.
+
+	@available(OSX 10.12, iOS 10.0, *)
+	static let memoryAlloc = OSLog(subsystem: subsystem, category: "memory")
+}
+
+internal class Logging {
+
+	/// Function for tracking memory and memory related events
+	static func memory(_ msg: StaticString, args: CVarArg...) {
+		guard _MemoryLogging == true else { return }
+		if #available(OSX 10.12, iOS 10.0, *) {
+			os_log(msg, log: OSLog.memoryAlloc, type: .debug, args)
 		}
-
-		public init(size: Size) {
-			switch size {
-			case .small:
-				super.init(identifier: .fixedSpaceSmall)
-			case .large:
-				super.init(identifier: .fixedSpaceLarge)
-			case .flexible:
-				super.init(identifier: .flexibleSpace)
-			}
-		}
-
-		deinit {
-			Logging.memory(#"DSFTouchBar.Spacer deinit"#)
+		else {
+			// Fallback on earlier versions - just dump to Xcode output pane
+			debugPrint(msg)
 		}
 	}
 }

@@ -121,7 +121,7 @@ extension DSFTouchBar {
 		}
 
 		deinit {
-			Swift.print("DSFTouchBar.Slider(\(self.identifierString)) deinit")
+			Logging.memory(#"DSFTouchBar.Slider[%@] deinit"#, args: self.identifierString)
 		}
 
 		override func destroy() {

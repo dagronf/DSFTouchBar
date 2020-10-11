@@ -27,110 +27,18 @@
 
 import AppKit
 
-/// An untyped object binding container
-///
-/// The keypath for this binding is a String (use #keyPath).  This binder is useful for when
-/// you're binding and need to erase the type.
-///
-/// For example, an NSToolbar.sizeMode is of type NSToolbar.SizeMode however the binding
-/// is a UInt.  We can use this class to type-erase the binding from a UInt to an NSToolbar.SizeMode
-//internal class BindableUntypedAttribute<VALUETYPE>: NSObject {
-//	// The value of the attribute
-//	var value: VALUETYPE?
-//
-//	private(set) weak var bindValueObserver: AnyObject?
-//	private(set) var bindValueKeyPath: String?
-//
-//	private var valueChangeCallback: ((VALUETYPE) -> Void)?
-//
-//	public var hasBinding: Bool {
-//		return self.bindValueObserver != nil &&
-//			self.bindValueKeyPath != nil
-//	}
-//
-//	private(set) var bindingIsActive: Bool = false
-//
-//	func setup(observable: AnyObject, keyPath: String) {
-//		self.bindValueObserver = observable
-//		self.bindValueKeyPath = keyPath
-//	}
-//
-//	func updateValue(_ newValue: VALUETYPE) {
-//		guard let observer = self.bindValueObserver,
-//			  let keyPath = self.bindValueKeyPath else {
-//			// No binding was set for the attribute
-//			return
-//		}
-//		observer.setValue(newValue, forKey: keyPath)
-//	}
-//
-//	func bind(valueChangeCallback: @escaping (VALUETYPE) -> Void) {
-//
-//		if self.bindingIsActive == true {
-//			/// There's already a binding. Replace the callback
-//			self.valueChangeCallback = valueChangeCallback
-//			return
-//		}
-//
-//		guard let observer = self.bindValueObserver,
-//			  let keyPath = self.bindValueKeyPath else {
-//			// No binding was set for the attribute
-//			return
-//		}
-//
-//		self.valueChangeCallback = valueChangeCallback
-//
-//		observer.addObserver(self, forKeyPath: keyPath, options: [.new], context: nil)
-//		self.bindingIsActive = true
-//
-//		// Set the initial value from the binding if we can
-//		if let v = observer.value(forKeyPath: keyPath) as? VALUETYPE {
-//			valueChangeCallback(v)
-//		}
-//	}
-//
-//	func unbind() {
-//		if !self.bindingIsActive {
-//			return
-//		}
-//
-//		if let observer = self.bindValueObserver,
-//		   let keyPath = self.bindValueKeyPath {
-//			observer.removeObserver(self, forKeyPath: keyPath)
-//			self.bindingIsActive = false
-//		}
-//	}
-//
-//	override public func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey: Any]?, context: UnsafeMutableRawPointer?) {
-//		if let changeCallback = self.valueChangeCallback,
-//		   let observerKeyPath = self.bindValueKeyPath, observerKeyPath == keyPath,
-//		   let newVal = change?[.newKey] as? VALUETYPE {
-//			changeCallback(newVal)
-//		}
-//		else {
-//			super.observeValue(forKeyPath: keyPath, of: object, change: change, context: context)
-//		}
-//	}
-//}
-
-/// A typed object binding container
+/// A typed object binding container, bound using addObserver
 internal class BindableTypedAttribute<VALUETYPE>: NSObject {
 	// The value of the attribute
 	var value: VALUETYPE?
 
 	private(set) weak var bindValueObserver: NSObject?
-	//private(set) var bindValueKeyPath: AnyKeyPath? // ReferenceWritableKeyPath<TYPE, VALUETYPE>?
-
 	private var bindStringKeyPath: String?
 
 	private var valueChangeCallback: ((VALUETYPE) -> Void)?
 
-	public var hasBinding: Bool {
-		return self.bindValueObserver != nil &&
-			self.bindStringKeyPath != nil
-	}
-
-	private(set) var bindingIsActive: Bool = false
+	/// Has this attribute been bound to an observer?
+	public private(set) var bindingIsActive: Bool = false
 
 	func setup<TYPE>(observable: NSObject, keyPath: ReferenceWritableKeyPath<TYPE, VALUETYPE>) {
 		self.bindValueObserver = observable
@@ -208,7 +116,8 @@ internal class BindableTypedAttribute<VALUETYPE>: NSObject {
 	}
 }
 
-// Binding class for observed objects that can use NSBindingName
+
+/// Binding class for observed objects that can use NSBindingName
 class BindableAttributeBinding<VALUETYPE>: NSObject {
 	var value: VALUETYPE?
 
@@ -217,14 +126,16 @@ class BindableAttributeBinding<VALUETYPE>: NSObject {
 	private(set) weak var bindValueObserver: AnyObject?
 	private(set) var bindValueKeyPath: String?
 
-	// This is something like an NSTextField
+	// The object to observe
 	private(set) var boundObject: AnyObject?
+
+	// The name of the binding type (eg. "value", "selectedItems" etc)
 	private(set) var bindingName: NSBindingName?
 
-	
-	func setup<CLASSTYPE>(observable: AnyObject, keyPath: ReferenceWritableKeyPath<CLASSTYPE, VALUETYPE>, continuouslyUpdates: Bool = true) {
+	func setup<CLASSTYPE>(observable: NSObject, keyPath: ReferenceWritableKeyPath<CLASSTYPE, VALUETYPE>, continuouslyUpdates: Bool = true) {
 		self.bindValueObserver = observable
 
+		// Convert the key path to a string version of it.  This ONLY works iff observable is an @objc dynamic var object.
 		let stringKeyPath = NSExpression(forKeyPath: keyPath).keyPath
 		guard !stringKeyPath.isEmpty else {
 			fatalError("Unable to convert keyPath \(keyPath)")
@@ -234,6 +145,12 @@ class BindableAttributeBinding<VALUETYPE>: NSObject {
 		self.continuouslyUpdatesValue = continuouslyUpdates
 	}
 
+
+	/// Bind the object
+	/// - Parameters:
+	///   - bindingName: The name of the binding to observe
+	///   - boundObject: The observable object
+	///   - checkAvailability: if true, performs a check to make sure that the receiver has exposed the binding 'bindingName'
 	func bind(bindingName: NSBindingName, of boundObject: NSObject, checkAvailability: Bool = true) {
 		self.bindingName = bindingName
 

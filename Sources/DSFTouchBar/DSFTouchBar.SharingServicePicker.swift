@@ -120,7 +120,7 @@ extension DSFTouchBar {
 		}
 
 		deinit {
-			Swift.print("DSFTouchBar.SharingServicePicker(\(self.identifierString)) deinit")
+			Logging.memory(#"DSFTouchBar.SharingServicePicker[%@] deinit"#, args: self.identifierString)
 		}
 	}
 }

@@ -60,7 +60,7 @@ extension DSFTouchBar {
 		}
 
 		deinit {
-			Swift.print("DSFTouchBar.View deinit")
+			Logging.memory(#"DSFTouchBar.View[%@] deinit"#, args: self.identifierString)
 		}
 	}
 }
