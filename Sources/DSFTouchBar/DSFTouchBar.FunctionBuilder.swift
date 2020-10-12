@@ -40,28 +40,6 @@ public extension DSFTouchBarBuilder {
 	}
 }
 
-public extension DSFTouchBar {
-	/// Make a new touchbar using SwiftUI declarative style
-	/// - Parameters:
-	///   - baseIdentifier: The base identifier for the toolbar
-	///   - customizationIdentifier: The customization identifier for the toolbar, or nil for no customization.
-	///   - builder: The touchbar items
-	/// - Returns: The created toolbar builder
-	static func Build(
-		baseIdentifier: NSTouchBarItem.Identifier,
-		customizationIdentifier: NSTouchBar.CustomizationIdentifier? = nil,
-		@DSFTouchBarBuilder builder: () -> [DSFTouchBar.Item]
-	) -> DSFTouchBar.Builder {
-
-		let tb = DSFTouchBar.Builder(
-			baseIdentifier: baseIdentifier,
-			customizationIdentifier: customizationIdentifier,
-			children: builder())
-
-		return tb // .toolbar
-	}
-}
-
 // MARK: - Group FunctionBuilder
 
 @_functionBuilder
@@ -72,19 +50,6 @@ public struct DSFTouchBarGroupBuilder {
 public extension DSFTouchBarGroupBuilder {
 	static func buildBlock(_ settings: DSFTouchBar.Item...) -> [DSFTouchBar.Item] {
 		settings
-	}
-}
-
-public extension DSFTouchBar.Group {
-	convenience init(
-		_ leafIdentifier: String,
-		customizationLabel: String? = nil,
-		equalWidths: Bool = false,
-		@DSFTouchBarGroupBuilder builder: () -> [DSFTouchBar.Item]) {
-		self.init(leafIdentifier,
-				  customizationLabel: customizationLabel,
-				  equalWidths: equalWidths,
-				  builder())
 	}
 }
 
@@ -101,17 +66,6 @@ public extension DSFTouchBarScrollGroupBuilder {
 	}
 }
 
-public extension DSFTouchBar.ScrollGroup {
-	convenience init(
-		_ leafIdentifier: String,
-		customizationLabel: String? = nil,
-		@DSFTouchBarScrollGroupBuilder builder: () -> [DSFTouchBar.Item]) {
-		self.init(leafIdentifier,
-				  customizationLabel: customizationLabel,
-				  builder())
-	}
-}
-
 // MARK: - Popover Group FunctionBuilder
 
 @_functionBuilder
@@ -122,18 +76,5 @@ public struct DSFTouchBarScrollPopoverBuilder {
 public extension DSFTouchBarScrollPopoverBuilder {
 	static func buildBlock(_ settings: DSFTouchBar.Item...) -> [DSFTouchBar.Item] {
 		settings
-	}
-}
-
-public extension DSFTouchBar.Popover {
-	convenience init(
-		_ leafIdentifier: String,
-		collapsedLabel: String? = nil,
-		collapsedImage: NSImage? = nil,
-		@DSFTouchBarScrollPopoverBuilder builder: () -> [DSFTouchBar.Item]) {
-		self.init(leafIdentifier,
-				  collapsedLabel: collapsedLabel,
-				  collapsedImage: collapsedImage,
-				  builder())
 	}
 }

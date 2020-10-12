@@ -28,7 +28,7 @@ class ColorViewController: NSViewController {
 
 	override func makeTouchBar() -> NSTouchBar? {
 
-		let builder = DSFTouchBar.Build(
+		let builder = DSFTouchBar(
 			baseIdentifier: NSTouchBarItem.Identifier("com.darrenford.touchbar.demo.slider"),
 			customizationIdentifier: NSTouchBar.CustomizationIdentifier("com.darrenford.touchbar.demo.slider")) {
 

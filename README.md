@@ -2,6 +2,39 @@
 
 A description of this package.
 
+## Concepts
+
+### baseIdentifier
+
+The baseIdentifier for the toolbar provides the 'root' identifier for all of the children.  When a toolbar item is added, the identifier provided for the item is appended to the baseIdentifier to make a unique identifier.
+
+This is done to try to reduce the verboseness of specifying a full identifier for each child of the toolbar.  
+
+So, for example :-
+
+```swift
+let touchbar = DSFTouchBar(
+   // Set the base identifier for the toolbar to be com.noodles.touchbar.demo.buttons 
+   baseIdentifier: NSTouchBarItem.Identifier("com.noodles.touchbar.demo.buttons")) {
+
+      // This button will have the unique identifier 'com.noodles.touchbar.demo.buttons.new-document'
+      DSFTouchBar.Button("new-document")
+         .title("New")
+         .action { _ in
+            Swift.print("Create a new document")
+         }
+      }
+
+      // This button will have the unique identifier 'com.noodles.touchbar.demo.buttons.edit-document'
+      DSFTouchBar.Button("edit-document")
+         .title("Edit")
+         .action { _ in
+            Swift.print("Edit the current document")
+         }
+      }
+   }
+```
+
 
 # Controls
 

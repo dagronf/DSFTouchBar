@@ -37,8 +37,8 @@ class SliderViewController: NSViewController {
 		// Do view setup here.
 	}
 
-	var customBar: DSFTouchBar.Builder {
-		DSFTouchBar.Builder(
+	var customBar: DSFTouchBar {
+		DSFTouchBar(
 			baseIdentifier: NSTouchBarItem.Identifier("com.darrenford.touchbar.demo.slider"),
 			customizationIdentifier: NSTouchBar.CustomizationIdentifier("com.darrenford.touchbar.demo.slider"),
 

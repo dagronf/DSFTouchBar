@@ -30,8 +30,8 @@ class SimpleCustomViewViewController: NSViewController {
 		}
 	}
 
-	func sparklineBar() -> DSFTouchBar.Builder {
-		return DSFTouchBar.Build(
+	func sparklineBar() -> DSFTouchBar {
+		return DSFTouchBar(
 			baseIdentifier: NSTouchBarItem.Identifier("com.darrenford.touchbar.demo.custom-view"),
 			customizationIdentifier: NSTouchBar.CustomizationIdentifier("com.darrenford.touchbar.demo.custom-view")) {
 

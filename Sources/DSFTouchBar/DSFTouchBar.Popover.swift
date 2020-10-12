@@ -29,7 +29,7 @@ import AppKit
 
 extension DSFTouchBar {
 	public class Popover: UIElementItemBase {
-		private var popoverContentBuilder: DSFTouchBar.Builder?
+		private var popoverContentBuilder: DSFTouchBar?
 
 		// Cleanup handle
 		private var AssociatedObjectHandle: UInt8 = 0
@@ -49,7 +49,7 @@ extension DSFTouchBar {
 				self.popoverContentBuilder = nil
 
 				let rc = self.baseIdentifier!.rawValue + "." + self.leafIdentifier
-				let pc = DSFTouchBar.Builder(baseIdentifier: NSTouchBarItem.Identifier(rc))
+				let pc = DSFTouchBar(baseIdentifier: NSTouchBarItem.Identifier(rc))
 
 				for item in self._children {
 					pc.add(item: item)
@@ -78,6 +78,18 @@ extension DSFTouchBar {
 
 				return tb
 			}
+		}
+
+		public convenience init(
+			_ leafIdentifier: String,
+			collapsedLabel: String? = nil,
+			collapsedImage: NSImage? = nil,
+			@DSFTouchBarScrollPopoverBuilder builder: () -> [DSFTouchBar.Item]
+		) {
+			self.init(leafIdentifier,
+					  collapsedLabel: collapsedLabel,
+					  collapsedImage: collapsedImage,
+					  builder())
 		}
 
 		override func destroy() {
