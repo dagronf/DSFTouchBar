@@ -38,3 +38,23 @@ public extension NSSegmentedControl {
 		return indexes
 	}
 }
+
+public extension NSSegmentedControl {
+	/// Custom observable object for retrieving the selected indexes for a segmented control
+	@objc dynamic var selectedIndexes: NSIndexSet {
+		get {
+			let result = NSMutableIndexSet()
+			for i in 0 ..< self.segmentCount {
+				if self.isSelected(forSegment: i) {
+					result.add(i)
+				}
+			}
+			return result
+		}
+		set {
+			for item in 0 ..< self.segmentCount {
+				self.setSelected(newValue.contains(item), forSegment: item)
+			}
+		}
+	}
+}
