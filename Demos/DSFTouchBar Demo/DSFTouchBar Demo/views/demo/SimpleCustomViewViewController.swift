@@ -35,7 +35,7 @@ class SimpleCustomViewViewController: NSViewController {
 			baseIdentifier: NSTouchBarItem.Identifier("com.darrenford.touchbar.demo.custom-view"),
 			customizationIdentifier: NSTouchBar.CustomizationIdentifier("com.darrenford.touchbar.demo.custom-view")) {
 
-			DSFTouchBar.Text("label")
+			DSFTouchBar.Label("label")
 				.label("Sparklines ->")
 
 			DSFTouchBar.View("sparkline1", viewController: self.sparklineVC1)

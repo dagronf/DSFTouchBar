@@ -343,7 +343,7 @@ class ViewController: NSViewController {
 //			 DSFTouchBar.Text("text.3331")
 //			 .label("Noodle")
 //			.attributedLabel(attrt)
-//			 .bindAttributedTextLabel(to: self, withKeyPath: #keyPath(attrt)),
+//			 .bindAttributedLabel(to: self, withKeyPath: #keyPath(attrt)),
 			 //.bindLabel(to: self, withKeyPath: #keyPath(labelTitle)),
 //						DSFTouchBar.Button("text.3332")
 //							.title("Fish and chips")

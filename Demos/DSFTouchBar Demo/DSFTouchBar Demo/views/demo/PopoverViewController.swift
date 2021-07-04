@@ -48,7 +48,7 @@ class PopoverViewController: NSViewController {
 		let bar = DSFTouchBar(
 			baseIdentifier: NSTouchBarItem.Identifier("com.darrenford.touchbar.demo.popover"),
 			customizationIdentifier: NSTouchBar.CustomizationIdentifier("com.darrenford.touchbar.demo.popover")) {
-			DSFTouchBar.Text("root_text").label("Popover ->")
+			DSFTouchBar.Label("root_text").label("Popover ->")
 			self.popoverContent()
 			DSFTouchBar.OtherItemsPlaceholder()
 		}

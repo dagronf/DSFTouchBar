@@ -1,5 +1,5 @@
 //
-//  DSFTouchBar.Text.swift
+//  DSFTouchBar.Label.swift
 //  DSFTouchBar
 //
 //  Created by Darren Ford on 2/10/20.
@@ -33,28 +33,35 @@ extension DSFTouchBar {
 	///
 	/// ```swift
 	/// // A simple text label
-	/// DSFTouchBar.Text("User")
+	/// DSFTouchBar.Label("User")
 	///    .label("User")
 	///
 	/// // An attributed label bound to a NSAttributedString keyPath
-	/// DSFTouchBar.Text("username", customizationLabel: "User's name")
+	/// DSFTouchBar.Label("username", customizationLabel: "User's name")
 	///    .bindAttributedTextLabel(to: self, withKeyPath: \MyViewController.myLabel)
 	/// ```
 	///
-	public class Text: UIElementItem<NSTextField> {
+	public class Label: UIElementItem<NSTextField> {
 		// MARK: - label
 
 		private var _label = BindableAttributeBinding<String>()
 
 		/// Set the label for the text object
-		public func label(_ label: String) -> Text {
+		public func label(_ label: String) -> Label {
 			_label.value = label
 			_attributedLabel.value = nil
 			return self
 		}
 
 		/// Bind the label of the text
-		public func bindLabel<TYPE>(to observable: NSObject, withKeyPath keyPath: ReferenceWritableKeyPath<TYPE, String>) -> Text {
+		///
+		/// ```swift
+		/// @objc dynamic var myString = String("Text")
+		///    ...
+		/// DSFTouchBar.Label("label", customizationLabel: "Label Text")
+		///    .bindLabel(to: self, withKeyPath: \MyViewController.myString)
+		/// ```
+		public func bindLabel<TYPE>(to observable: NSObject, withKeyPath keyPath: ReferenceWritableKeyPath<TYPE, String>) -> Label {
 			self._label.setup(observable: observable, keyPath: keyPath)
 			return self
 		}
@@ -64,12 +71,20 @@ extension DSFTouchBar {
 		private var _attributedLabel = BindableTypedAttribute<NSAttributedString>()
 
 		/// Set the attributed text for the label
-		public func attributedLabel(_ value: NSAttributedString) -> Text {
+		public func attributedLabel(_ value: NSAttributedString) -> Label {
 			_attributedLabel.value = value
 			return self
 		}
 
-		public func bindAttributedTextLabel<TYPE>(to observable: NSObject, withKeyPath keyPath: ReferenceWritableKeyPath<TYPE, NSAttributedString>) -> Text {
+		/// Bind the attributed label for the item to a key path
+		///
+		/// ```swift
+		/// @objc dynamic var simpleAttributedString = NSAttributedString(...)
+		///    ...
+		/// DSFTouchBar.Label("attributed", customizationLabel: "Attributed Label Text")
+		///    .bindAttributedLabel(to: self, withKeyPath: \MyViewController.simpleAttributedString)
+		/// ```
+		public func bindAttributedLabel<TYPE>(to observable: NSObject, withKeyPath keyPath: ReferenceWritableKeyPath<TYPE, NSAttributedString>) -> Label {
 			self._attributedLabel.setup(observable: observable, keyPath: keyPath)
 			return self
 		}
@@ -118,7 +133,7 @@ extension DSFTouchBar {
 	}
 }
 
-extension DSFTouchBar.Text {
+extension DSFTouchBar.Label {
 	private func makeTouchbarItem() -> NSTouchBarItem? {
 		let tb = NSCustomTouchBarItem(identifier: self.identifier)
 		tb.customizationLabel = self._customizationLabel

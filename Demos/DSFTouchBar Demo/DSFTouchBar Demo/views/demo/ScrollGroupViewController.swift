@@ -20,7 +20,7 @@ class ScrollGroupViewController: NSViewController {
 			baseIdentifier: NSTouchBarItem.Identifier("com.darrenford.touchbar.demo.scrollgroup"),
 			customizationIdentifier: NSTouchBar.CustomizationIdentifier("com.darrenford.touchbar.demo.scrollgroup")) {
 
-			DSFTouchBar.Text("root_text").label("ScrollGroup ->")
+			DSFTouchBar.Label("root_text").label("ScrollGroup ->")
 
 			DSFTouchBar.ScrollGroup("scrollgroup", customizationLabel: "Button Scroller") {
 				DSFTouchBar.Button("button-1").title("😀1😀").action { _ in Swift.print("1 pressed") }
@@ -35,7 +35,7 @@ class ScrollGroupViewController: NSViewController {
 
 			DSFTouchBar.Spacer(size: .small)
 
-			DSFTouchBar.Text("hooray_text").label("Hooray!")
+			DSFTouchBar.Label("hooray_text").label("Hooray!")
 
 			DSFTouchBar.OtherItemsPlaceholder()
 		}
