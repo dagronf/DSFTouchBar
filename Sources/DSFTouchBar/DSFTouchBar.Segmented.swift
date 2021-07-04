@@ -121,7 +121,7 @@ public extension DSFTouchBar {
 
 			self._selectedIndexes.unbind()
 
-			if let control = self.embeddedControl() {
+			if let control = self.embeddedControl {
 				self.destroyCommon(uiElement: control)
 			}
 			super.destroy()

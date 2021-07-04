@@ -29,7 +29,18 @@ import AppKit
 
 extension DSFTouchBar {
 
-	/// A TouchBar label
+	/// A TouchBar label, with either a standard or attributed string
+	///
+	/// ```swift
+	/// // A simple text label
+	/// DSFTouchBar.Text("User")
+	///    .label("User")
+	///
+	/// // An attributed label bound to a NSAttributedString keyPath
+	/// DSFTouchBar.Text("username", customizationLabel: "User's name")
+	///    .bindAttributedTextLabel(to: self, withKeyPath: \MyViewController.myLabel)
+	/// ```
+	///
 	public class Text: UIElementItem<NSTextField> {
 		// MARK: - label
 
@@ -90,7 +101,7 @@ extension DSFTouchBar {
 		}
 
 		override func destroy() {
-			if let field = self.embeddedControl() {
+			if let field = self.embeddedControl {
 				field.unbind(NSBindingName.value)
 
 				// If there were bindings to the label, remove them
@@ -137,7 +148,7 @@ extension DSFTouchBar.Text {
 
 		// If the attributed string value is bound…
 		self._attributedLabel.bind { [weak self] (value) -> (Void) in
-			self?.embeddedControl()?.attributedStringValue = value
+			self?.embeddedControl?.attributedStringValue = value
 		}
 
 		return tb

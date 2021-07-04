@@ -29,6 +29,16 @@ import AppKit
 
 public extension DSFTouchBar {
 	/// A button touchbar item
+	///
+	/// ```swift
+	/// DSFTouchBar.Button("button-1", customizationLabel: "Action Button")
+	///   .title("Simple")
+	///   .bindState(to: self, withKeyPath: \MyViewController.buttonState)
+	///   .action { state in
+	///       Swift.print("Pressed button - \(state)")
+	///}
+	/// ```
+	///
 	class Button: UIElementItem<NSButton> {
 		private static let DefaultTitle = "Button"
 
@@ -39,7 +49,7 @@ public extension DSFTouchBar {
 		/// Set the button type for the button
 		public func type(_ type: NSButton.ButtonType) -> Button {
 			self._type = type
-			if let e = self.embeddedControl() {
+			if let e = self.embeddedControl {
 				e.setButtonType(type)
 			}
 			return self
@@ -52,7 +62,7 @@ public extension DSFTouchBar {
 		/// Set the attributed (styled) title for the button
 		public func attributedTitle(_ title: NSAttributedString) -> Button {
 			self._attributedTitle = title
-			if let e = self.embeddedControl() {
+			if let e = self.embeddedControl {
 				e.attributedTitle = title
 			}
 			return self
@@ -67,7 +77,7 @@ public extension DSFTouchBar {
 		/// - Returns: self
 		public func title(_ title: String) -> Button {
 			self._title.value = title
-			if let e = self.embeddedControl() {
+			if let e = self.embeddedControl {
 				e.title = title
 			}
 			return self
@@ -94,7 +104,7 @@ public extension DSFTouchBar {
 		@discardableResult
 		public func alternateTitle(_ alternateTitle: String) -> Button {
 			self._alternateTitle = alternateTitle
-			if let e = self.embeddedControl() {
+			if let e = self.embeddedControl {
 				e.alternateTitle = alternateTitle
 			}
 			return self
@@ -110,7 +120,7 @@ public extension DSFTouchBar {
 		/// - Returns: self
 		public func imagePosition(_ position: NSControl.ImagePosition) -> Button {
 			self._imagePosition = position
-			if let e = self.embeddedControl() {
+			if let e = self.embeddedControl {
 				e.imagePosition = position
 			}
 			return self
@@ -124,7 +134,7 @@ public extension DSFTouchBar {
 		public func image(_ image: NSImage?, imagePosition: NSControl.ImagePosition = .imageLeading) -> Button {
 			self._image = image
 			self._imagePosition = imagePosition
-			if let e = self.embeddedControl() {
+			if let e = self.embeddedControl {
 				e.image = image
 				e.imagePosition = imagePosition
 			}
@@ -235,7 +245,7 @@ public extension DSFTouchBar {
 
 			self._action = nil
 
-			if let but = self.embeddedControl() {
+			if let but = self.embeddedControl {
 				self.destroyCommon(uiElement: but)
 			}
 
@@ -291,7 +301,7 @@ extension DSFTouchBar.Button {
 
 		self._state.bind { [weak self] newState in
 			guard let `self` = self,
-					let button = self.embeddedControl() else { return }
+					let button = self.embeddedControl else { return }
 			button.state = newState
 
 			if button.alternateTitle.count > 0 {
@@ -308,7 +318,7 @@ extension DSFTouchBar.Button {
 		// Background color binding
 
 		self._backgroundColor.bind { [weak self] newColor in
-			self?.embeddedControl()?.bezelColor = newColor
+			self?.embeddedControl?.bezelColor = newColor
 		}
 
 		tb.view = button

@@ -57,7 +57,7 @@ public extension DSFTouchBar {
 		}
 		
 		override func destroy() {
-			if let view = self.embeddedControl() {
+			if let view = self.embeddedControl {
 				self.destroyCommon(uiElement: view)
 			}
 			self.viewController = nil

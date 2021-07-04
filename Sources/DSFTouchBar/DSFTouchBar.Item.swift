@@ -28,6 +28,7 @@
 import AppKit
 
 public extension DSFTouchBar {
+	/// Base class for a touchbar item
 	class Item: NSObject {
 		let leafIdentifier: String
 		var baseIdentifier: NSTouchBarItem.Identifier? {
@@ -48,22 +49,37 @@ public extension DSFTouchBar {
 		
 		// MARK: Customization label
 		
-		var _customizationLabel: String?
+		internal var _customizationLabel: String?
+
+		/// The user-visible string identifying this item during bar customization.
+		public var customizationLabel: String? {
+			return _customizationLabel
+		}
+
+		/// Set the customization label
 		public func customizationLabel(_ value: String) -> Self {
 			self._customizationLabel = value
 			return self
 		}
-		
+
+		/// Initializer
+		/// - Parameters:
+		///   - leafIdentifier: the unique identifier for the toolbar item at this level
+		///   - customizationLabel: The user-visible string identifying this item during bar customization.
 		init(leafIdentifier: String, customizationLabel: String? = nil) {
 			self.leafIdentifier = leafIdentifier
 			self._customizationLabel = customizationLabel
 		}
-		
+
+		/// Initializer
+		/// - Parameters:
+		///   - leafIdentifier: the unique identifier for the toolbar item at this level
 		init(identifier: NSTouchBarItem.Identifier) {
 			self.identifier = identifier
 			self.leafIdentifier = ""
 		}
-		
+
+		// Called during item cleanup
 		func destroy() {
 			Logging.memory(#"DSFTouchBar.Item[%@] deinit"#, args: self.identifierString)
 			self.itemBuilder = nil
@@ -81,14 +97,15 @@ public extension DSFTouchBar {
 		//			return self
 		//		}
 	}
-	
+
+	/// A touchbar item class wrapping an AppKit control
 	class UIElementItem<T>: UIElementItemBase where T: NSView {
 		// MARK: - Control
 		
 		private var _control: T?
 		
-		/// Returns the AppKit control embedded in the touchbar item
-		public func embeddedControl() -> T? { return self._control }
+		/// Returns the AppKit control embedded in the touchbar item, or nil if there's no embedded AppKit control (eg. a group)
+		public var embeddedControl: T? { return self._control }
 		
 		// MARK: Create hooks
 		

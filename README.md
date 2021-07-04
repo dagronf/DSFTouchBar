@@ -53,9 +53,12 @@ override func makeTouchBar() -> NSTouchBar? {
 ```
 
 
-# Controls
+# Available Controls
 
 ## Button
+
+<details>
+<summary>Adds a button to the touchbar</summary>
 
 ### Settings
 
@@ -77,6 +80,8 @@ override func makeTouchBar() -> NSTouchBar? {
 |:------------------|:-----------------------|:--------------------------------------------------------------------|
 | `bindState`       | `NSControl.StateValue` | Create a two-way state binding to the specified keyPath |
 
+</details>
+
 ### Example
 
 ```swift
@@ -89,7 +94,12 @@ DSFTouchBar.Button(NSTouchBarItem.Identifier("com.superblah.button1"), type: .on
    .bindState(to: self, withKeyPath: #keyPath(buttonState))
 ```
 
+
+
 ## Text
+
+<details>
+<summary>Adds text to the touchbar</summary>
 
 ### Settings
 
@@ -105,6 +115,8 @@ DSFTouchBar.Button(NSTouchBarItem.Identifier("com.superblah.button1"), type: .on
 |:------------------|:-----------------------|:--------------------------------------------------------------------|
 | `bindLabel`       | `String`   | Create a binding for the label to the specified keyPath |
 
+</details>
+
 ### Example
 
 ```swift
@@ -114,10 +126,12 @@ DSFTouchBar.Text(NSTouchBarItem.Identifier("com.superblah.TextField"), label: "N
    .bindLabel(to: self, withKeyPath: #keyPath(labelText))
 ```
 
+
   
 ## Segmented
 
-Implements a segmented control within the touch bar
+<details>
+<summary>Adds a segmented control to the touchbar</summary>
 
 ### Settings
 
@@ -134,6 +148,8 @@ Implements a segmented control within the touch bar
 | `bindSelectedIndex` | `Int` | Create a two-way binding for a single selection state to the specified `keyPath` |
 | `bindSelectionIndexes`  | `NSIndexSet` | Create a two-way binding for the multiple  selection state to the specified `keyPath` |
 
+</details>
+
 ### Example
 
 ```swift
@@ -148,7 +164,8 @@ DSFTouchBar.Segmented(NSTouchBarItem.Identifier("com.superblah.Segmented"), trac
 
 ## Slider
 
-Implements a slider control within the touch bar
+<details>
+<summary>Adds a slider control to the touchbar</summary>
 
 ### Settings
 
@@ -165,6 +182,8 @@ Implements a slider control within the touch bar
 | Method               | Type           | Description                                                     |
 |:---------------------|:---------------|:----------------------------------------------------------------|
 | `bindValue `  | `CGFloat` | Create a two-way binding for slider's value to the specified `keyPath` |
+
+</details>
 
 ### Example
 
@@ -183,6 +202,9 @@ DSFTouchBar.Slider(identifier: "squish", min: 0.0, max: 10.0)
 
 ## ColorPicker
 
+<details>
+<summary>Adds a color picker control to the touchbar</summary>
+
 ### Settings
 
 | Method              | Type                 | Description                       |
@@ -197,6 +219,8 @@ DSFTouchBar.Slider(identifier: "squish", min: 0.0, max: 10.0)
 |:---------------------|:---------------|:----------------------------------------------------------------|
 | `bindSelectedColor`  | `NSColor`      | Create a two-way binding for the color to the specified keyPath |
 
+</details>
+
 ### Example
 
 ```swift
@@ -206,7 +230,52 @@ DSFTouchBar.ColorPicker(NSTouchBarItem.Identifier("com.superblah.TextField"))
    .customizationLabel("Character Color")
    .showAlpha(true)
    .bindSelectedColor(to: self, withKeyPath: #keyPath(pickerColor))
-					
+```
+
+## View
+
+Add a custom view to the touch bar
+
+### Settings
+
+None
+
+### Example
+
+```swift
+var sparklineVC = SparkViewController()
+...
+DSFTouchBar.View("throughput-sparkline", viewController: self.sparklineVC)
+   .customizationLabel("Sparkline")
+   .width(100)
+```
+
+## Popover
+
+Add a popover to the touch bar.  The popover appears as a simple item which, when pressed, overlays another collection of items
+
+### Settings
+
+| Method            | Type                 | Description                       |
+|:------------------|:---------------------|:----------------------------------|
+| `collapsedLabel`  | `String?`  | the label to display when the popover content isn't visible |
+| `collapsedImage`  | `NSColor?` | the image to display when the popover content isn't visible |
+
+### Example
+
+```swift
+DSFTouchBar.Popover("base-popover", collapsedImage: buttonImage, 
+   [
+      DSFTouchBar.Button("tweak-button")
+         ...
+      ,
+      DSFTouchBar.Slider("slider", min: 0.0, max: 100.0)
+         ...
+      ,
+      DSFTouchBar.Button("reset-button")
+         ...
+   ]
+)
 ```
 
 # Support issues

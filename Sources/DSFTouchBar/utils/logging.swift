@@ -53,14 +53,9 @@ internal extension OSLog {
 internal class Logging {
 
 	/// Function for tracking memory and memory related events
-	static func memory(_ msg: StaticString, args: CVarArg...) {
-		guard _MemoryLogging == true else { return }
-		if #available(OSX 10.12, iOS 10.0, *) {
+	@inlinable static func memory(_ msg: StaticString, args: CVarArg...) {
+		if _MemoryLogging == true {
 			os_log(msg, log: OSLog.memoryAlloc, type: .debug, args)
-		}
-		else {
-			// Fallback on earlier versions - just dump to Xcode output pane
-			debugPrint(msg)
 		}
 	}
 }

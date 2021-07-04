@@ -119,7 +119,7 @@ public extension DSFTouchBar {
 		}
 
 		override func destroy() {
-			if let slider = self.embeddedControl() {
+			if let slider = self.embeddedControl {
 				slider.unbind(NSBindingName.value)
 				self.destroyCommon(uiElement: slider)
 			}
