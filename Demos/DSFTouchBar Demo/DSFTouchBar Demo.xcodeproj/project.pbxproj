@@ -34,6 +34,11 @@
 		235892C0250AE8A8001BA2EE /* PopoverViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 235892BE250AE8A8001BA2EE /* PopoverViewController.xib */; };
 		23AB4FA825087A81006A7380 /* ColorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23AB4FA625087A81006A7380 /* ColorViewController.swift */; };
 		23AB4FA925087A81006A7380 /* ColorViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 23AB4FA725087A81006A7380 /* ColorViewController.xib */; };
+		23B7F804268D5620005C0F58 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23B7F803268D5620005C0F58 /* AppDelegate.swift */; };
+		23B7F806268D5620005C0F58 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23B7F805268D5620005C0F58 /* ViewController.swift */; };
+		23B7F808268D5621005C0F58 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 23B7F807268D5621005C0F58 /* Assets.xcassets */; };
+		23B7F80B268D5621005C0F58 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 23B7F809268D5621005C0F58 /* Main.storyboard */; };
+		23B7F812268D5628005C0F58 /* DSFTouchBar in Frameworks */ = {isa = PBXBuildFile; productRef = 23B7F811268D5628005C0F58 /* DSFTouchBar */; };
 		23C37D492526A45A0002DE34 /* DSFTouchBar in Frameworks */ = {isa = PBXBuildFile; productRef = 23C37D482526A45A0002DE34 /* DSFTouchBar */; };
 /* End PBXBuildFile section */
 
@@ -45,6 +50,7 @@
 		234511262506FBA3006363CC /* TextViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TextViewController.xib; sourceTree = "<group>"; };
 		2345112925070712006363CC /* SliderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SliderViewController.swift; sourceTree = "<group>"; };
 		2345112A25070712006363CC /* SliderViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SliderViewController.xib; sourceTree = "<group>"; };
+		2346D5C2268D51430084003B /* DSFTouchBar */ = {isa = PBXFileReference; lastKnownFileType = folder; name = DSFTouchBar; path = ../..; sourceTree = "<group>"; };
 		23550E702508AA4A003DAB46 /* SegmentedControlViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentedControlViewController.swift; sourceTree = "<group>"; };
 		23550E712508AA4A003DAB46 /* SegmentedControlViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SegmentedControlViewController.xib; sourceTree = "<group>"; };
 		23550E772508B005003DAB46 /* SimpleCustomViewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleCustomViewViewController.swift; sourceTree = "<group>"; };
@@ -66,7 +72,13 @@
 		235892BE250AE8A8001BA2EE /* PopoverViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PopoverViewController.xib; sourceTree = "<group>"; };
 		23AB4FA625087A81006A7380 /* ColorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorViewController.swift; sourceTree = "<group>"; };
 		23AB4FA725087A81006A7380 /* ColorViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ColorViewController.xib; sourceTree = "<group>"; };
-		23C37D432526A43F0002DE34 /* DSFTouchBar */ = {isa = PBXFileReference; lastKnownFileType = folder; name = DSFTouchBar; path = ../../..; sourceTree = "<group>"; };
+		23B7F801268D5620005C0F58 /* Doco Demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Doco Demo.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		23B7F803268D5620005C0F58 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		23B7F805268D5620005C0F58 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		23B7F807268D5621005C0F58 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		23B7F80A268D5621005C0F58 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		23B7F80C268D5621005C0F58 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		23B7F80D268D5621005C0F58 /* Doco_Demo.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Doco_Demo.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,13 +92,23 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		23B7F7FE268D5620005C0F58 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				23B7F812268D5628005C0F58 /* DSFTouchBar in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
 		2358700B2506125700E170B0 = {
 			isa = PBXGroup;
 			children = (
+				2346D5C2268D51430084003B /* DSFTouchBar */,
 				235870162506125700E170B0 /* DSFTouchBar Demo */,
+				23B7F802268D5620005C0F58 /* Doco Demo */,
 				235870152506125700E170B0 /* Products */,
 				23C37D472526A45A0002DE34 /* Frameworks */,
 			);
@@ -96,6 +118,7 @@
 			isa = PBXGroup;
 			children = (
 				235870142506125700E170B0 /* DSFTouchBar Demo.app */,
+				23B7F801268D5620005C0F58 /* Doco Demo.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -103,7 +126,6 @@
 		235870162506125700E170B0 /* DSFTouchBar Demo */ = {
 			isa = PBXGroup;
 			children = (
-				23C37D432526A43F0002DE34 /* DSFTouchBar */,
 				235870272506130F00E170B0 /* views */,
 				235870172506125700E170B0 /* AppDelegate.swift */,
 				235870192506125700E170B0 /* ViewController.swift */,
@@ -151,6 +173,19 @@
 			path = demo;
 			sourceTree = "<group>";
 		};
+		23B7F802268D5620005C0F58 /* Doco Demo */ = {
+			isa = PBXGroup;
+			children = (
+				23B7F803268D5620005C0F58 /* AppDelegate.swift */,
+				23B7F805268D5620005C0F58 /* ViewController.swift */,
+				23B7F807268D5621005C0F58 /* Assets.xcassets */,
+				23B7F809268D5621005C0F58 /* Main.storyboard */,
+				23B7F80C268D5621005C0F58 /* Info.plist */,
+				23B7F80D268D5621005C0F58 /* Doco_Demo.entitlements */,
+			);
+			path = "Doco Demo";
+			sourceTree = "<group>";
+		};
 		23C37D472526A45A0002DE34 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -184,17 +219,41 @@
 			productReference = 235870142506125700E170B0 /* DSFTouchBar Demo.app */;
 			productType = "com.apple.product-type.application";
 		};
+		23B7F800268D5620005C0F58 /* Doco Demo */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 23B7F80E268D5621005C0F58 /* Build configuration list for PBXNativeTarget "Doco Demo" */;
+			buildPhases = (
+				23B7F7FD268D5620005C0F58 /* Sources */,
+				23B7F7FE268D5620005C0F58 /* Frameworks */,
+				23B7F7FF268D5620005C0F58 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				23B7F814268D562F005C0F58 /* PBXTargetDependency */,
+			);
+			name = "Doco Demo";
+			packageProductDependencies = (
+				23B7F811268D5628005C0F58 /* DSFTouchBar */,
+			);
+			productName = "Doco Demo";
+			productReference = 23B7F801268D5620005C0F58 /* Doco Demo.app */;
+			productType = "com.apple.product-type.application";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
 		2358700C2506125700E170B0 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1200;
+				LastSwiftUpdateCheck = 1250;
 				LastUpgradeCheck = 1200;
 				TargetAttributes = {
 					235870132506125700E170B0 = {
 						CreatedOnToolsVersion = 12.0;
+					};
+					23B7F800268D5620005C0F58 = {
+						CreatedOnToolsVersion = 12.5.1;
 					};
 				};
 			};
@@ -216,6 +275,7 @@
 			projectRoot = "";
 			targets = (
 				235870132506125700E170B0 /* DSFTouchBar Demo */,
+				23B7F800268D5620005C0F58 /* Doco Demo */,
 			);
 		};
 /* End PBXProject section */
@@ -236,6 +296,15 @@
 				2345112C25070712006363CC /* SliderViewController.xib in Resources */,
 				2358701F2506125800E170B0 /* Main.storyboard in Resources */,
 				234511282506FBA3006363CC /* TextViewController.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		23B7F7FF268D5620005C0F58 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				23B7F808268D5621005C0F58 /* Assets.xcassets in Resources */,
+				23B7F80B268D5621005C0F58 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -263,9 +332,22 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		23B7F7FD268D5620005C0F58 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				23B7F806268D5620005C0F58 /* ViewController.swift in Sources */,
+				23B7F804268D5620005C0F58 /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		23B7F814268D562F005C0F58 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			productRef = 23B7F813268D562F005C0F58 /* DSFTouchBar */;
+		};
 		23C37D462526A4540002DE34 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			productRef = 23C37D452526A4540002DE34 /* DSFTouchBar */;
@@ -277,6 +359,14 @@
 			isa = PBXVariantGroup;
 			children = (
 				2358701E2506125800E170B0 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		23B7F809268D5621005C0F58 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				23B7F80A268D5621005C0F58 /* Base */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -441,6 +531,48 @@
 			};
 			name = Release;
 		};
+		23B7F80F268D5621005C0F58 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "Doco Demo/Doco_Demo.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = 3L6RK3LGGW;
+				ENABLE_HARDENED_RUNTIME = YES;
+				INFOPLIST_FILE = "Doco Demo/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.darrenford.dsftouchbar.docodemo.Doco-Demo";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		23B7F810268D5621005C0F58 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "Doco Demo/Doco_Demo.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = 3L6RK3LGGW;
+				ENABLE_HARDENED_RUNTIME = YES;
+				INFOPLIST_FILE = "Doco Demo/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.darrenford.dsftouchbar.docodemo.Doco-Demo";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -458,6 +590,15 @@
 			buildConfigurations = (
 				235870252506125800E170B0 /* Debug */,
 				235870262506125800E170B0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		23B7F80E268D5621005C0F58 /* Build configuration list for PBXNativeTarget "Doco Demo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				23B7F80F268D5621005C0F58 /* Debug */,
+				23B7F810268D5621005C0F58 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -493,6 +634,14 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 23550E742508AFEC003DAB46 /* XCRemoteSwiftPackageReference "DSFSparkline" */;
 			productName = DSFSparkline;
+		};
+		23B7F811268D5628005C0F58 /* DSFTouchBar */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = DSFTouchBar;
+		};
+		23B7F813268D562F005C0F58 /* DSFTouchBar */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = DSFTouchBar;
 		};
 		23C37D452526A4540002DE34 /* DSFTouchBar */ = {
 			isa = XCSwiftPackageProductDependency;

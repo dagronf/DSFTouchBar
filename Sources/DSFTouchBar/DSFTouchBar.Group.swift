@@ -27,14 +27,33 @@
 
 import AppKit
 
-extension DSFTouchBar {
-	public class Group: UIElementItemBase {
-		public private(set) var _children: [DSFTouchBar.Item] = []
+public extension DSFTouchBar {
+	/// A item that provides a bar to contain other items.
+	class Group: UIElementItemBase {
+		// MARK: - Children
+		
+		private var _children: [DSFTouchBar.Item] = []
+		
+		/// Returns the child items for the group
+		public var children: [DSFTouchBar.Item] {
+			return self._children
+		}
+		
+		// MARK: - Widths
+		
 		private var _equalWidths: Bool = false
 		
+		// MARK: - Initializers
+		
+		/// Initializer
+		/// - Parameters:
+		///   - leafIdentifier: the unique identifier for the toolbar item at this level
+		///   - customizationLabel: The user-visible string identifying this item during bar customization.
+		///   - equalWidths: Should the elements of the group maintain equal widths?
+		///   - children: The child items for the group
 		public init(_ leafIdentifier: String, customizationLabel: String? = nil, equalWidths: Bool = false, _ children: [DSFTouchBar.Item]) {
-			_children = children
-			_equalWidths = equalWidths
+			self._children = children
+			self._equalWidths = equalWidths
 			super.init(leafIdentifier: leafIdentifier, customizationLabel: customizationLabel)
 			
 			self.itemBuilder = { [weak self] in
@@ -42,6 +61,12 @@ extension DSFTouchBar {
 			}
 		}
 		
+		/// Initializer
+		/// - Parameters:
+		///   - leafIdentifier: the unique identifier for the toolbar item at this level
+		///   - customizationLabel: The user-visible string identifying this item during bar customization.
+		///   - equalWidths: Should the elements of the group maintain equal widths?
+		///   - builder: The child items for the group in @resultBuilder format
 		public convenience init(
 			_ leafIdentifier: String,
 			customizationLabel: String? = nil,
@@ -49,9 +74,9 @@ extension DSFTouchBar {
 			@DSFTouchBarGroupBuilder builder: () -> [DSFTouchBar.Item]
 		) {
 			self.init(leafIdentifier,
-					  customizationLabel: customizationLabel,
-					  equalWidths: equalWidths,
-					  builder())
+						 customizationLabel: customizationLabel,
+						 equalWidths: equalWidths,
+						 builder())
 		}
 		
 		private func buildItem() -> NSTouchBarItem {

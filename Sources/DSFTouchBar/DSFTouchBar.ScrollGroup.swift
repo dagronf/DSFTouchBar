@@ -27,15 +27,26 @@
 
 import AppKit
 
-extension DSFTouchBar {
-	public class ScrollGroup: UIElementItemBase {
+public extension DSFTouchBar {
+	/// A collection of items contained within a horizontally scrollable group
+	class ScrollGroup: UIElementItemBase {
 		private weak var scrollView: NSScrollView?
 
-		public private(set) var _children: [DSFTouchBar.Item] = []
+		private var _children: [DSFTouchBar.Item] = []
 
+		/// Returns the child items for the group
+		public var children: [DSFTouchBar.Item] {
+			return self._children
+		}
+
+		/// Initializer
+		/// - Parameters:
+		///   - leafIdentifier: the unique identifier for the toolbar item at this level
+		///   - customizationLabel: The user-visible string identifying this item during bar customization.
+		///   - children: The child items for the group
 		public init(_ leafIdentifier: String,
-					customizationLabel: String? = nil,
-					_ children: [DSFTouchBar.Item])
+						customizationLabel: String? = nil,
+						_ children: [DSFTouchBar.Item])
 		{
 			self._children = children
 			super.init(leafIdentifier: leafIdentifier, customizationLabel: customizationLabel)
@@ -45,14 +56,19 @@ extension DSFTouchBar {
 			}
 		}
 
+		/// Initializer
+		/// - Parameters:
+		///   - leafIdentifier: the unique identifier for the toolbar item at this level
+		///   - customizationLabel: The user-visible string identifying this item during bar customization.
+		///   - builder: The child items for the group in @resultBuilder format
 		public convenience init(
 			_ leafIdentifier: String,
 			customizationLabel: String? = nil,
 			@DSFTouchBarScrollGroupBuilder builder: () -> [DSFTouchBar.Item]
 		) {
 			self.init(leafIdentifier,
-					  customizationLabel: customizationLabel,
-					  builder())
+						 customizationLabel: customizationLabel,
+						 builder())
 		}
 
 		override func destroy() {
@@ -70,7 +86,7 @@ extension DSFTouchBar {
 }
 
 extension DSFTouchBar.ScrollGroup {
-	func buildItem() -> NSCustomTouchBarItem {
+	private func buildItem() -> NSCustomTouchBarItem {
 		self._children.forEach { $0.baseIdentifier = self.baseIdentifier }
 
 		let item = NSCustomTouchBarItem(identifier: self.identifier)

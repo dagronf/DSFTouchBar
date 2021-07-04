@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		231F26F52526EB5500F61693 /* DSFSparkline in Frameworks */ = {isa = PBXBuildFile; productRef = 231F26F42526EB5500F61693 /* DSFSparkline */; };
-		234B2F8B2526EB0C00E47CA4 /* DSFTouchBar in Frameworks */ = {isa = PBXBuildFile; productRef = 234B2F8A2526EB0C00E47CA4 /* DSFTouchBar */; };
+		23663464268D486500FF87A8 /* DSFTouchBar in Frameworks */ = {isa = PBXBuildFile; productRef = 23663463268D486500FF87A8 /* DSFTouchBar */; };
 		23F91F7923E662A100D260C8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F91F7823E662A100D260C8 /* AppDelegate.swift */; };
 		23F91F7B23E662A100D260C8 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F91F7A23E662A100D260C8 /* ViewController.swift */; };
 		23F91F7D23E662A100D260C8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 23F91F7C23E662A100D260C8 /* Assets.xcassets */; };
@@ -17,7 +17,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		234B2F852526EAFE00E47CA4 /* DSFTouchBar */ = {isa = PBXFileReference; lastKnownFileType = folder; name = DSFTouchBar; path = ../../..; sourceTree = "<group>"; };
+		23663462268D485900FF87A8 /* DSFTouchBar */ = {isa = PBXFileReference; lastKnownFileType = folder; name = DSFTouchBar; path = ../..; sourceTree = "<group>"; };
 		23F91F7523E662A100D260C8 /* Touchbar Tester.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Touchbar Tester.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		23F91F7823E662A100D260C8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		23F91F7A23E662A100D260C8 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -33,8 +33,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				23663464268D486500FF87A8 /* DSFTouchBar in Frameworks */,
 				231F26F52526EB5500F61693 /* DSFSparkline in Frameworks */,
-				234B2F8B2526EB0C00E47CA4 /* DSFTouchBar in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -51,6 +51,7 @@
 		23F91F6C23E662A100D260C8 = {
 			isa = PBXGroup;
 			children = (
+				23663462268D485900FF87A8 /* DSFTouchBar */,
 				23F91F7723E662A100D260C8 /* Touchbar Tester */,
 				23F91F7623E662A100D260C8 /* Products */,
 				234B2F892526EB0C00E47CA4 /* Frameworks */,
@@ -68,7 +69,6 @@
 		23F91F7723E662A100D260C8 /* Touchbar Tester */ = {
 			isa = PBXGroup;
 			children = (
-				234B2F852526EAFE00E47CA4 /* DSFTouchBar */,
 				23F91F7823E662A100D260C8 /* AppDelegate.swift */,
 				23F91F7A23E662A100D260C8 /* ViewController.swift */,
 				23F91F8823E664D200D260C8 /* CustomWindowController.swift */,
@@ -94,12 +94,12 @@
 			buildRules = (
 			);
 			dependencies = (
-				234B2F882526EB0800E47CA4 /* PBXTargetDependency */,
+				23663466268D486E00FF87A8 /* PBXTargetDependency */,
 			);
 			name = "Touchbar Tester";
 			packageProductDependencies = (
-				234B2F8A2526EB0C00E47CA4 /* DSFTouchBar */,
 				231F26F42526EB5500F61693 /* DSFSparkline */,
+				23663463268D486500FF87A8 /* DSFTouchBar */,
 			);
 			productName = "Touchbar Tester";
 			productReference = 23F91F7523E662A100D260C8 /* Touchbar Tester.app */;
@@ -167,9 +167,9 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		234B2F882526EB0800E47CA4 /* PBXTargetDependency */ = {
+		23663466268D486E00FF87A8 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			productRef = 234B2F872526EB0800E47CA4 /* DSFTouchBar */;
+			productRef = 23663465268D486E00FF87A8 /* DSFTouchBar */;
 		};
 /* End PBXTargetDependency section */
 
@@ -305,7 +305,7 @@
 				CODE_SIGN_ENTITLEMENTS = "Touchbar Tester/Touchbar_Tester.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = 3L6RK3LGGW;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = "Touchbar Tester/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -326,7 +326,7 @@
 				CODE_SIGN_ENTITLEMENTS = "Touchbar Tester/Touchbar_Tester.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = 3L6RK3LGGW;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = "Touchbar Tester/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -380,11 +380,11 @@
 			package = 231F26F32526EB5500F61693 /* XCRemoteSwiftPackageReference "DSFSparkline" */;
 			productName = DSFSparkline;
 		};
-		234B2F872526EB0800E47CA4 /* DSFTouchBar */ = {
+		23663463268D486500FF87A8 /* DSFTouchBar */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = DSFTouchBar;
 		};
-		234B2F8A2526EB0C00E47CA4 /* DSFTouchBar */ = {
+		23663465268D486E00FF87A8 /* DSFTouchBar */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = DSFTouchBar;
 		};

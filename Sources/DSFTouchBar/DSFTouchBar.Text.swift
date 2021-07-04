@@ -28,6 +28,8 @@
 import AppKit
 
 extension DSFTouchBar {
+
+	/// A TouchBar label
 	public class Text: UIElementItem<NSTextField> {
 		// MARK: - label
 
@@ -63,6 +65,11 @@ extension DSFTouchBar {
 
 		// MARK: - Initialization and Configuration
 
+		/// Initializer
+		/// - Parameters:
+		///   - leafIdentifier: the unique identifier for the toolbar item at this level
+		///   - customizationLabel: The user-visible string identifying this item during bar customization.
+		///   - type: The basic label, or nil for no label
 		public init(_ leafIdentifier: String,
 					customizationLabel: String? = nil,
 					label: String? = nil) {
@@ -76,41 +83,6 @@ extension DSFTouchBar {
 			self.itemBuilder = { [weak self] in
 				self?.makeTouchbarItem()
 			}
-		}
-
-		private func makeTouchbarItem() -> NSTouchBarItem? {
-			let tb = NSCustomTouchBarItem(identifier: self.identifier)
-			tb.customizationLabel = self._customizationLabel
-
-			// If there's an attributed label, use it.  If not, fall back to the base label
-			let field: NSTextField
-			if let attributed = self._attributedLabel.value {
-				field = NSTextField(labelWithAttributedString: attributed)
-			}
-			else if let basicLabel = self._label.value {
-				field = NSTextField(labelWithString: basicLabel)
-			}
-			else {
-				field = NSTextField(labelWithString: "Label")
-			}
-
-			field.translatesAutoresizingMaskIntoConstraints = false
-			field.alignment = .center
-			tb.view = field
-
-			// Build the common elements
-
-			self.makeCommon(uiElement: field)
-
-			// If the plain string value is bound, bind the field value to the label
-			self._label.bind(bindingName: NSBindingName.value, of: field)
-
-			// If the attributed string value is bound…
-			self._attributedLabel.bind { [weak self] (value) -> (Void) in
-				self?.embeddedControl()?.attributedStringValue = value
-			}
-
-			return tb
 		}
 
 		deinit {
@@ -132,5 +104,42 @@ extension DSFTouchBar {
 			}
 			super.destroy()
 		}
+	}
+}
+
+extension DSFTouchBar.Text {
+	private func makeTouchbarItem() -> NSTouchBarItem? {
+		let tb = NSCustomTouchBarItem(identifier: self.identifier)
+		tb.customizationLabel = self._customizationLabel
+
+		// If there's an attributed label, use it.  If not, fall back to the base label
+		let field: NSTextField
+		if let attributed = self._attributedLabel.value {
+			field = NSTextField(labelWithAttributedString: attributed)
+		}
+		else if let basicLabel = self._label.value {
+			field = NSTextField(labelWithString: basicLabel)
+		}
+		else {
+			field = NSTextField(labelWithString: "Label")
+		}
+
+		field.translatesAutoresizingMaskIntoConstraints = false
+		field.alignment = .center
+		tb.view = field
+
+		// Build the common elements
+
+		self.makeCommon(uiElement: field)
+
+		// If the plain string value is bound, bind the field value to the label
+		self._label.bind(bindingName: NSBindingName.value, of: field)
+
+		// If the attributed string value is bound…
+		self._attributedLabel.bind { [weak self] (value) -> (Void) in
+			self?.embeddedControl()?.attributedStringValue = value
+		}
+
+		return tb
 	}
 }

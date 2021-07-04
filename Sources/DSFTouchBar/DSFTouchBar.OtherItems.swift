@@ -27,8 +27,11 @@
 
 import Foundation
 
-extension DSFTouchBar {
-	public class OtherItemsPlaceholder: Item {
+public extension DSFTouchBar {
+	/// The identifier of the special "other items proxy", which is used to nest touch bars up the responder chain.
+	///
+	/// See: https://developer.apple.com/documentation/appkit/nstouchbaritem/identifier/2544791-otheritemsproxy
+	class OtherItemsPlaceholder: Item {
 		public init() {
 			super.init(identifier: .otherItemsProxy)
 		}

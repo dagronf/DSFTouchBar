@@ -38,20 +38,26 @@ public class DSFTouchBar: NSObject {
 
 	// For DSFTouchBar, all items are allowed to be displayed
 	private var allowedItemIdentifiers: [NSTouchBarItem.Identifier] {
-		return items.map { $0.identifier }
+		return self.items.map { $0.identifier }
 	}
 
 	// For DSFTouchBar, the default identifiers are as they are built in the Builder object
 	private var defaultIdentifiers: [NSTouchBarItem.Identifier] {
-		return items.map { $0.identifier }
+		return self.items.map { $0.identifier }
 	}
 
 	// the toolbar's identifier
 	private let baseIdentifier: NSTouchBarItem.Identifier
 
+	/// Make a new touchbar using an array of touch-bar items.
+	/// - Parameters:
+	///   - baseIdentifier: the unique toolbar identifier.
+	///   - customizationLabel: The user-visible string identifying this touchbar.
+	///   - children: The items in this toolbar
 	public init(baseIdentifier: NSTouchBarItem.Identifier,
-				customizationIdentifier: NSTouchBar.CustomizationIdentifier? = nil,
-				children: [DSFTouchBar.Item]) {
+					customizationIdentifier: NSTouchBar.CustomizationIdentifier? = nil,
+					children: [DSFTouchBar.Item])
+	{
 		self.baseIdentifier = baseIdentifier
 		self.customizationIdentifier = customizationIdentifier
 		super.init()
@@ -66,7 +72,8 @@ public class DSFTouchBar: NSObject {
 	public convenience init(
 		baseIdentifier: NSTouchBarItem.Identifier,
 		customizationIdentifier: NSTouchBar.CustomizationIdentifier? = nil,
-		_ children: DSFTouchBar.Item...) {
+		_ children: DSFTouchBar.Item...
+	) {
 		self.init(
 			baseIdentifier: baseIdentifier,
 			customizationIdentifier: customizationIdentifier,
@@ -78,11 +85,12 @@ public class DSFTouchBar: NSObject {
 	/// - Parameters:
 	///   - baseIdentifier: The base identifier for the toolbar
 	///   - customizationIdentifier: The customization identifier for the toolbar, or nil for no customization.
-	///   - builder: The touchbar items
+	///   - builder: The touchbar items in @resultBuilder format
 	public convenience init(
 		baseIdentifier: NSTouchBarItem.Identifier,
 		customizationIdentifier: NSTouchBar.CustomizationIdentifier? = nil,
-		@DSFTouchBarBuilder builder: () -> [DSFTouchBar.Item]) {
+		@DSFTouchBarBuilder builder: () -> [DSFTouchBar.Item]
+	) {
 		self.init(
 			baseIdentifier: baseIdentifier,
 			customizationIdentifier: customizationIdentifier,
@@ -90,6 +98,7 @@ public class DSFTouchBar: NSObject {
 		)
 	}
 
+	/// Make an NSTouchBar from the DSFTouchBar definition
 	public func makeTouchBar() -> NSTouchBar? {
 		let mainBar = NSTouchBar()
 		mainBar.delegate = self
@@ -127,7 +136,7 @@ public class DSFTouchBar: NSObject {
 		return self.items.filter { $0.identifier == identifier }.first
 	}
 
-	public func destroy() {
+	func destroy() {
 		self.items.forEach { $0.destroy() }
 		self.items = []
 	}
@@ -136,10 +145,10 @@ public class DSFTouchBar: NSObject {
 extension DSFTouchBar: NSTouchBarDelegate {
 	public func touchBar(_: NSTouchBar, makeItemForIdentifier identifier: NSTouchBarItem.Identifier) -> NSTouchBarItem? {
 		guard let item = self.item(for: identifier),
-			  let makerBlock = item.itemBuilder else
-		{
-			return nil
-		}
+				let makerBlock = item.itemBuilder else
+				{
+					return nil
+				}
 		return makerBlock()
 	}
 }

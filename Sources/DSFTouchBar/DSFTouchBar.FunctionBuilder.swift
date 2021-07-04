@@ -29,10 +29,17 @@ import AppKit
 
 // MARK: - TouchBar FunctionBuilder
 
+#if swift(<5.3)
 @_functionBuilder
 public struct DSFTouchBarBuilder {
 	static func buildBlock() -> [DSFTouchBar.Item] { [] }
 }
+#else
+@resultBuilder
+public struct DSFTouchBarBuilder {
+	static func buildBlock() -> [DSFTouchBar.Item] { [] }
+}
+#endif
 
 public extension DSFTouchBarBuilder {
 	static func buildBlock(_ settings: DSFTouchBar.Item...) -> [DSFTouchBar.Item] {
@@ -42,10 +49,17 @@ public extension DSFTouchBarBuilder {
 
 // MARK: - Group FunctionBuilder
 
+#if swift(<5.3)
 @_functionBuilder
 public struct DSFTouchBarGroupBuilder {
 	static func buildBlock() -> [DSFTouchBar.Item] { [] }
 }
+#else
+@resultBuilder
+public struct DSFTouchBarGroupBuilder {
+	static func buildBlock() -> [DSFTouchBar.Item] { [] }
+}
+#endif
 
 public extension DSFTouchBarGroupBuilder {
 	static func buildBlock(_ settings: DSFTouchBar.Item...) -> [DSFTouchBar.Item] {
@@ -55,10 +69,17 @@ public extension DSFTouchBarGroupBuilder {
 
 // MARK: - Scroll Group FunctionBuilder
 
+#if swift(<5.3)
 @_functionBuilder
 public struct DSFTouchBarScrollGroupBuilder {
 	static func buildBlock() -> [DSFTouchBar.Item] { [] }
 }
+#else
+@resultBuilder
+public struct DSFTouchBarScrollGroupBuilder {
+	static func buildBlock() -> [DSFTouchBar.Item] { [] }
+}
+#endif
 
 public extension DSFTouchBarScrollGroupBuilder {
 	static func buildBlock(_ settings: DSFTouchBar.Item...) -> [DSFTouchBar.Item] {
@@ -68,10 +89,17 @@ public extension DSFTouchBarScrollGroupBuilder {
 
 // MARK: - Popover Group FunctionBuilder
 
+#if swift(<5.3)
 @_functionBuilder
 public struct DSFTouchBarScrollPopoverBuilder {
 	static func buildBlock() -> [DSFTouchBar.Item] { [] }
 }
+#else
+@resultBuilder
+public struct DSFTouchBarScrollPopoverBuilder {
+	static func buildBlock() -> [DSFTouchBar.Item] { [] }
+}
+#endif
 
 public extension DSFTouchBarScrollPopoverBuilder {
 	static func buildBlock(_ settings: DSFTouchBar.Item...) -> [DSFTouchBar.Item] {

@@ -27,13 +27,16 @@
 
 import AppKit
 
-extension DSFTouchBar {
-	public class SharingServicePicker: UIElementItemBase {
+public extension DSFTouchBar {
+	/// A sharing service touchbar item
+	class SharingServicePicker: UIElementItemBase {
 		var sharingServiceItem: NSSharingServicePickerTouchBarItem?
 
 		// MARK: - Enabled support
 
 		private let _enabled = BindableTypedAttribute<Bool>()
+
+		/// Bind the enabled state for the sharing service touchbar item to a key path
 		public func bindIsEnabled<TYPE>(to observable: NSObject, withKeyPath keyPath: ReferenceWritableKeyPath<TYPE, Bool>) -> SharingServicePicker {
 			self._enabled.setup(observable: observable, keyPath: keyPath)
 			return self
@@ -42,16 +45,20 @@ extension DSFTouchBar {
 		// MARK: - Title bindings and settings
 
 		private let _title = BindableTypedAttribute<String>()
+
+		/// Provide the title for the sharing service control
 		public func title(_ title: String) -> SharingServicePicker {
-			_title.value = title
+			self._title.value = title
 			return self
 		}
 
 		// MARK: - Image bindings and settings
 
 		private var _image: NSImage?
+
+		/// Provide the image for the sharing service control
 		public func image(_ image: NSImage?) -> SharingServicePicker {
-			_image = image
+			self._image = image
 			return self
 		}
 
@@ -70,9 +77,9 @@ extension DSFTouchBar {
 		///   - title: An optional title to be displayed on the share button
 		///   - image: An optional image to be displayed on the share button
 		public init(_ leafIdentifier: String,
-					customizationLabel: String? = nil,
-					title: String? = nil,
-					image: NSImage? = nil)
+		            customizationLabel: String? = nil,
+		            title: String? = nil,
+		            image: NSImage? = nil)
 		{
 			super.init(leafIdentifier: leafIdentifier, customizationLabel: customizationLabel)
 
@@ -80,33 +87,7 @@ extension DSFTouchBar {
 			self._image = image
 
 			self.itemBuilder = { [weak self] in
-				guard let `self` = self else { return nil }
-
-				let item = NSSharingServicePickerTouchBarItem(identifier: self.identifier)
-				item.delegate = self
-				item.isEnabled = true
-
-				self.sharingServiceItem = item
-
-				if let image = self._image {
-					item.buttonImage = image
-				}
-
-				if let title = self._title.value {
-					item.buttonTitle = title
-				}
-
-				// If the user has specified an 'enabled' binding, attach it.
-				self._enabled.bind { [weak self] newEnabledState in
-					self?.sharingServiceItem?.isEnabled = newEnabledState
-				}
-
-				// If the user has specified a 'title' binding, attach it.
-				self._title.bind { [weak self] newTitle in
-					self?.sharingServiceItem?.buttonTitle = newTitle
-				}
-
-				return item
+				self?.makeTouchbarItem()
 			}
 		}
 
@@ -122,6 +103,36 @@ extension DSFTouchBar {
 		deinit {
 			Logging.memory(#"DSFTouchBar.SharingServicePicker[%@] deinit"#, args: self.identifierString)
 		}
+	}
+}
+
+extension DSFTouchBar.SharingServicePicker {
+	private func makeTouchbarItem() -> NSTouchBarItem? {
+		let item = NSSharingServicePickerTouchBarItem(identifier: self.identifier)
+		item.delegate = self
+		item.isEnabled = true
+
+		self.sharingServiceItem = item
+
+		if let image = self._image {
+			item.buttonImage = image
+		}
+
+		if let title = self._title.value {
+			item.buttonTitle = title
+		}
+
+		// If the user has specified an 'enabled' binding, attach it.
+		self._enabled.bind { [weak self] newEnabledState in
+			self?.sharingServiceItem?.isEnabled = newEnabledState
+		}
+
+		// If the user has specified a 'title' binding, attach it.
+		self._title.bind { [weak self] newTitle in
+			self?.sharingServiceItem?.buttonTitle = newTitle
+		}
+
+		return item
 	}
 }
 

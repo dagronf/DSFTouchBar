@@ -31,10 +31,11 @@ private extension NSBindingName {
 	static let SegmentedControlSelectionIndexes = NSBindingName("selectedIndexes")
 }
 
-extension DSFTouchBar {
-
+public extension DSFTouchBar {
 	/// A segmented control for the touchbar
-	public class Segmented: UIElementItem<NSSegmentedControl> {
+	class Segmented: UIElementItem<NSSegmentedControl> {
+
+		// MARK: - Add segments
 
 		// The segment definitions
 		private var _segments: [(label: String?, image: NSImage?)] = []
@@ -44,10 +45,9 @@ extension DSFTouchBar {
 		///   - label: (optional) the text to use for the segmented cell
 		///   - image: (optional) the image to use for the segmented cell
 		public func add(label: String? = nil, image: NSImage? = nil) -> Segmented {
-
 			// Must specify label, image or both
 			assert(label != nil || image != nil)
-			_segments.append((label, image))
+			self._segments.append((label, image))
 			return self
 		}
 
@@ -60,18 +60,19 @@ extension DSFTouchBar {
 		/// - Parameter action: The action to call when the selection(s) change in the control.
 		/// - Returns: self
 		public func action(_ action: @escaping ((Set<Int>) -> Void)) -> Segmented {
-			_action = action
+			self._action = action
 			return self
 		}
 
 		// MARK: - Selected Color
+
 		private var _selectedColor: NSColor?
 
 		/// Set the color to use for highlighting 'active' cells within the control
 		/// - Parameter color: The color to use
 		/// - Returns: self
 		public func selectedColor(_ color: NSColor) -> Segmented {
-			_selectedColor = color
+			self._selectedColor = color
 			return self
 		}
 
@@ -99,57 +100,24 @@ extension DSFTouchBar {
 
 		// MARK: - Initializers
 
+		/// Initializer
+		/// - Parameters:
+		///   - leafIdentifier: the unique identifier for the toolbar item at this level
+		///   - customizationLabel: The user-visible string identifying this item during bar customization.
+		///   - trackingMode: Specifies the type of tracking behavior the segmented control exhibits
 		public init(_ leafIdentifier: String,
-					customizationLabel: String? = nil,
-					trackingMode: NSSegmentedControl.SwitchTracking = .selectOne ) {
+						customizationLabel: String? = nil,
+						trackingMode: NSSegmentedControl.SwitchTracking = .selectOne)
+		{
 			super.init(leafIdentifier: leafIdentifier, customizationLabel: customizationLabel)
 
 			self.itemBuilder = { [weak self] in
-				guard let `self` = self else {
-					return nil
-				}
-
-				let tb = NSCustomTouchBarItem(identifier: self.identifier)
-
-				tb.customizationLabel = self._customizationLabel
-
-				let segmented = NSSegmentedControl()
-				let labels = self._segments.map({ $0.label ?? "" })
-				let images = self._segments.map({ $0.image })
-				segmented.segmentCount = labels.count
-				labels.enumerated().forEach { segmented.setLabel($0.1, forSegment: $0.0) }
-				images.enumerated().forEach { segmented.setImage($0.1, forSegment: $0.0) }
-
-				segmented.trackingMode = trackingMode
-				segmented.target = self
-				segmented.action = #selector(self.act(_:))
-
-				segmented.translatesAutoresizingMaskIntoConstraints = false
-
-				if let color = self._selectedColor {
-					segmented.selectedSegmentBezelColor = color
-				}
-
-				// Common elements
-
-				self.makeCommon(uiElement: segmented)
-
-				// Multiple selection indexes
-
-				self._selectedIndexes.bind(bindingName: NSBindingName.SegmentedControlSelectionIndexes, of: segmented, checkAvailability: false)
-
-				// For multiple selection, we have to bind the reverse as well, or else we don't get
-				// a two-way binding to the control
-
-				self._selectedIndexes.reverseBind()
-
-				tb.view = segmented
-				return tb
+				self?.makeTouchbarItem(trackingMode: trackingMode)
 			}
 		}
 
 		override func destroy() {
-			_action = nil
+			self._action = nil
 
 			self._selectedIndexes.unbind()
 
@@ -165,7 +133,6 @@ extension DSFTouchBar {
 
 		// Gets called when the user interacts with the control
 		@objc private func act(_ sender: NSSegmentedControl) {
-
 			let selectedIndexes = sender.selectedIndexSet
 
 			// Have to force update our custom observable unfortunately.
@@ -194,5 +161,48 @@ private extension NSSegmentedControl {
 				self.setSelected(newValue.contains(item), forSegment: item)
 			}
 		}
+	}
+}
+
+// MARK: Make touchbar item
+
+extension DSFTouchBar.Segmented {
+	private func makeTouchbarItem(trackingMode: NSSegmentedControl.SwitchTracking) -> NSTouchBarItem? {
+		let tb = NSCustomTouchBarItem(identifier: self.identifier)
+
+		tb.customizationLabel = self._customizationLabel
+
+		let segmented = NSSegmentedControl()
+		let labels = self._segments.map { $0.label ?? "" }
+		let images = self._segments.map { $0.image }
+		segmented.segmentCount = labels.count
+		labels.enumerated().forEach { segmented.setLabel($0.1, forSegment: $0.0) }
+		images.enumerated().forEach { segmented.setImage($0.1, forSegment: $0.0) }
+
+		segmented.trackingMode = trackingMode
+		segmented.target = self
+		segmented.action = #selector(self.act(_:))
+
+		segmented.translatesAutoresizingMaskIntoConstraints = false
+
+		if let color = self._selectedColor {
+			segmented.selectedSegmentBezelColor = color
+		}
+
+		// Common elements
+
+		self.makeCommon(uiElement: segmented)
+
+		// Multiple selection indexes
+
+		self._selectedIndexes.bind(bindingName: NSBindingName.SegmentedControlSelectionIndexes, of: segmented, checkAvailability: false)
+
+		// For multiple selection, we have to bind the reverse as well, or else we don't get
+		// a two-way binding to the control
+
+		self._selectedIndexes.reverseBind()
+
+		tb.view = segmented
+		return tb
 	}
 }

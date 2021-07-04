@@ -27,59 +27,46 @@
 
 import AppKit
 
-extension DSFTouchBar {
-	public class Popover: UIElementItemBase {
+public extension DSFTouchBar {
+	/// A pop
+	class Popover: UIElementItemBase {
 		private var popoverContentBuilder: DSFTouchBar?
 
 		// Cleanup handle
 		private var AssociatedObjectHandle: UInt8 = 0
 
-		private(set) var _children: [DSFTouchBar.Item] = []
+		private var _children: [DSFTouchBar.Item] = []
+
+		/// Returns the child items for the group
+		public var children: [DSFTouchBar.Item] {
+			return self._children
+		}
+
+		/// Initializer
+		/// - Parameters:
+		///   - leafIdentifier: the unique identifier for the toolbar item at this level
+		///   - collapsedLabel: the label to display when the popover content isn't visible
+		///   - collapsedImage: the image to display when the popover content isn't visible
+		///   - children: The child items for the group
 		public init(_ leafIdentifier: String,
-					collapsedLabel: String? = nil,
-					collapsedImage: NSImage? = nil,
-					_ children: [DSFTouchBar.Item])
+						collapsedLabel: String? = nil,
+						collapsedImage: NSImage? = nil,
+						_ children: [DSFTouchBar.Item])
 		{
-			_children = children
+			self._children = children
 			super.init(leafIdentifier: leafIdentifier)
 
 			self.itemBuilder = { [weak self] in
-				guard let `self` = self else { return nil }
-
-				self.popoverContentBuilder = nil
-
-				let rc = self.baseIdentifier!.rawValue + "." + self.leafIdentifier
-				let pc = DSFTouchBar(baseIdentifier: NSTouchBarItem.Identifier(rc))
-
-				for item in self._children {
-					pc.add(item: item)
-				}
-
-				let tb = NSPopoverTouchBarItem(identifier: self.identifier)
-				tb.customizationLabel = self._customizationLabel
-
-				if let label = collapsedLabel {
-					tb.collapsedRepresentationLabel = label
-				}
-				tb.collapsedRepresentationImage = collapsedImage
-
-				if let mtb = pc.makeTouchBar() {
-					tb.pressAndHoldTouchBar = mtb
-					tb.popoverTouchBar = mtb
-				}
-
-				// Tie the lifecycle of the DSFToolbar object to the lifecycle of the nstoolbar
-				// so that we don't have to manually destroy it
-				objc_setAssociatedObject(tb, &self.AssociatedObjectHandle, pc, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
-
-				self.popoverContentBuilder = pc
-
-				self._children = []
-
-				return tb
+				self?.makeTouchbarItem(collapsedLabel: collapsedLabel, collapsedImage: collapsedImage)
 			}
 		}
 
+		/// Initializer
+		/// - Parameters:
+		///   - leafIdentifier: the unique identifier for the toolbar item at this level
+		///   - collapsedLabel: the label to display when the popover content isn't visible
+		///   - collapsedImage: the image to display when the popover content isn't visible
+		///   - builder: The child items for the group in @resultBuilder format
 		public convenience init(
 			_ leafIdentifier: String,
 			collapsedLabel: String? = nil,
@@ -87,9 +74,9 @@ extension DSFTouchBar {
 			@DSFTouchBarScrollPopoverBuilder builder: () -> [DSFTouchBar.Item]
 		) {
 			self.init(leafIdentifier,
-					  collapsedLabel: collapsedLabel,
-					  collapsedImage: collapsedImage,
-					  builder())
+						 collapsedLabel: collapsedLabel,
+						 collapsedImage: collapsedImage,
+						 builder())
 		}
 
 		override func destroy() {
@@ -101,5 +88,43 @@ extension DSFTouchBar {
 		deinit {
 			Logging.memory(#"DSFTouchBar.Popover[%@] deinit"#, args: self.identifierString)
 		}
+	}
+}
+
+// MARK: Make touchbar item
+
+extension DSFTouchBar.Popover {
+	private func makeTouchbarItem(collapsedLabel: String?, collapsedImage: NSImage?) -> NSTouchBarItem? {
+		self.popoverContentBuilder = nil
+
+		let rc = self.baseIdentifier!.rawValue + "." + self.leafIdentifier
+		let pc = DSFTouchBar(baseIdentifier: NSTouchBarItem.Identifier(rc))
+
+		for item in self._children {
+			pc.add(item: item)
+		}
+
+		let tb = NSPopoverTouchBarItem(identifier: self.identifier)
+		tb.customizationLabel = self._customizationLabel
+
+		if let label = collapsedLabel {
+			tb.collapsedRepresentationLabel = label
+		}
+		tb.collapsedRepresentationImage = collapsedImage
+
+		if let mtb = pc.makeTouchBar() {
+			tb.pressAndHoldTouchBar = mtb
+			tb.popoverTouchBar = mtb
+		}
+
+		// Tie the lifecycle of the DSFToolbar object to the lifecycle of the nstoolbar
+		// so that we don't have to manually destroy it
+		objc_setAssociatedObject(tb, &self.AssociatedObjectHandle, pc, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+
+		self.popoverContentBuilder = pc
+
+		self._children = []
+
+		return tb
 	}
 }

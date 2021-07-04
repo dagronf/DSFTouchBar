@@ -27,15 +27,18 @@
 
 import AppKit
 
-extension DSFTouchBar {
-	public class Button: UIElementItem<NSButton> {
-		// private var _button: NSButton?
+public extension DSFTouchBar {
+	/// A button touchbar item
+	class Button: UIElementItem<NSButton> {
+		private static let DefaultTitle = "Button"
+
+		// MARK: - Type
 
 		private var _type: NSButton.ButtonType = .momentaryLight
 
 		/// Set the button type for the button
 		public func type(_ type: NSButton.ButtonType) -> Button {
-			_type = type
+			self._type = type
 			if let e = self.embeddedControl() {
 				e.setButtonType(type)
 			}
@@ -48,7 +51,7 @@ extension DSFTouchBar {
 
 		/// Set the attributed (styled) title for the button
 		public func attributedTitle(_ title: NSAttributedString) -> Button {
-			_attributedTitle = title
+			self._attributedTitle = title
 			if let e = self.embeddedControl() {
 				e.attributedTitle = title
 			}
@@ -90,7 +93,7 @@ extension DSFTouchBar {
 		/// - Returns: self
 		@discardableResult
 		public func alternateTitle(_ alternateTitle: String) -> Button {
-			_alternateTitle = alternateTitle
+			self._alternateTitle = alternateTitle
 			if let e = self.embeddedControl() {
 				e.alternateTitle = alternateTitle
 			}
@@ -106,7 +109,7 @@ extension DSFTouchBar {
 		/// - Parameter position: the position
 		/// - Returns: self
 		public func imagePosition(_ position: NSControl.ImagePosition) -> Button {
-			_imagePosition = position
+			self._imagePosition = position
 			if let e = self.embeddedControl() {
 				e.imagePosition = position
 			}
@@ -119,8 +122,8 @@ extension DSFTouchBar {
 		///   - imagePosition: the position on the button to display the image
 		/// - Returns: self
 		public func image(_ image: NSImage?, imagePosition: NSControl.ImagePosition = .imageLeading) -> Button {
-			_image = image
-			_imagePosition = imagePosition
+			self._image = image
+			self._imagePosition = imagePosition
 			if let e = self.embeddedControl() {
 				e.image = image
 				e.imagePosition = imagePosition
@@ -154,7 +157,7 @@ extension DSFTouchBar {
 
 		/// Set the foreground color to use for the text on the button
 		public func foregroundColor(_ color: NSColor?) -> Button {
-			_fontColor = color
+			self._fontColor = color
 			return self
 		}
 
@@ -166,7 +169,7 @@ extension DSFTouchBar {
 		/// - Parameter action: the action block to perform
 		/// - Returns: self
 		public func action(_ action: @escaping ((NSControl.StateValue) -> Void)) -> Button {
-			_action = action
+			self._action = action
 			return self
 		}
 
@@ -192,83 +195,21 @@ extension DSFTouchBar {
 
 		// MARK: - Initializers
 
+		/// Initializer
+		/// - Parameters:
+		///   - leafIdentifier: the unique identifier for the toolbar item at this level
+		///   - customizationLabel: The user-visible string identifying this item during bar customization.
+		///   - type: The type of button
 		public init(_ leafIdentifier: String,
-					customizationLabel: String? = nil,
-					type: NSButton.ButtonType = .momentaryLight)
+						customizationLabel: String? = nil,
+						type: NSButton.ButtonType = .momentaryLight)
 		{
 			super.init(leafIdentifier: leafIdentifier, customizationLabel: customizationLabel)
 
-			let defaultTitle = "Button"
-
-			self._title.value = defaultTitle
+			self._title.value = DSFTouchBar.Button.DefaultTitle
 
 			self.itemBuilder = { [weak self] in
-				guard let `self` = self else {
-					return nil
-				}
-
-				let tb = NSCustomTouchBarItem(identifier: self.identifier)
-				tb.customizationLabel = self._customizationLabel
-
-				let button = NSButton(
-					title: self._title.value ?? defaultTitle,
-					target: self,
-					action: #selector(self.act(_:))
-				)
-
-				button.translatesAutoresizingMaskIntoConstraints = false
-				button.wantsLayer = true
-				button.image = self._image
-				button.imagePosition = self._imagePosition
-				button.bezelColor = self._backgroundColor.value
-				button.setButtonType(type)
-
-				button.alternateTitle = self._alternateTitle
-
-				if let att = self._attributedTitle {
-					button.attributedTitle = att
-				}
-				else if let fc = self._fontColor {
-					let txtFont = button.font
-					let style = NSMutableParagraphStyle()
-					style.alignment = button.alignment
-					let attrs: [NSAttributedString.Key: Any] = [
-						.foregroundColor: fc, .paragraphStyle: style, .font: txtFont as Any,
-					]
-					let attrstr = NSAttributedString(string: button.title, attributes: attrs)
-					button.attributedTitle = attrstr
-				}
-
-				// Build the common elements
-				self.makeCommon(uiElement: button)
-
-				// Bind the button state
-
-				self._state.bind { [weak self] newState in
-					guard let `self` = self,
-						  let button = self.embeddedControl() else { return }
-					button.state = newState
-
-					if button.alternateTitle.count > 0 {
-						button.title = (button.state == .on)
-							? self._alternateTitle
-							: self._title.value ?? "Button"
-					}
-				}
-
-				// Bind the title
-
-				self._title.bind(bindingName: NSBindingName.title, of: button)
-
-				// Background color binding
-
-				self._backgroundColor.bind { [weak self] newColor in
-					self?.embeddedControl()?.bezelColor = newColor
-				}
-
-				tb.view = button
-
-				return tb
+				self?.makeTouchbarItem(type: type)
 			}
 		}
 
@@ -304,5 +245,74 @@ extension DSFTouchBar {
 		deinit {
 			Logging.memory(#"DSFTouchBar.Button[%@] deinit"#, args: self.identifierString)
 		}
+	}
+}
+
+// MARK: Make touchbar item
+
+extension DSFTouchBar.Button {
+	private func makeTouchbarItem(type: NSButton.ButtonType) -> NSTouchBarItem? {
+		let tb = NSCustomTouchBarItem(identifier: self.identifier)
+		tb.customizationLabel = self._customizationLabel
+
+		let button = NSButton(
+			title: self._title.value ?? DSFTouchBar.Button.DefaultTitle,
+			target: self,
+			action: #selector(self.act(_:))
+		)
+
+		button.translatesAutoresizingMaskIntoConstraints = false
+		button.wantsLayer = true
+		button.image = self._image
+		button.imagePosition = self._imagePosition
+		button.bezelColor = self._backgroundColor.value
+		button.setButtonType(type)
+
+		button.alternateTitle = self._alternateTitle
+
+		if let att = self._attributedTitle {
+			button.attributedTitle = att
+		}
+		else if let fc = self._fontColor {
+			let txtFont = button.font
+			let style = NSMutableParagraphStyle()
+			style.alignment = button.alignment
+			let attrs: [NSAttributedString.Key: Any] = [
+				.foregroundColor: fc, .paragraphStyle: style, .font: txtFont as Any,
+			]
+			let attrstr = NSAttributedString(string: button.title, attributes: attrs)
+			button.attributedTitle = attrstr
+		}
+
+		// Build the common elements
+		self.makeCommon(uiElement: button)
+
+		// Bind the button state
+
+		self._state.bind { [weak self] newState in
+			guard let `self` = self,
+					let button = self.embeddedControl() else { return }
+			button.state = newState
+
+			if button.alternateTitle.count > 0 {
+				button.title = (button.state == .on)
+				? self._alternateTitle
+				: self._title.value ?? "Button"
+			}
+		}
+
+		// Bind the title
+
+		self._title.bind(bindingName: NSBindingName.title, of: button)
+
+		// Background color binding
+
+		self._backgroundColor.bind { [weak self] newColor in
+			self?.embeddedControl()?.bezelColor = newColor
+		}
+
+		tb.view = button
+
+		return tb
 	}
 }

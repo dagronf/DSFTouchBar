@@ -27,38 +27,42 @@
 
 import AppKit
 
-extension DSFTouchBar {
-	public class View: UIElementItem<NSView> {
-
+public extension DSFTouchBar {
+	/// Provide a view to be displayed on a touchbar item
+	class View: UIElementItem<NSView> {
 		private var viewController: NSViewController?
-
+		
+		/// Create a new sharing button in the toolbar.
+		/// - Parameters:
+		///   - leafIdentifier: The leaf identifier for the share item. Must be unique within the current toolbar
+		///   - viewController: The view controller managing the view to be displayed in the touchbar item
 		public init(_ leafIdentifier: String, viewController: NSViewController) {
 			self.viewController = viewController
 			super.init(leafIdentifier: leafIdentifier)
-
+			
 			self.itemBuilder = { [weak self] in
 				guard let `self` = self,
-					  let vc = self.viewController else { return nil }
-
+						let vc = self.viewController else { return nil }
+				
 				let item = NSCustomTouchBarItem(identifier: self.identifier)
 				item.viewController = vc
 				item.customizationLabel = self._customizationLabel
-
+				
 				// Build the common elements
-
+				
 				self.makeCommon(uiElement: vc.view)
-
+				
 				return item
 			}
 		}
-
+		
 		override func destroy() {
 			if let view = self.embeddedControl() {
 				self.destroyCommon(uiElement: view)
 			}
 			self.viewController = nil
 		}
-
+		
 		deinit {
 			Logging.memory(#"DSFTouchBar.View[%@] deinit"#, args: self.identifierString)
 		}

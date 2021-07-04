@@ -27,15 +27,15 @@
 
 import Foundation
 
-extension DSFTouchBar {
-	public class Spacer: Item {
-
+public extension DSFTouchBar {
+	/// A spacer touchbar item
+	class Spacer: Item {
 		public enum Size {
 			case small
 			case large
 			case flexible
 		}
-
+		
 		public init(size: Size) {
 			switch size {
 			case .small:
@@ -46,7 +46,7 @@ extension DSFTouchBar {
 				super.init(identifier: .flexibleSpace)
 			}
 		}
-
+		
 		deinit {
 			Logging.memory(#"DSFTouchBar.Spacer deinit"#)
 		}

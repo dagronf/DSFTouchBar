@@ -13,26 +13,43 @@ This is done to try to reduce the verboseness of specifying a full identifier fo
 So, for example :-
 
 ```swift
-let touchbar = DSFTouchBar(
-   // Set the base identifier for the toolbar to be com.noodles.touchbar.demo.buttons 
-   baseIdentifier: NSTouchBarItem.Identifier("com.noodles.touchbar.demo.buttons")) {
+override func makeTouchBar() -> NSTouchBar? {
+   DSFTouchBar(
+      baseIdentifier: NSTouchBarItem.Identifier("com.darrenford.dsftouchbar.documentation"),
+      customizationIdentifier: NSTouchBar.CustomizationIdentifier("com.darrenford.dsftouchbar.documentation.docodemo")) {
 
-      // This button will have the unique identifier 'com.noodles.touchbar.demo.buttons.new-document'
-      DSFTouchBar.Button("new-document")
-         .title("New")
-         .action { _ in
-            Swift.print("Create a new document")
-         }
-      }
-
-      // This button will have the unique identifier 'com.noodles.touchbar.demo.buttons.edit-document'
+      // This button will have the unique identifier 'com.darrenford.dsftouchbar.documentation.edit-document'
       DSFTouchBar.Button("edit-document")
          .title("Edit")
+         .type(.onOff)
+         .bindState(to: self, withKeyPath: \ViewController.editbutton_state)
+         .bindBackgroundColor(to: self, withKeyPath: \ViewController.editBackgroundColor)
          .action { _ in
-            Swift.print("Edit the current document")
+            Swift.print("Edit button pressed")
          }
-      }
+
+      // This button will have the unique identifier 'com.darrenford.dsftouchbar.documentation.upgrade-document'
+      DSFTouchBar.Button("upgrade-document")
+         .title("Upgrade")
+         .bindIsEnabled(to: self, withKeyPath: \ViewController.canEdit)
+         .bindBackgroundColor(to: self, withKeyPath: \ViewController.upgradeBackgroundColor)
+         .action { _ in
+            Swift.print("Upgrade button pressed")
+         }
+
+      // This button will have the unique identifier 'com.darrenford.dsftouchbar.documentation.go-document'
+      DSFTouchBar.Button("go-button")
+         .title("Go")
+         .image(NSImage(named: NSImage.touchBarGoForwardTemplateName))
+         .imagePosition(.imageRight)
+         .action { state in
+            Swift.print("GO!")
+         }
+
+      DSFTouchBar.OtherItemsPlaceholder()
    }
+   .makeTouchBar()
+}
 ```
 
 
@@ -192,14 +209,24 @@ DSFTouchBar.ColorPicker(NSTouchBarItem.Identifier("com.superblah.TextField"))
 					
 ```
 
+# Support issues
+
+## My touchbar is not showing!
+
+The touchbar will only be shown for a view that accepts first responder (ie. acceptsFirstResponder == true for the view)
+
+# Releases
+
 
 
 # License
 
+MIT. Use it for anything you want! Let me know if you do use it somewhere, I'd love to hear about it.
+
 ```
 MIT License
 
-Copyright (c) 2020 Darren Ford
+Copyright (c) 2021 Darren Ford
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
