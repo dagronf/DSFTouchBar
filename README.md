@@ -3,7 +3,19 @@
 ![](https://img.shields.io/github/v/tag/dagronf/DSFTouchBar) ![](https://img.shields.io/badge/macOS-10.13+-blueviolet) ![](https://img.shields.io/badge/Swift-5.1+-orange.svg)
 ![](https://img.shields.io/badge/License-MIT-lightgrey) [![](https://img.shields.io/badge/spm-compatible-brightgreen.svg?style=flat)](https://swift.org/package-manager)
 
-A SwiftUI-style declarative `NSTouchBar` for macOS and Mac Catalyst.
+A SwiftUI-style declarative `NSTouchBar` for AppKit.
+
+## Why?
+
+`NSTouchBar` has an amazing API with incredible flexibility, but I find that it can be too verbose and spread throughout your code with the use of delegates and callbacks for simpler projects and I have trouble keeping tabs on all the individual components. Even moreso if you want to use actions and bindings on the touchbar objects which just increases the amount code required for each touchbar.
+
+Give that I'd written a SwiftUI-style declarative API for [`NSToolbar`]() I adapted the API for `NSTouchBar`.
+
+I know that I'm late to the game here - but there's still going to be quite a while before a lot of existing apps can migrate upwards to SwiftUI (especially my own small apps).
+
+If you're going pure SwiftUI now for your apps, you should use the `touchbar(_:)` ViewModifier.
+
+[SwiftUI TouchBar support](https://developer.apple.com/documentation/swiftui/groupbox/touchbar(_:))
 
 ## TL;DR - Show me something!
 
@@ -58,7 +70,22 @@ class ViewController: NSViewController {
 
 [Sample Code](../Demos/DSFTouchBar%20Demo/Doco%20Demo/ViewController.swift)
 
-# Concepts
+# Supported TouchBar Items
+
+| Type              | Description                                 |
+|:------------------|:--------------------------------------------|
+| [Button](./Markdown/button.md) | Add a button to the touchbar |
+| [ColorPicker](./Markdown/colorpicker.md) | Add a color picker control to the touchbar |
+| [Group](./Markdown/group.md) | Add an item that contains a grouping of other items |
+| [Label](./Markdown/label.md) | Add a label to the touchbar |
+| [Popover](./Markdown/popover.md) | Add a popover |
+| [ScrollGroup](./Markdown/group.md) | Add an item that contains a scrollable grouping of other items |
+| [Segmented](./Markdown/segmented.md) | Add a segmented control to the touchbar |
+| [SharingServicePicker](./Markdown/sharing-service.md) | Add a button that presents the sharing services when pressed |
+| [Slider](./Markdown/segmented.md) | Add a slider control to the touchbar |
+| [View](./Markdown/view.md) | Add a custom view to the touch bar |
+| OtherItems |  A special "other items proxy", which is used to nest touch bars up the responder chain.<br/>Refer to [Apple's documentation](https://developer.apple.com/documentation/appkit/nstouchbaritem/identifier/2544791-otheritemsproxy) for more information |
+# DSFTouchBar Concepts
 
 ## baseIdentifier
 
@@ -84,21 +111,9 @@ DSFTouchBar(
 }  
 ```
 
-# Supported TouchBar Items
+# Demos
 
-| Type              | Description                                 |
-|:------------------|:--------------------------------------------|
-| [Button](./Markdown/button.md) | Add a button to the touchbar |
-| [ColorPicker](./Markdown/colorpicker.md) | Add a color picker control to the touchbar |
-| [Group](./Markdown/group.md) | Add an item that contains a grouping of other items |
-| [Label](./Markdown/label.md) | Add a label to the touchbar |
-| [Popover](./Markdown/popover.md) | Add a popover |
-| [ScrollGroup](./Markdown/group.md) | Add an item that contains a scrollable grouping of other items |
-| [Segmented](./Markdown/segmented.md) | Add a segmented control to the touchbar |
-| [SharingServicePicker](./Markdown/sharing-service.md) | Add a button that presents the sharing services when pressed |
-| [Slider](./Markdown/segmented.md) | Add a slider control to the touchbar |
-| [View](./Markdown/view.md) | Add a custom view to the touch bar |
-| OtherItems |  A special "other items proxy", which is used to nest touch bars up the responder chain.<br/>Refer to [Apple's documentation](https://developer.apple.com/documentation/appkit/nstouchbaritem/identifier/2544791-otheritemsproxy) for more information |
+You can find some demos for macOS in the `Demos` subfolder
 
 # Support issues
 
