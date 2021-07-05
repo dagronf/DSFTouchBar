@@ -117,11 +117,11 @@ class ViewController: NSViewController {
 	lazy var groupInScrollGroup: DSFTouchBar.ScrollGroup = {
 		DSFTouchBar.ScrollGroup("scroll-group", [
 			DSFTouchBar.Text("smiler").label("😀"),
-			DSFTouchBar.Group("group", [
+			DSFTouchBar.Group("group") {
 				DSFTouchBar.Text("heart").label("😀💝"),
 				DSFTouchBar.Text("hat-bow").label("😀👒"),
 				DSFTouchBar.Text("koala").label("😀🐨"),
-			]),
+			},
 			DSFTouchBar.Text("table-tennis").label("🏓"),
 		])
 	}()

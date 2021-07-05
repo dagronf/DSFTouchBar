@@ -71,7 +71,7 @@ public extension DSFTouchBar {
 			self._selectedColor.setup(observable: observable, keyPath: keyPath)
 			return self
 		}
-		
+
 		/// The currently selected color
 		@objc dynamic var selectedColor: NSColor {
 			get {
@@ -79,6 +79,25 @@ public extension DSFTouchBar {
 			}
 			set {
 				self.item?.color = newValue
+			}
+		}
+
+		// MARK: - Enabled
+
+		private let _isEnabled = BindableAttributeBinding<Bool>()
+
+		public func bindIsEnabled<TYPE>(to observable: NSObject, withKeyPath keyPath: ReferenceWritableKeyPath<TYPE, Bool>) -> ColorPicker {
+			self._isEnabled.setup(observable: observable, keyPath: keyPath)
+			return self
+		}
+
+		/// The currently selected color
+		@objc dynamic var isEnabled: Bool {
+			get {
+				return self.item?.isEnabled ?? false
+			}
+			set {
+				self.item?.isEnabled = newValue
 			}
 		}
 		

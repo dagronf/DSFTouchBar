@@ -62,13 +62,17 @@ public extension DSFTouchBar {
 			return self
 		}
 
+		// MARK: - Provide items callback
+
 		private var provideItemsBlock: (() -> [Any])?
 
-		/// Provide the block that is called to retrieve the items that are to be shared
+		/// Provide a block that is called to retrieve the items that are to be shared
 		public func provideItems(_ block: @escaping (() -> [Any])) -> Self {
 			self.provideItemsBlock = block
 			return self
 		}
+
+		// MARK: - Initialization/Destruction
 
 		/// Create a new sharing button in the toolbar.
 		/// - Parameters:

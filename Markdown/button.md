@@ -5,13 +5,15 @@ A touchbar item representing a button.
 ## Example
 
 ```swift
+@objc dynamic var pressedState: NSControl.StateValue = .off
+  …
 DSFTouchBar.Button("button-demo", customizationLabel: "State-bound button")
    .title("OFF")
    .alternateTitle("ON")
    .backgroundColor(.red)
-   .bindState(to: self, withKeyPath: #keyPath(button2State))
+   .bindState(to: self, withKeyPath: #keyPath(pressedState))
    .action { state in
-      debugPrint("Button state changed to \(state)")
+      Swift.print("Button state changed to \(state)")
    }
 ```
 
@@ -19,15 +21,15 @@ DSFTouchBar.Button("button-demo", customizationLabel: "State-bound button")
 
 ## Properties
 
-[Core properties](core.md)
-
 | Property   | Type (default)     |  Description |
 |----------|-------------|------|
 | `buttonType` | `NSButton.ButtonType` | The type of button (eg. on/off, toggle, momentary etc |
 | `bezelStyle`  | `NSButton.BezelStyle` | The style of the button |
-| `width`  | `CGFloat` | The fixed width for the button |
+| `width`  | `CGFloat` | A fixed width for the button |
 | `title`  | `String`    | The title of the button |
 | `alternateTitle` | `String` | The title that the button displays when the button is in an on state |
+| `attributedTitle` | `NSAttributedString` | The attributed text displayed on the button                         |
+| `attributedAlternateTitle` | `NSAttributedString` | The title that is displayed when the button is on (for on/off types |
 | `state` | `NSControl.StateValue` | The initial state for the control
 | `image`  | `NSImage`    | The image to display on the button |
 | `imagePosition`  | `NSControl.ImagePosition`    | The position of the image on the button (eg. left, right etc) |
@@ -37,18 +39,17 @@ DSFTouchBar.Button("button-demo", customizationLabel: "State-bound button")
 
 ## Actions
 
-[Core actions](core.md)
-
-| Action    | Description |
-|-----------|---------------------|
-| `action`  | The block to call when the button is activated (eg. clicked)  |
+| Method            | Type                 | Description                       |
+|:------------------|:---------------------|:----------------------------------|
+| `action` | `(NSControl.StateValue) -> Void` | A block which gets called when the user interacts with the button |
 
 ## Bindings
 
-[Core bindings](core.md)
+| Method                | Type                   | Description         |
+|:----------------------|:-----------------------|:------------------------------------------------|
+| `bindTitle`           | `String`               | Bind the button's title to a key path |
+| `bindState`           | `NSControl.StateValue` | Create a two-way state binding to the specified keyPath |
+| `bindBackgroundColor` | `NSColor`              | Bind the background color to a key path
+| `bindIsEnabled`       | `Bool`                 | Bind the enabled state to a keypath |
+| `bindIsHidden`        | `Bool`                 | Bind the hidden state to a keypath |
 
-| Binding   | Type (default)     |  Description |
-|----------|-------------|-------------|
-| `bindTitle` | `String` | Bind the button's title to a key path
-| `bindState` | `NSControl.StateValue ` | Bind the buttons state to a key path
-| `bindBackgroundColor` | `NSColor` | Bind the background color to a key path
