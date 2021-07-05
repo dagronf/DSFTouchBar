@@ -30,7 +30,7 @@ class SharingViewController: NSViewController {
 
 			// Sharing of an image
 
-			DSFTouchBar.SharingServicePicker("sharey", title: "Sharing Image")
+			DSFTouchBar.SharingServicePicker(DSFTouchBar.LeafIdentifier("sharey"), title: "Sharing Image")
 				.bindIsEnabled(to: self, withKeyPath: \SharingViewController.sharingAvailable)
 				.provideItems { [weak self] in
 					guard let `self` = self else { return [] }
@@ -39,7 +39,7 @@ class SharingViewController: NSViewController {
 
 			// Sharing of text
 
-			DSFTouchBar.SharingServicePicker("sharey-text", title: "Sharing Text")
+			DSFTouchBar.SharingServicePicker(DSFTouchBar.LeafIdentifier("sharey-text"), title: "Sharing Text")
 				.bindIsEnabled(to: self, withKeyPath: \SharingViewController.sharingAvailable)
 				.provideItems { [weak self] in
 					guard let `self` = self else { return [] }

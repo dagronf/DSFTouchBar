@@ -107,7 +107,7 @@ public extension DSFTouchBar {
 		/// - Parameters:
 		///   - leafIdentifier: the unique identifier for the toolbar item at this level
 		///   - customizationLabel: The user-visible string identifying this item during bar customization.
-		public init(_ leafIdentifier: String, customizationLabel: String? = nil) {
+		public init(_ leafIdentifier: LeafIdentifier, customizationLabel: String? = nil) {
 			super.init(leafIdentifier: leafIdentifier, customizationLabel: customizationLabel)
 			
 			self.itemBuilder = { [weak self] in

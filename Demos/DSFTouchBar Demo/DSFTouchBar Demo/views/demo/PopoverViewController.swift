@@ -29,8 +29,8 @@ class PopoverViewController: NSViewController {
 
 	func popoverContent() -> DSFTouchBar.Popover {
 		let buttonImage = NSImage(named: NSImage.touchBarGetInfoTemplateName)!
-		return DSFTouchBar.Popover("base-popover", collapsedImage: buttonImage, [
-			DSFTouchBar.Button("reset-button")
+		return DSFTouchBar.Popover(DSFTouchBar.LeafIdentifier("base-popover"), collapsedImage: buttonImage, [
+			DSFTouchBar.Button(DSFTouchBar.LeafIdentifier("reset-button"))
 				.customizationLabel("Reset Button")
 				.title("Reset")
 				.backgroundColor(.systemRed)
@@ -39,7 +39,7 @@ class PopoverViewController: NSViewController {
 					self?.popoverSliderValue = 40
 				}
 			,
-			DSFTouchBar.Slider("slider", min: 0.0, max: 100.0)
+			DSFTouchBar.Slider(DSFTouchBar.LeafIdentifier("slider"), minValue: 0.0, maxValue: 100.0)
 				.bindValue(to: self, withKeyPath: \PopoverViewController.popoverSliderValue)
 		])
 	}
@@ -48,7 +48,7 @@ class PopoverViewController: NSViewController {
 		let bar = DSFTouchBar(
 			baseIdentifier: NSTouchBarItem.Identifier("com.darrenford.touchbar.demo.popover"),
 			customizationIdentifier: NSTouchBar.CustomizationIdentifier("com.darrenford.touchbar.demo.popover")) {
-			DSFTouchBar.Label("root_text").label("Popover ->")
+			DSFTouchBar.Label(DSFTouchBar.LeafIdentifier("root_text")).label("Popover ->")
 			self.popoverContent()
 			DSFTouchBar.OtherItemsPlaceholder()
 		}

@@ -30,11 +30,11 @@ import AppKit
 public extension DSFTouchBar {
 	/// Base class for a touchbar item
 	class Item: NSObject {
-		let leafIdentifier: String
+		let leafIdentifier: LeafIdentifier
 		var baseIdentifier: NSTouchBarItem.Identifier? {
 			didSet {
 				if self.identifier == nil {
-					let rv = self.baseIdentifier!.rawValue + "." + self.leafIdentifier
+					let rv = self.baseIdentifier!.rawValue + "." + self.leafIdentifier.rawValue
 					self.identifier = NSTouchBarItem.Identifier(rv)
 				}
 			}
@@ -66,7 +66,7 @@ public extension DSFTouchBar {
 		/// - Parameters:
 		///   - leafIdentifier: the unique identifier for the toolbar item at this level
 		///   - customizationLabel: The user-visible string identifying this item during bar customization.
-		init(leafIdentifier: String, customizationLabel: String? = nil) {
+		init(leafIdentifier: LeafIdentifier, customizationLabel: String? = nil) {
 			self.leafIdentifier = leafIdentifier
 			self._customizationLabel = customizationLabel
 		}
@@ -76,7 +76,7 @@ public extension DSFTouchBar {
 		///   - leafIdentifier: the unique identifier for the toolbar item at this level
 		init(identifier: NSTouchBarItem.Identifier) {
 			self.identifier = identifier
-			self.leafIdentifier = ""
+			self.leafIdentifier = LeafIdentifier("")
 		}
 
 		// Called during item cleanup

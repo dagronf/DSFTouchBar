@@ -34,12 +34,12 @@ class ButtonsViewController: NSViewController {
 	override func makeTouchBar() -> NSTouchBar? {
 
 		let builder = DSFTouchBar(
-			baseIdentifier: NSTouchBarItem.Identifier("com.darrenford.touchbar.demo.buttons"),
-			customizationIdentifier: NSTouchBar.CustomizationIdentifier("com.darrenford.touchbar.demo.buttons")) {
+			baseIdentifier: .init("com.darrenford.touchbar.demo.buttons"),
+			customizationIdentifier: .init("com.darrenford.touchbar.demo.buttons")) {
 
 			// Simple button
 
-			DSFTouchBar.Button("button-1", customizationLabel: "Action Button")
+			DSFTouchBar.Button(.init("button-1"), customizationLabel: "Action Button")
 				.title("Simple")
 				.action { state in
 					Swift.print("Button(1) - ACTION - \(state)")
@@ -47,7 +47,7 @@ class ButtonsViewController: NSViewController {
 
 			// Button with simple static background color
 
-			DSFTouchBar.Button("button-2", customizationLabel: "State-bound button")
+			DSFTouchBar.Button(.init("button-2"), customizationLabel: "State-bound button")
 				.title("OFF")
 				.alternateTitle("ON")
 				.backgroundColor(.brown)
@@ -57,7 +57,7 @@ class ButtonsViewController: NSViewController {
 
 			// Button with background and enabled color bindings
 
-			DSFTouchBar.Button("button-3")
+			DSFTouchBar.Button(.init("button-3"))
 				.title("Good")
 				.alternateTitle("Bad")
 				.bindBackgroundColor(to: self, withKeyPath: \ButtonsViewController.backgroundColor3)
@@ -68,7 +68,7 @@ class ButtonsViewController: NSViewController {
 
 			// Button with image
 
-			DSFTouchBar.Button("button-4")
+			DSFTouchBar.Button(.init("button-4"))
 				.title("Go")
 				.image(NSImage(named: NSImage.touchBarGoForwardTemplateName))
 				.imagePosition(.imageRight)

@@ -210,7 +210,7 @@ public extension DSFTouchBar {
 		///   - leafIdentifier: the unique identifier for the toolbar item at this level
 		///   - customizationLabel: The user-visible string identifying this item during bar customization.
 		///   - type: The type of button
-		public init(_ leafIdentifier: String,
+		public init(_ leafIdentifier: LeafIdentifier,
 						customizationLabel: String? = nil,
 						type: NSButton.ButtonType = .momentaryLight)
 		{

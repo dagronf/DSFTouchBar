@@ -44,14 +44,13 @@ class ViewController: NSViewController {
 }
 
 extension ViewController {
-
 	override func makeTouchBar() -> NSTouchBar? {
 		DSFTouchBar(
-			baseIdentifier: NSTouchBarItem.Identifier("com.darrenford.dsftouchbar.documentation"),
-			customizationIdentifier: NSTouchBar.CustomizationIdentifier("com.darrenford.dsftouchbar.documentation.docodemo")) {
+			baseIdentifier: .init("com.darrenford.dsftouchbar.documentation"),
+			customizationIdentifier: .init("com.darrenford.dsftouchbar.documentation.docodemo")) {
 
 			// This button will have the unique identifier 'com.darrenford.dsftouchbar.documentation.edit-document'
-			DSFTouchBar.Button("edit-document")
+			DSFTouchBar.Button(.init("edit-document"), customizationLabel: "Edit Document")
 				.title("Edit")
 				.type(.onOff)
 				.bindState(to: self, withKeyPath: \ViewController.editbutton_state)
@@ -61,7 +60,7 @@ extension ViewController {
 				}
 
 			// This button will have the unique identifier 'com.darrenford.dsftouchbar.documentation.upgrade-document'
-			DSFTouchBar.Button("upgrade-document")
+			DSFTouchBar.Button(.init("upgrade-document"), customizationLabel: "Upgrade Document")
 				.title("Upgrade")
 				.bindIsEnabled(to: self, withKeyPath: \ViewController.canEdit)
 				.bindBackgroundColor(to: self, withKeyPath: \ViewController.upgradeBackgroundColor)
@@ -70,7 +69,7 @@ extension ViewController {
 				}
 
 			// This button will have the unique identifier 'com.darrenford.dsftouchbar.documentation.go-document'
-			DSFTouchBar.Button("go-button")
+			DSFTouchBar.Button(.init("go-button"), customizationLabel: "Go Somewhere")
 				.title("Go")
 				.image(NSImage(named: NSImage.touchBarGoForwardTemplateName))
 				.imagePosition(.imageRight)

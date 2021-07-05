@@ -9,13 +9,13 @@ See [Apple's documentation](https://developer.apple.com/documentation/appkit/nss
 ```swift
 @objc dynamic var sliderValue: CGFloat = 0.75 {
   …
-DSFTouchBar.Slider(identifier: "squish", min: 0.0, max: 1.0)
+DSFTouchBar.Slider(DSFTouchBar.LeafIdentifier("squish"), minValue: 0.0, maxValue: 1.0)
    .label("Slider")
    .minimumValueAccessory(image: NSImage(named: NSImage.touchBarAudioOutputVolumeOffTemplateName))
    .maximumValueAccessory(image: NSImage(named: NSImage.touchBarAudioOutputVolumeHighTemplateName))
    .bindValue(to: self, withKeyPath: #keyPath(sliderValue))
    .action { value in
-      //Swift.print("\(value)")
+      Swift.print("Slider value is now '\(value)'")
    }
 ```
 [Sample Code](../Demos/DSFTouchBar%20Demo/DSFTouchBar%20Demo/views/demo/SliderViewController.swift)

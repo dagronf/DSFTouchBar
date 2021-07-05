@@ -7,11 +7,13 @@ A touchbar item representing a segmented control.
 ```swift
 @objc dynamic var selectedSegments = NSIndexSet()
   …
-DSFTouchBar.Segmented(NSTouchBarItem.Identifier("com.superblah.Segmented"), trackingMode: .selectAny)
-   .add(label: "one")
-   .add(label: "two")
-   .add(label: "three")
-   .bindSelectionIndexes(to: self, withKeyPath: #keyPath(selectedSegments)),
+DSFTouchBar.Segmented(
+   DSFTouchBar.LeafIdentifier("number-selector"), 
+   trackingMode: .selectAny)
+      .add(label: "one")
+      .add(label: "two")
+      .add(label: "three")
+      .bindSelectionIndexes(to: self, withKeyPath: #keyPath(selectedSegments))
 ```
 
 [Sample Code](../Demos/DSFTouchBar%20Demo/DSFTouchBar%20Demo/views/demo/SegmentedControlViewController.swift)

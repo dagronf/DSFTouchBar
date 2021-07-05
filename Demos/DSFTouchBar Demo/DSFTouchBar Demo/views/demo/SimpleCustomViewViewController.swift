@@ -35,24 +35,24 @@ class SimpleCustomViewViewController: NSViewController {
 			baseIdentifier: NSTouchBarItem.Identifier("com.darrenford.touchbar.demo.custom-view"),
 			customizationIdentifier: NSTouchBar.CustomizationIdentifier("com.darrenford.touchbar.demo.custom-view")) {
 
-			DSFTouchBar.Label("label")
+			DSFTouchBar.Label(DSFTouchBar.LeafIdentifier("label"))
 				.label("Sparklines ->")
 
-			DSFTouchBar.View("sparkline1", viewController: self.sparklineVC1)
+			DSFTouchBar.View(DSFTouchBar.LeafIdentifier("sparkline1"), viewController: self.sparklineVC1)
 				.customizationLabel("Sparkline 1")
 				.width(100)
 
-			DSFTouchBar.View("sparkline2", viewController: self.sparklineVC2)
+			DSFTouchBar.View(DSFTouchBar.LeafIdentifier("sparkline2"), viewController: self.sparklineVC2)
 				.customizationLabel("Sparkline 2")
 				.width(100)
 
 			DSFTouchBar.Spacer(size: .small)
 
-			DSFTouchBar.View("sparkline3", viewController: self.sparklineVC3)
+			DSFTouchBar.View(DSFTouchBar.LeafIdentifier("sparkline3"), viewController: self.sparklineVC3)
 				.customizationLabel("Sparkline 3")
 				.width(75)
 
-			DSFTouchBar.View("sparkline4", viewController: self.sparklineVC4)
+			DSFTouchBar.View(DSFTouchBar.LeafIdentifier("sparkline4"), viewController: self.sparklineVC4)
 				.customizationLabel("Sparkline 4")
 				.width(75)
 

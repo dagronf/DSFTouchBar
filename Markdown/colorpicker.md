@@ -7,7 +7,7 @@ A bar item that provides a system-defined color picker.
 ```swift
 @objc dynamic var pickerColor: NSColor = .white
   …
-DSFTouchBar.ColorPicker(NSTouchBarItem.Identifier("com.superblah.TextField"))
+DSFTouchBar.ColorPicker(DSFTouchBar.LeafIdentifier("character-color-selector"))
    .customizationLabel("Character Color")
    .showAlpha(true)
    .bindSelectedColor(to: self, withKeyPath: #keyPath(pickerColor))

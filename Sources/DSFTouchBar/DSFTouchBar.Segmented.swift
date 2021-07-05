@@ -34,11 +34,25 @@ private extension NSBindingName {
 public extension DSFTouchBar {
 	/// A segmented control for the touchbar
 	class Segmented: UIElementItem<NSSegmentedControl> {
+		/// A segment definition for a segmented control
+		public struct Segment {
+			public let label: String?
+			public let image: NSImage?
+			public init(_ label: String? = nil, _ image: NSImage? = nil) {
+				self.label = label
+				self.image = image
+			}
+		}
 
 		// MARK: - Add segments
 
 		// The segment definitions
-		private var _segments: [(label: String?, image: NSImage?)] = []
+		private var _segments: [Segment] = []
+
+		/// The segments defined for the segmented control
+		public var segments: [Segment] {
+			return _segments
+		}
 
 		/// Add a new segment button to the segmented control
 		/// - Parameters:
@@ -47,7 +61,17 @@ public extension DSFTouchBar {
 		public func add(label: String? = nil, image: NSImage? = nil) -> Segmented {
 			// Must specify label, image or both
 			assert(label != nil || image != nil)
-			self._segments.append((label, image))
+			self._segments.append(Segment(label, image))
+			return self
+		}
+
+		/// Add a new segment button to the segmented control
+		/// - Parameters:
+		///   - label: (optional) the text to use for the segmented cell
+		///   - image: (optional) the image to use for the segmented cell
+		public func add(_ segment: Segment) -> Segmented {
+			// Must specify label, image or both
+			self._segments.append(segment)
 			return self
 		}
 
@@ -105,14 +129,33 @@ public extension DSFTouchBar {
 		///   - leafIdentifier: the unique identifier for the toolbar item at this level
 		///   - customizationLabel: The user-visible string identifying this item during bar customization.
 		///   - trackingMode: Specifies the type of tracking behavior the segmented control exhibits
-		public init(_ leafIdentifier: String,
-						customizationLabel: String? = nil,
-						trackingMode: NSSegmentedControl.SwitchTracking = .selectOne)
-		{
+		public init(
+			_ leafIdentifier: LeafIdentifier,
+			customizationLabel: String? = nil,
+			trackingMode: NSSegmentedControl.SwitchTracking = .selectOne
+		) {
 			super.init(leafIdentifier: leafIdentifier, customizationLabel: customizationLabel)
 
 			self.itemBuilder = { [weak self] in
 				self?.makeTouchbarItem(trackingMode: trackingMode)
+			}
+		}
+
+		/// Initializer
+		/// - Parameters:
+		///   - leafIdentifier: the unique identifier for the toolbar item at this level
+		///   - customizationLabel: The user-visible string identifying this item during bar customization.
+		///   - trackingMode: Specifies the type of tracking behavior the segmented control exhibits
+		///   - segments: The segments to initialize the control with
+		public convenience init(
+			_ leafIdentifier: LeafIdentifier,
+			customizationLabel: String? = nil,
+			trackingMode: NSSegmentedControl.SwitchTracking = .selectOne,
+			segments: [Segment]
+		) {
+			self.init(leafIdentifier, customizationLabel: customizationLabel, trackingMode: trackingMode)
+			segments.forEach {
+				self._segments.append($0)
 			}
 		}
 

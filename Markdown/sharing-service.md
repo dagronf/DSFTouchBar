@@ -8,7 +8,7 @@ Display a button which can be used to share data via a share sheet.
 @objc dynamic var sharingAvailable = false
 var selectedText = "some text"
 ...
-DSFTouchBar.SharingServicePicker("sharey", title: "Share")
+DSFTouchBar.SharingServicePicker(DSFTouchBar.LeafIdentifier("sharey"), title: "Share")
    .bindIsEnabled(to: self, withKeyPath: \MyViewController.sharingAvailable)
    .provideItems { [weak self] in
       guard let `self` = self else { return [] }

@@ -5,7 +5,8 @@ Add a popover to the touch bar.  The popover appears as a simple item which, whe
 ## Example
 
 ```swift
-DSFTouchBar.Popover("popover", 
+DSFTouchBar.Popover(
+   DSFTouchBar.LeafIdentifier("popover"),
    customizationLabel: "Smiles",
    collapsedLabel: "Smiles",
    collapsedImage: NSImage(named: NSImage.touchBarGetInfoTemplateName)!) {

@@ -5,7 +5,7 @@ A group groups a number of toolbar items together into a single unit. These item
 ## Example
 
 ```swift
-DSFTouchBar.Group("base-popover", equalWidths: false) { 
+DSFTouchBar.Group(DSFTouchBar.LeafIdentifier("base-popover"), equalWidths: false) { 
    DSFTouchBar.Button("tweak-button")
       ...
    DSFTouchBar.Slider("slider", min: 0.0, max: 100.0)

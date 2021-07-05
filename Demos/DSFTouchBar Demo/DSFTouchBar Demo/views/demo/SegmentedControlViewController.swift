@@ -32,9 +32,10 @@ class SegmentedControlViewController: NSViewController {
 			baseIdentifier: NSTouchBarItem.Identifier("com.darrenford.touchbar.demo.segmented"),
 			customizationIdentifier: NSTouchBar.CustomizationIdentifier("com.darrenford.touchbar.demo.segmented")) {
 
-			DSFTouchBar.Label("segment-single").label("Single ->")
+			DSFTouchBar.Label(DSFTouchBar.LeafIdentifier("segment-single"))
+				.label("Single ->")
 			
-			DSFTouchBar.Segmented("segmented-1", trackingMode: .selectOne)
+			DSFTouchBar.Segmented(DSFTouchBar.LeafIdentifier("segmented-1"), trackingMode: .selectOne)
 				.add(label: "low", image: NSImage(named: NSImage.touchBarAudioOutputVolumeLowTemplateName))
 				.add(label: "med", image: NSImage(named: NSImage.touchBarAudioOutputVolumeMediumTemplateName))
 				.add(label: "high", image: NSImage(named: NSImage.touchBarAudioOutputVolumeHighTemplateName))
@@ -42,9 +43,9 @@ class SegmentedControlViewController: NSViewController {
 
 			DSFTouchBar.Spacer(size: .small)
 
-			DSFTouchBar.Label("segment-multi").label("Multi ->")
+			DSFTouchBar.Label(DSFTouchBar.LeafIdentifier("segment-multi")).label("Multi ->")
 
-			DSFTouchBar.Segmented("segmented-2", trackingMode: .selectAny)
+			DSFTouchBar.Segmented(DSFTouchBar.LeafIdentifier("segmented-2"), trackingMode: .selectAny)
 				.add(label: "one")
 				.add(label: "two")
 				.add(label: "three")

@@ -44,7 +44,7 @@ public extension DSFTouchBar {
 		///   - leafIdentifier: the unique identifier for the toolbar item at this level
 		///   - customizationLabel: The user-visible string identifying this item during bar customization.
 		///   - children: The child items for the group
-		public init(_ leafIdentifier: String,
+		public init(_ leafIdentifier: LeafIdentifier,
 						customizationLabel: String? = nil,
 						_ children: [DSFTouchBar.Item])
 		{
@@ -62,7 +62,7 @@ public extension DSFTouchBar {
 		///   - customizationLabel: The user-visible string identifying this item during bar customization.
 		///   - builder: The child items for the group in @resultBuilder format
 		public convenience init(
-			_ leafIdentifier: String,
+			_ leafIdentifier: LeafIdentifier,
 			customizationLabel: String? = nil,
 			@DSFTouchBarScrollGroupBuilder builder: () -> [DSFTouchBar.Item]
 		) {

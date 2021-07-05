@@ -51,7 +51,7 @@ public extension DSFTouchBar {
 		///   - customizationLabel: The user-visible string identifying this item during bar customization.
 		///   - equalWidths: Should the elements of the group maintain equal widths?
 		///   - children: The child items for the group
-		public init(_ leafIdentifier: String, customizationLabel: String? = nil, equalWidths: Bool = false, _ children: [DSFTouchBar.Item]) {
+		public init(_ leafIdentifier: LeafIdentifier, customizationLabel: String? = nil, equalWidths: Bool = false, _ children: [DSFTouchBar.Item]) {
 			self._children = children
 			self._equalWidths = equalWidths
 			super.init(leafIdentifier: leafIdentifier, customizationLabel: customizationLabel)
@@ -68,7 +68,7 @@ public extension DSFTouchBar {
 		///   - equalWidths: Should the elements of the group maintain equal widths?
 		///   - builder: The child items for the group in @resultBuilder format
 		public convenience init(
-			_ leafIdentifier: String,
+			_ leafIdentifier: LeafIdentifier,
 			customizationLabel: String? = nil,
 			equalWidths: Bool = false,
 			@DSFTouchBarGroupBuilder builder: () -> [DSFTouchBar.Item]

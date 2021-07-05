@@ -26,26 +26,33 @@ class SliderViewController: NSViewController {
 
 	@objc dynamic var sliderValue: CGFloat = 0.75
 
-	lazy var slider: DSFTouchBar.Slider = {
-		DSFTouchBar.Slider("primary", min: 0.0, max: 1.0)
-			.label("Slider")
-			.bindValue(to: self, withKeyPath: \SliderViewController.sliderValue)
-	}()
-
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		// Do view setup here.
 	}
 
-	var customBar: DSFTouchBar {
-		DSFTouchBar(
-			baseIdentifier: NSTouchBarItem.Identifier("com.darrenford.touchbar.demo.slider"),
-			customizationIdentifier: NSTouchBar.CustomizationIdentifier("com.darrenford.touchbar.demo.slider"),
+	lazy var slider: DSFTouchBar.Slider = {
+		DSFTouchBar.Slider(DSFTouchBar.LeafIdentifier("primary"), minValue: 0.0, maxValue: 1.0)
+			.label("Slider")
+			.bindValue(to: self, withKeyPath: \SliderViewController.sliderValue)
+	}()
 
-			self.slider,
+	var customBar: DSFTouchBar {
+		return DSFTouchBar(
+			baseIdentifier: NSTouchBarItem.Identifier("com.darrenford.touchbar.demo.slider"),
+			customizationIdentifier: NSTouchBar.CustomizationIdentifier("com.darrenford.touchbar.demo.slider")) {
+
+			DSFTouchBar.Button(DSFTouchBar.LeafIdentifier("reset"))
+				.title("Reset")
+				.backgroundColor(.systemRed)
+				.action { _ in
+					self.sliderValue = 0.66
+				}
+
+			self.slider
 
 			DSFTouchBar.OtherItemsPlaceholder()
-		)
+		}
 	}
 
 	override func makeTouchBar() -> NSTouchBar? {

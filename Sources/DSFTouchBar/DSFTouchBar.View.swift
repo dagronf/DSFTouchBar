@@ -36,7 +36,7 @@ public extension DSFTouchBar {
 		/// - Parameters:
 		///   - leafIdentifier: The leaf identifier for the share item. Must be unique within the current toolbar
 		///   - viewController: The view controller managing the view to be displayed in the touchbar item
-		public init(_ leafIdentifier: String, viewController: NSViewController) {
+		public init(_ leafIdentifier: LeafIdentifier, viewController: NSViewController) {
 			self.viewController = viewController
 			super.init(leafIdentifier: leafIdentifier)
 			

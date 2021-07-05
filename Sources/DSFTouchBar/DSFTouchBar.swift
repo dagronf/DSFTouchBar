@@ -30,7 +30,17 @@ import Cocoa
 private var DSFTouchBarBuilderAssociatedObjectHandle: UInt8 = 0
 
 public class DSFTouchBar: NSObject {
-	// (Optional) the customization identifier for the toolbar
+
+	/// A leaf identifier
+	public struct LeafIdentifier {
+		let rawValue: String
+		public init(_ rawValue: String) {
+			self.rawValue = rawValue
+		}
+	}
+
+	// (Optional) the customization identifier for the toolbar.
+	// A globally unique string that makes the Touch Bar eligible for user customization.
 	private let customizationIdentifier: NSTouchBar.CustomizationIdentifier?
 
 	// The items to be added to the touchbar
@@ -52,7 +62,7 @@ public class DSFTouchBar: NSObject {
 	/// Make a new touchbar using an array of touch-bar items.
 	/// - Parameters:
 	///   - baseIdentifier: the unique toolbar identifier.
-	///   - customizationLabel: The user-visible string identifying this touchbar.
+	///   - customizationIdentifier: A globally unique string that makes the Touch Bar eligible for user customization..
 	///   - children: The items in this toolbar
 	public init(baseIdentifier: NSTouchBarItem.Identifier,
 					customizationIdentifier: NSTouchBar.CustomizationIdentifier? = nil,
@@ -118,6 +128,13 @@ public class DSFTouchBar: NSObject {
 		Logging.memory(#"DSFTouchBar[%@] deinit"#, args: self.baseIdentifier.rawValue)
 	}
 
+	func destroy() {
+		self.items.forEach { $0.destroy() }
+		self.items = []
+	}
+}
+
+extension DSFTouchBar {
 	/// Add a new item to the toolbar
 	public func add(item: DSFTouchBar.Item) {
 		item.baseIdentifier = self.baseIdentifier
@@ -134,11 +151,6 @@ public class DSFTouchBar: NSObject {
 	/// - Returns: The touchbar item, or nil if not found
 	public func item(for identifier: NSTouchBarItem.Identifier) -> DSFTouchBar.Item? {
 		return self.items.filter { $0.identifier == identifier }.first
-	}
-
-	func destroy() {
-		self.items.forEach { $0.destroy() }
-		self.items = []
 	}
 }
 

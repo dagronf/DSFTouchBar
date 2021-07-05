@@ -7,7 +7,8 @@ A touchbar item representing a button.
 ```swift
 @objc dynamic var pressedState: NSControl.StateValue = .off
   …
-DSFTouchBar.Button("button-demo", customizationLabel: "State-bound button")
+DSFTouchBar.Button(DSFTouchBar.LeafIdentifier("button-demo"),
+                   customizationLabel: "State-bound button")
    .title("OFF")
    .alternateTitle("ON")
    .backgroundColor(.red)

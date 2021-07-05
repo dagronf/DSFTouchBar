@@ -1,87 +1,148 @@
 # DSFTouchBar
 
-A description of this package.
+![](https://img.shields.io/github/v/tag/dagronf/DSFTouchBar) ![](https://img.shields.io/badge/macOS-10.13+-blueviolet) ![](https://img.shields.io/badge/Swift-5.1+-orange.svg)
+![](https://img.shields.io/badge/License-MIT-lightgrey) [![](https://img.shields.io/badge/spm-compatible-brightgreen.svg?style=flat)](https://swift.org/package-manager)
 
-## Concepts
+A SwiftUI-style declarative `NSTouchBar` for macOS and Mac Catalyst.
 
-### baseIdentifier
+## TL;DR - Show me something!
+
+If you're familiar with SwiftUI syntax you'll feel comfortable with the declaration style.
+
+```swift
+class ViewController: NSViewController {
+
+   @objc dynamic var editbutton_state: NSButton.ControlState = .off
+   @objc dynamic var canEdit: Bool = false
+   @objc dynamic var upgradeBackgroundColor: NSColor = .clear
+
+   override func makeTouchBar() -> NSTouchBar? {
+      DSFTouchBar(
+         baseIdentifier: .init("com.myapp.touchbardemo.documentation"),
+         customizationIdentifier: .init("com.myapp.touchbardemo.documentation.docodemo")) {
+
+         // This button will have the unique identifier 'com.darrenford.dsftouchbar.documentation.edit-document'
+         DSFTouchBar.Button(.init("edit-document"))
+            .title("Edit")
+            .type(.onOff)
+            .bindState(to: self, withKeyPath: \ViewController.editbutton_state)
+            .bindBackgroundColor(to: self, withKeyPath: \ViewController.editBackgroundColor)
+            .action { _ in
+               Swift.print("Edit button pressed")
+            }
+
+         // This button will have the unique identifier 'com.darrenford.dsftouchbar.documentation.upgrade-document'
+         DSFTouchBar.Button(.init("upgrade-document"))
+            .title("Upgrade")
+            .bindIsEnabled(to: self, withKeyPath: \ViewController.canEdit)
+            .bindBackgroundColor(to: self, withKeyPath: \ViewController.upgradeBackgroundColor)
+            .action { _ in
+               Swift.print("Upgrade button pressed")
+            }
+
+         // This button will have the unique identifier 'com.darrenford.dsftouchbar.documentation.go-document'
+         DSFTouchBar.Button(.init("go-button"))
+            .title("Go")
+            .image(NSImage(named: NSImage.touchBarGoForwardTemplateName))
+            .imagePosition(.imageRight)
+            .action { state in
+               Swift.print("GO!")
+            }
+
+         DSFTouchBar.OtherItemsPlaceholder()
+      }
+      .makeTouchBar()
+   }
+}
+```
+
+[Sample Code](../Demos/DSFTouchBar%20Demo/Doco%20Demo/ViewController.swift)
+
+# Concepts
+
+## baseIdentifier
 
 The baseIdentifier for the toolbar provides the 'root' identifier for all of the children.  When a toolbar item is added, the identifier provided for the item is appended to the baseIdentifier to make a unique identifier.
 
 This is done to try to reduce the verboseness of specifying a full identifier for each child of the toolbar.  
 
-So, for example :-
+```swift
+DSFTouchBar(baseIdentifier: .init("com.myapp.touchbardemo")) {
+     DSFTouchBar.Button(.init("edit-document"))  // identifier is 'com.myapp.touchbardemo.edit-document'
+}  
+```
+
+## customizationIdentifier
+
+The customization identifier allows the touchbar to be customized.  The identifier is used when storing the configuration for the touchbar to disk.
 
 ```swift
-override func makeTouchBar() -> NSTouchBar? {
-   DSFTouchBar(
-      baseIdentifier: NSTouchBarItem.Identifier("com.darrenford.dsftouchbar.documentation"),
-      customizationIdentifier: NSTouchBar.CustomizationIdentifier("com.darrenford.dsftouchbar.documentation.docodemo")) {
-
-      // This button will have the unique identifier 'com.darrenford.dsftouchbar.documentation.edit-document'
-      DSFTouchBar.Button("edit-document")
-         .title("Edit")
-         .type(.onOff)
-         .bindState(to: self, withKeyPath: \ViewController.editbutton_state)
-         .bindBackgroundColor(to: self, withKeyPath: \ViewController.editBackgroundColor)
-         .action { _ in
-            Swift.print("Edit button pressed")
-         }
-
-      // This button will have the unique identifier 'com.darrenford.dsftouchbar.documentation.upgrade-document'
-      DSFTouchBar.Button("upgrade-document")
-         .title("Upgrade")
-         .bindIsEnabled(to: self, withKeyPath: \ViewController.canEdit)
-         .bindBackgroundColor(to: self, withKeyPath: \ViewController.upgradeBackgroundColor)
-         .action { _ in
-            Swift.print("Upgrade button pressed")
-         }
-
-      // This button will have the unique identifier 'com.darrenford.dsftouchbar.documentation.go-document'
-      DSFTouchBar.Button("go-button")
-         .title("Go")
-         .image(NSImage(named: NSImage.touchBarGoForwardTemplateName))
-         .imagePosition(.imageRight)
-         .action { state in
-            Swift.print("GO!")
-         }
-
-      DSFTouchBar.OtherItemsPlaceholder()
-   }
-   .makeTouchBar()
-}
+DSFTouchBar(
+   baseIdentifier: .init("com.myapp.touchbardemo"),
+   customizationIdentifier: .init("com.myapp.touchbardemo.settings")) {
+      DSFTouchBar.Button(.init("edit-document"))  // identifier is 'com.myapp.touchbardemo.edit-document'
+}  
 ```
 
 # Supported TouchBar Items
 
 | Type              | Description                                 |
 |:------------------|:--------------------------------------------|
-| [Label](../label.md) | Add a label to the touchbar |
-| [Button](../button.md) | Add a button to the touchbar |
-| [Segmented](../segmented.md) | Add a segmented control to the touchbar |
-| [Slider](../segmented.md) | Add a slider control to the touchbar |
-| [ColorPicker](../colorpicker.md) | Add a color picker control to the touchbar |
-| [SharingServicePicker](../sharing-service.md) | Add a button that presents the sharing services when pressed |
-| [View](../view.md) | Add a custom view to the touch bar |
-| [Popover](../popover.md) | Add a popover |
-| [Group](../group.md) | Add an item that contains a grouping of other items |
-| [ScrollGroup](../group.md) | Add an item that contains a scrollable grouping of other items |
+| [Button](./Markdown/button.md) | Add a button to the touchbar |
+| [ColorPicker](./Markdown/colorpicker.md) | Add a color picker control to the touchbar |
+| [Group](./Markdown/group.md) | Add an item that contains a grouping of other items |
+| [Label](./Markdown/label.md) | Add a label to the touchbar |
+| [Popover](./Markdown/popover.md) | Add a popover |
+| [ScrollGroup](./Markdown/group.md) | Add an item that contains a scrollable grouping of other items |
+| [Segmented](./Markdown/segmented.md) | Add a segmented control to the touchbar |
+| [SharingServicePicker](./Markdown/sharing-service.md) | Add a button that presents the sharing services when pressed |
+| [Slider](./Markdown/segmented.md) | Add a slider control to the touchbar |
+| [View](./Markdown/view.md) | Add a custom view to the touch bar |
+| OtherItems |  A special "other items proxy", which is used to nest touch bars up the responder chain.<br/>Refer to [Apple's documentation](https://developer.apple.com/documentation/appkit/nstouchbaritem/identifier/2544791-otheritemsproxy) for more information |
 
 # Support issues
 
 ## My touchbar is not showing!
 
-The touchbar will only be shown for a view that **accepts first responder** (ie. acceptsFirstResponder == true for the view)
+The touchbar will only be shown for a view/control that **accepts first responder** (ie. acceptsFirstResponder == true for the view)
 
 ## One of the items in a touchbar is not showing!
 
 Check to see that the `leafIdentifier` for all controls is unique.
 
+## User customization issues
+
+#### The touchbar menu item is disabled!
+
+You need to tell your app to enable customize touchbar behaviour.
+
+```swift
+NSApplication.shared.isAutomaticCustomizeTouchBarMenuItemEnabled = true
+```
+
+#### My touchbar still doesn't enable the touchbar menu item!
+
+You can only customize a touchbar that has a `customizationIdentifier` specified for it.
+
+```swift
+DSFTouchBar(
+   baseIdentifier: .init("com.myapp.documentation"),
+   customizationIdentifier: .init("com.myapp.documentation.docodemo")) {
+```
+
+#### I'm seeing !Missing Label! in the customization pane!
+
+You need to specify a `customizationLabel` for each DSFTouchBar item.
+
+```swift
+DSFTouchBar.Button(.init("edit-document"), customizationLabel: "Edit Document")
+```
+
 # Releases
 
 ## 0.1.0
 
-Initial public release.
+Initial release.
 
 # License
 

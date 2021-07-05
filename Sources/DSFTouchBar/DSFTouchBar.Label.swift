@@ -96,7 +96,7 @@ extension DSFTouchBar {
 		///   - leafIdentifier: the unique identifier for the toolbar item at this level
 		///   - customizationLabel: The user-visible string identifying this item during bar customization.
 		///   - type: The basic label, or nil for no label
-		public init(_ leafIdentifier: String,
+		public init(_ leafIdentifier: LeafIdentifier,
 					customizationLabel: String? = nil,
 					label: String? = nil) {
 			super.init(leafIdentifier: leafIdentifier, customizationLabel: customizationLabel)

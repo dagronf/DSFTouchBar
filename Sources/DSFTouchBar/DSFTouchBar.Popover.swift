@@ -48,7 +48,7 @@ public extension DSFTouchBar {
 		///   - collapsedLabel: the label to display when the popover content isn't visible
 		///   - collapsedImage: the image to display when the popover content isn't visible
 		///   - children: The child items for the group
-		public init(_ leafIdentifier: String,
+		public init(_ leafIdentifier: LeafIdentifier,
 						collapsedLabel: String? = nil,
 						collapsedImage: NSImage? = nil,
 						_ children: [DSFTouchBar.Item])
@@ -68,7 +68,7 @@ public extension DSFTouchBar {
 		///   - collapsedImage: the image to display when the popover content isn't visible
 		///   - builder: The child items for the group in @resultBuilder format
 		public convenience init(
-			_ leafIdentifier: String,
+			_ leafIdentifier: LeafIdentifier,
 			collapsedLabel: String? = nil,
 			collapsedImage: NSImage? = nil,
 			@DSFTouchBarScrollPopoverBuilder builder: () -> [DSFTouchBar.Item]
@@ -97,7 +97,7 @@ extension DSFTouchBar.Popover {
 	private func makeTouchbarItem(collapsedLabel: String?, collapsedImage: NSImage?) -> NSTouchBarItem? {
 		self.popoverContentBuilder = nil
 
-		let rc = self.baseIdentifier!.rawValue + "." + self.leafIdentifier
+		let rc = self.baseIdentifier!.rawValue + "." + self.leafIdentifier.rawValue
 		let pc = DSFTouchBar(baseIdentifier: NSTouchBarItem.Identifier(rc))
 
 		for item in self._children {

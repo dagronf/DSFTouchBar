@@ -5,11 +5,13 @@ A touchbar item representing a text label.
 ## Example
 
 ```swift
-@objc dynamic var userName: String = ""
+@objc dynamic var userName: String = "Name"
   …
-DSFTouchBar.Text(NSTouchBarItem.Identifier("UserId"), label: "User Id")
-DSFTouchBar.Text(NSTouchBarItem.Identifier("username"))
+DSFTouchBar.Text(DSFTouchBar.LeafIdentifier("userid"), label: "Id")
+DSFTouchBar.Text(DSFTouchBar.LeafIdentifier("username"))
    .bindLabel(to: self, withKeyPath: #keyPath(userName))
+DSFTouchBar.Text(DSFTouchBar.LeafIdentifier("usercity"))
+   .label("City")
 ```
 
 [Sample Code](../Demos/DSFTouchBar%20Demo/DSFTouchBar%20Demo/views/demo/TextViewController.swift)

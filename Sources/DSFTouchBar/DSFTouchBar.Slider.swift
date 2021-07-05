@@ -100,17 +100,19 @@ public extension DSFTouchBar {
 		/// - Parameters:
 		///   - leafIdentifier: the unique identifier for the toolbar item at this level
 		///   - customizationLabel: The user-visible string identifying this item during bar customization.
-		///   - min: The minimum value for the slider
-		///   - max: The maximum value for the slider
-		public init(_ leafIdentifier: String,
-						customizationLabel: String? = nil,
-						min: CGFloat, max: CGFloat)
+		///   - minValue: The minimum value for the slider
+		///   - maxValue: The maximum value for the slider
+		public init(
+			_ leafIdentifier: LeafIdentifier,
+			customizationLabel: String? = nil,
+			minValue: CGFloat,
+			maxValue: CGFloat)
 		{
-			assert(min < max)
+			assert(minValue < maxValue)
 			super.init(leafIdentifier: leafIdentifier, customizationLabel: customizationLabel)
 
 			self.itemBuilder = { [weak self] in
-				self?.makeTouchbarItem(minValue: min, maxValue: max)
+				self?.makeTouchbarItem(minValue: minValue, maxValue: maxValue)
 			}
 		}
 

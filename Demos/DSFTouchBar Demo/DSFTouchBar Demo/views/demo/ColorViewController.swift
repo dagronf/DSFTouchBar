@@ -32,10 +32,10 @@ class ColorViewController: NSViewController {
 			baseIdentifier: NSTouchBarItem.Identifier("com.darrenford.touchbar.demo.slider"),
 			customizationIdentifier: NSTouchBar.CustomizationIdentifier("com.darrenford.touchbar.demo.slider")) {
 
-			DSFTouchBar.ColorPicker("color-picker")
+			DSFTouchBar.ColorPicker(DSFTouchBar.LeafIdentifier("color-picker"))
 				.bindSelectedColor(to: self, withKeyPath: \ColorViewController.selectedColor)
 
-			DSFTouchBar.View("colorswatch", viewController: self.colorVC)
+			DSFTouchBar.View(DSFTouchBar.LeafIdentifier("colorswatch"), viewController: self.colorVC)
 				.customizationLabel("Color swatch")
 				.width(75)
 

@@ -31,11 +31,11 @@ class TextViewController: NSViewController {
 			customizationIdentifier: NSTouchBar.CustomizationIdentifier("com.darrenford.touchbar.demo.labels")) {
 
 			// Simple text label
-			DSFTouchBar.Label("label-1", customizationLabel: "Static Label Text")
+			DSFTouchBar.Label(DSFTouchBar.LeafIdentifier("label-1"), customizationLabel: "Static Label Text")
 				.label("First ->")
 
 			// Simple attributed text label
-			DSFTouchBar.Label("label-2", customizationLabel: "AttributedString with bindings")
+			DSFTouchBar.Label(DSFTouchBar.LeafIdentifier("label-2"), customizationLabel: "AttributedString with bindings")
 				.bindAttributedLabel(to: self, withKeyPath: \TextViewController.simpleAttributedString)
 
 			DSFTouchBar.OtherItemsPlaceholder()
