@@ -5,13 +5,14 @@ Display a button which can be used to share data via a share sheet.
 ## Example
 
 ```swift
-@objc dynamic var sharingAvailable: Bool = true
-var selectedImages: [NSImage] = ...
+@objc dynamic var sharingAvailable = false
+var selectedText = "some text"
 ...
-DSFTouchBar.SharingServicePicker("share-selected-images", title: "Share Images")
-   .bindIsEnabled(to: self, withKeyPath: #keyPath(sharingAvailable))
+DSFTouchBar.SharingServicePicker("sharey", title: "Share")
+   .bindIsEnabled(to: self, withKeyPath: \MyViewController.sharingAvailable)
    .provideItems { [weak self] in
-      return self?.selectedImages ?? []
+      guard let `self` = self else { return [] }
+      return [self.selectedText]
    }
 ```
 

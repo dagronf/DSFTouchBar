@@ -52,212 +52,36 @@ override func makeTouchBar() -> NSTouchBar? {
 }
 ```
 
-# Available Controls
+# Supported TouchBar Items
 
 | Type              | Description                                 |
 |:------------------|:--------------------------------------------|
-| [Label](../label.md) | Adds a label to the touchbar |
-| [Button](../button.md) | Adds a button to the touchbar |
-| [Segmented](../segmented.md) | Adds a segmented control to the touchbar |
-| [Slider](../segmented.md) | A bar item that provides a slider control for choosing a value in a range |
-
-## ColorPicker
-
-Adds a color picker control to the touchbar
-
-### Example
-
-```swift
-@objc dynamic var pickerColor: NSColor = .white
-  …
-DSFTouchBar.ColorPicker(NSTouchBarItem.Identifier("com.superblah.TextField"))
-   .customizationLabel("Character Color")
-   .showAlpha(true)
-   .bindSelectedColor(to: self, withKeyPath: #keyPath(pickerColor))
-```
-
-<details>
-<summary>Settings</summary>
-
-### Settings
-
-| Method              | Type                 | Description                       |
-|:--------------------|:---------------------|:----------------------------------|
-| `showAlpha`         | `Bool`               | Whether the color picker should allow transparency |
-| `customizationLabel`| `String`             | The label to display when customizing the touch bar |
-
-### Actions
-
-| Method              | Type                 | Description                       |
-|:--------------------|:---------------------|:----------------------------------|
-| `action`            | `(NSColor) -> Void`  | A block which gets called when the user selects a color |
-
-### Bindings
-
-| Method               | Type           | Description                                                     |
-|:---------------------|:---------------|:----------------------------------------------------------------|
-| `bindSelectedColor`  | `NSColor`      | Create a two-way binding for the color to the specified keyPath |
-| `bindIsEnabled`      | `Bool`         | Bind the enabled state to a keypath |
-
-</details>
-
-## SharingServicePicker
-
-Add a button that presents the sharing services when pressed
-
-### Example
-
-```swift
-@objc dynamic var sharingAvailable = false
-var selectedText = "some text"
-...
-DSFTouchBar.SharingServicePicker("sharey", title: "Share")
-   .bindIsEnabled(to: self, withKeyPath: \MyViewController.sharingAvailable)
-   .provideItems { [weak self] in
-      guard let `self` = self else { return [] }
-      return [self.selectedText]
-   }
-```
-<details>
-<summary>Settings</summary>
-
-### Settings
-
-| Method            | Type                 | Description                        |
-|:------------------|:---------------------|:-----------------------------------|
-| `title`  | `String?`  | An optional title to be displayed on the share button |
-| `image`  | `NSImage?` | An optional image to be displayed on the share button |
-
-### Actions
-
-| Method            | Type           | Description                               |
-|:------------------|:---------------|:------------------------------------------|
-| `provideItems`    | `() -> [Any]`  | Called to retrieve the items to be shared |
-
-### Bindings
-
-| Method            | Type           | Description                         |
-|:------------------|:---------------|:------------------------------------|
-| `bindIsEnabled`   | `Bool`         | Bind the enabled state to a keypath |
-
-</details>
-
-## View
-
-Adds a custom view to the touch bar
-
-### Example
-
-```swift
-var sparklineVC = SparkViewController()
-...
-DSFTouchBar.View("throughput-sparkline", viewController: self.sparklineVC)
-   .customizationLabel("Sparkline")
-   .width(100)
-```
-
-<details>
-<summary>Settings</summary>
-
-### Settings
-
-None
-
-</details>
-
-## Popover
-
-Add a popover to the touch bar.  The popover appears as a simple item which, when pressed, overlays another collection of items
-
-### Example
-
-```swift
-DSFTouchBar.Popover("base-popover", collapsedImage: buttonImage, 
-   [
-      DSFTouchBar.Button("tweak-button")
-         ...
-      ,
-      DSFTouchBar.Slider("slider", min: 0.0, max: 100.0)
-         ...
-      ,
-      DSFTouchBar.Button("reset-button")
-         ...
-   ]
-)
-```
-<details>
-<summary>Settings</summary>
-
-### Settings
-
-| Method            | Type                 | Description                       |
-|:------------------|:---------------------|:----------------------------------|
-| `collapsedLabel`  | `String?`  | the label to display when the popover content isn't visible |
-| `collapsedImage`  | `NSColor?` | the image to display when the popover content isn't visible |
-
-</details>
-
-## Group
-
-Add an item that contains a grouping of other items.
-
-### Example
-
-```swift
-DSFTouchBar.Group("base-popover") { 
-   DSFTouchBar.Button("tweak-button")
-      ...
-   DSFTouchBar.Slider("slider", min: 0.0, max: 100.0)
-      ...
-   DSFTouchBar.Button("reset-button")
-      ...
-)
-```
-
-<details>
-<summary>Settings</summary>
-
-### Settings
-
-None
-
-</details>
-
-## ScrollGroup
-
-Add an item that contains a grouping of other items which will scroll as the user drags their finger across the group in the touchbar.
-
-### Example
-
-```swift
-DSFTouchBar.ScrollGroup("base-popover", collapsedImage: buttonImage) {
-   DSFTouchBar.Button("first-button")
-      ...
-   DSFTouchBar.Button("second-button")
-      ...
-   DSFTouchBar.Button("third-button")
-      ...
-}
-```
-
-<details>
-<summary>Settings</summary>
-
-### Settings
-
-None
-
-</details>
+| [Label](../label.md) | Add a label to the touchbar |
+| [Button](../button.md) | Add a button to the touchbar |
+| [Segmented](../segmented.md) | Add a segmented control to the touchbar |
+| [Slider](../segmented.md) | Add a slider control to the touchbar |
+| [ColorPicker](../colorpicker.md) | Add a color picker control to the touchbar |
+| [SharingServicePicker](../sharing-service.md) | Add a button that presents the sharing services when pressed |
+| [View](../view.md) | Add a custom view to the touch bar |
+| [Popover](../popover.md) | Add a popover |
+| [Group](../group.md) | Add an item that contains a grouping of other items |
+| [ScrollGroup](../group.md) | Add an item that contains a scrollable grouping of other items |
 
 # Support issues
 
 ## My touchbar is not showing!
 
-The touchbar will only be shown for a view that accepts first responder (ie. acceptsFirstResponder == true for the view)
+The touchbar will only be shown for a view that **accepts first responder** (ie. acceptsFirstResponder == true for the view)
+
+## One of the items in a touchbar is not showing!
+
+Check to see that the `leafIdentifier` for all controls is unique.
 
 # Releases
 
+## 0.1.0
 
+Initial public release.
 
 # License
 

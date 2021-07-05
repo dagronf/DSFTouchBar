@@ -1,18 +1,20 @@
 # ColorPicker
 
-A touchbar color picker
+A bar item that provides a system-defined color picker.
 
 ## Example
 
 ```swift
-DSFTouchBar.ColorPicker("color-picker")
-   .bindSelectedColor(to: self, withKeyPath: #keyPath(selectedColor))
+@objc dynamic var pickerColor: NSColor = .white
+  …
+DSFTouchBar.ColorPicker(NSTouchBarItem.Identifier("com.superblah.TextField"))
+   .customizationLabel("Character Color")
+   .showAlpha(true)
+   .bindSelectedColor(to: self, withKeyPath: #keyPath(pickerColor))
 ```
 [Sample Code](../Demos/DSFTouchBar%20Demo/DSFTouchBar%20Demo/views/demo/ColorViewController.swift)
 
 ## Properties
-
-[Core properties](core.md)
 
 | Property   | Type (default)     |  Description |
 |----------|-------------|------|
@@ -21,16 +23,13 @@ DSFTouchBar.ColorPicker("color-picker")
 
 ## Actions
 
-[Core actions](core.md)
-
-| Action    | Description |
-|-----------|---------------------|
-| `action`  | The block to call when the toolbar item is activated (eg. clicked)  |
+| Method              | Type                 | Description                       |
+|:--------------------|:---------------------|:----------------------------------|
+| `action`            | `(NSColor) -> Void`  | A block which gets called when the user selects a color |
 
 ## Bindings
 
-[Core bindings](core.md)
-
-| Binding   | Type (default)     |  Description |
-|----------|-------------|-------------|
-| `bindSelectedColor` | `NSColor` | Bind the selected color to a key path
+| Method               | Type           | Description                                                     |
+|:---------------------|:---------------|:----------------------------------------------------------------|
+| `bindSelectedColor`  | `NSColor`      | Create a two-way binding for the color to the specified keyPath |
+| `bindIsEnabled`      | `Bool`         | Bind the enabled state to a keypath |
